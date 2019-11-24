@@ -9,7 +9,7 @@ import Manage from '../views/manage/Manage.vue';
 import MyShops from '../components/manage/my-shops/MyShops.vue';
 import ListShops from '../components/manage/my-shops/list-shops/ListShops.vue';
 import CreateShop from '../components/manage/my-shops/create-shop/CreateShop.vue';
-import EditShop from '../components/manage/my-shops/edit-shop/EditShop.vue';
+import ViewShop from '../components/manage/my-shops/view-shop/ViewShop.vue';
 import TheCoupons from '../components/manage/coupons/TheCoupons.vue';
 import MyAccount from '../components/manage/my-account/MyAccount.vue';
 import ThePromotions from '../components/manage/promotions/ThePromotions.vue';
@@ -55,10 +55,10 @@ const routes = [
             component: CreateShop,
           },
           {
-            path: 'edit/:id',
+            path: 'view/:id',
             props: true,
-            name: 'edit-shop',
-            component: EditShop,
+            name: 'view-shop',
+            component: ViewShop,
           },
         ],
       },
