@@ -1,0 +1,39 @@
+{
+  "login": {
+    "loginButton": "Zaloguj",
+    "usernameInput": "Nazwa użytkownika / Email",
+    "passwordInput": "Hasło"
+  },
+  "notifications": {
+    "loginSucceded": "Zalogowano!",
+    "loginFailed": "Nie udało się zalogować.",
+    "logout": "Wylogowano.",
+    "error": "Wystąpił błąd",
+    "created": "Pomyślnie utworzono"
+  },
+  "manage": {
+    "nav": {
+      "myShops": "Moje Lodziarnie",
+      "myAccount": "Moje konto",
+      "coupons": "Kupony",
+      "promotions": "Promocje",
+      "employees": "Pracownicy",
+      "logout": "Wyloguj"
+    },
+    "buttons": {
+      "createNew": "Dodaj nową lodziarnię",
+      "create": "Stwórz",
+      "cancel": "Wróć",
+      "cancelFile": "Usuń"
+    },
+    "inputs": {
+      "shopName": "Nazwa lodziarni",
+      "street": "Ulica",
+      "city": "Miasto",
+      "postalCode": "Kod pocztowy",
+      "description": "Opis",
+      "logo": "Kliknij tu aby wybrać logo",
+      "photo": "Kliknij tu aby wbrać zdjęcie"
+    }
+  }
+}

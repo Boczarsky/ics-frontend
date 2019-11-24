@@ -1,0 +1,22 @@
+@import '../../../assets/colors.scss';
+@import '../../../assets/mixins.scss';
+.basic-button {
+  button {
+    background-color: $complement-3;
+    color: white;
+    letter-spacing: 1px;
+    @include head-font();
+    border-radius: 8px;
+    padding: 10px 20px;
+    border: none;
+    transition: background-color 0.3s;
+    cursor: pointer;
+    outline: none;
+    &:hover {
+      background-color: $complement-4;
+    }
+    &:focus {
+      background-color: $complement-4;
+    }
+  }
+}

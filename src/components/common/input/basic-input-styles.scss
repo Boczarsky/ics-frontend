@@ -1,0 +1,22 @@
+@import '../../../assets/colors.scss';
+@import '../../../assets/mixins.scss';
+.basic-input {
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  label {
+    margin-left: 10px;
+    padding-bottom: 3px;
+  }
+  input {
+    border: 5px solid white;
+    background: white;
+    border-radius: 5px;
+    padding: 5px;
+    &:focus {
+      outline: transparent;
+      border-bottom-color: $complement-3;
+    }
+    @include base-font();
+  }
+}
