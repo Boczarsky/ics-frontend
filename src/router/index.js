@@ -1,19 +1,16 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Login from '../views/login/Login.vue';
-import Admin from '../views/admin/Admin.vue';
-import Browse from '../views/browse/Browse.vue';
+import Home from '../views/home/Home.vue';
 import PageNotFound from '../views/PageNotFound.vue';
 
-import Manage from '../views/manage/Manage.vue';
-import MyShops from '../components/manage/my-shops/MyShops.vue';
-import ListShops from '../components/manage/my-shops/list-shops/ListShops.vue';
-import CreateShop from '../components/manage/my-shops/create-shop/CreateShop.vue';
-import ViewShop from '../components/manage/my-shops/view-shop/ViewShop.vue';
-import TheCoupons from '../components/manage/coupons/TheCoupons.vue';
-import MyAccount from '../components/manage/my-account/MyAccount.vue';
-import ThePromotions from '../components/manage/promotions/ThePromotions.vue';
-import TheEmployees from '../components/manage/employees/TheEmployees.vue';
+import MyShops from '../components/shops/MyShops.vue';
+import ListShops from '../components/shops/list-shops/ListShops.vue';
+import CreateShop from '../components/shops/create-shop/CreateShop.vue';
+import ViewShop from '../components/shops/view-shop/ViewShop.vue';
+import MyAccount from '../components/my-account/MyAccount.vue';
+import ThePromotions from '../components/promotions/ThePromotions.vue';
+import TheEmployees from '../components/employees/TheEmployees.vue';
 
 import { checkIfLoggedIn } from '../utils/auth';
 
@@ -26,22 +23,17 @@ const routes = [
     component: Login,
   },
   {
-    path: '/admin',
-    name: 'admin',
-    component: Admin,
-  },
-  {
-    path: '/manage',
-    name: 'manage',
-    component: Manage,
+    path: '',
+    name: 'home',
+    component: Home,
     children: [
       {
         path: '',
-        redirect: 'myShops',
+        redirect: 'shops',
       },
       {
-        path: 'myShops',
-        name: 'my-shops',
+        path: 'shops',
+        name: 'shops',
         component: MyShops,
         children: [
           {
@@ -60,12 +52,13 @@ const routes = [
             name: 'view-shop',
             component: ViewShop,
           },
+          {
+            path: 'edit/:id',
+            props: true,
+            name: 'edit-shop',
+            component: CreateShop,
+          },
         ],
-      },
-      {
-        path: 'coupons',
-        name: 'coupons',
-        component: TheCoupons,
       },
       {
         path: 'myAccount',
@@ -83,11 +76,6 @@ const routes = [
         component: TheEmployees,
       },
     ],
-  },
-  {
-    path: '/',
-    name: 'browse',
-    component: Browse,
   },
   {
     path: '*',

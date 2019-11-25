@@ -43,21 +43,7 @@ export default {
         const notification = { message: this.$t('notifications.loginSucceded'), type: 'info' };
         this.pushNotification({ notification, timeout: 2000 });
         this.$store.dispatch('user/fetchUserData').then(() => {
-          switch (result.userType) {
-            case 1:
-              this.$router.push('/');
-              break;
-            case 2:
-            case 3:
-              this.$router.push('/manage');
-              break;
-            case 4:
-              this.$router.push('/admin');
-              break;
-            default:
-              this.$router.push('/');
-              break;
-          }
+          this.$router.push('/');
         });
       } else {
         const notification = { message: this.$t('notifications.loginFailed'), type: 'error' };

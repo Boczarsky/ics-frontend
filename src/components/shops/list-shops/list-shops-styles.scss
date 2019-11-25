@@ -1,0 +1,32 @@
+@import '../../../assets/colors.scss';
+
+.logo-image {
+  width: 50px;
+  height: 50px;
+  border-radius: 25px;
+}
+.logo-placeholder {
+  width: 40px;
+  height: 40px;
+  border-radius: 25px;
+  background-color: transparent;
+  border: 5px solid $complement-3;
+}
+.logo-column {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 12.5px 0;
+}
+.icecream-shop-row {
+  margin: 5px 0;
+  height: 75px;
+  cursor: pointer;
+  &:hover {
+    background-color: rgba(0,0,0,0.05);
+  }
+}
+
+.icecream-shops-table {
+  border-spacing: 0;
+}

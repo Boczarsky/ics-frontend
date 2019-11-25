@@ -1,10 +1,10 @@
 import axios from 'axios';
-import { API_URL } from '../../../config/env';
+import { API_URL } from '../../config/env';
 
-export async function fetchIcecreamShops(filters) {
+export async function fetchEmployees() {
   try {
     const response = await axios.post(
-      `${API_URL}icecream-shops/list`, filters,
+      `${API_URL}employees/list`, { offset: 0, limit: 100 },
       {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('access_token')}`,
@@ -17,10 +17,10 @@ export async function fetchIcecreamShops(filters) {
   }
 }
 
-export async function createNewShop(data) {
+export async function createEmployee(data) {
   try {
     const response = await axios.post(
-      `${API_URL}icecream-shops/create`, data,
+      `${API_URL}employees/create`, data,
       {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('access_token')}`,
@@ -33,19 +33,34 @@ export async function createNewShop(data) {
   }
 }
 
-export async function uploadFile(formData) {
+export async function assignEmployee(data) {
   try {
     const response = await axios.post(
-      `${API_URL}files/upload`, formData,
+      `${API_URL}employees/assign`, data,
       {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('access_token')}`,
-          'Content-Type': 'multipart/form-data',
         },
       },
     );
     return response.data;
   } catch (error) {
-    return '';
+    return null;
+  }
+}
+
+export async function unassignEmployee(data) {
+  try {
+    const response = await axios.post(
+      `${API_URL}employees/unassign`, data,
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('access_token')}`,
+        },
+      },
+    );
+    return response.data;
+  } catch (error) {
+    return null;
   }
 }

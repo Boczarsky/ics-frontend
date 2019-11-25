@@ -5,6 +5,7 @@ const getters = {
   userData: state => state.userData,
   userType: state => state.userData && state.userData.user_type,
   userId: state => state.userData && state.userData.user_id,
+  icecreamShops: state => state.userData && state.userData.icecream_shops,
 };
 
 const actions = {

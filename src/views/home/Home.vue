@@ -1,27 +1,24 @@
 <template>
-  <div class="manage">
+  <div class="home">
     <div class="side-nav">
-        <div class="navigation-link" @click="$router.push('/manage/myShops')">
-          {{$t('manage.nav.myShops')}}
+        <div class="navigation-link" @click="$router.push('/shops')">
+          {{$t('nav.shops')}}
         </div>
-        <div class="navigation-link" @click="$router.push('/manage/coupons')">
-          {{$t('manage.nav.coupons')}}
+        <div class="navigation-link" @click="$router.push('/myAccount')">
+          {{$t('nav.myAccount')}}
         </div>
-        <div class="navigation-link" @click="$router.push('/manage/myAccount')">
-          {{$t('manage.nav.myAccount')}}
-        </div>
-        <div class="navigation-link" @click="$router.push('/manage/promotions')">
-          {{$t('manage.nav.promotions')}}
+        <div class="navigation-link" @click="$router.push('/promotions')">
+          {{$t('nav.promotions')}}
         </div>
         <div
           v-if="userType === 3"
           class="navigation-link"
-          @click="$router.push('/manage/employees')"
+          @click="$router.push('/employees')"
         >
-          {{$t('manage.nav.employees')}}
+          {{$t('nav.employees')}}
         </div>
         <div class="navigation-link" @click="handleLogout">
-          {{$t('manage.nav.logout')}}
+          {{$t('nav.logout')}}
         </div>
     </div>
     <div class="content-wrapper">
@@ -53,5 +50,5 @@ export default {
 </script>
 
 <style lang="scss">
-@import './manage-styles.scss';
+@import './home-styles.scss';
 </style>

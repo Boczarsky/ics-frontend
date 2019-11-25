@@ -1,7 +1,7 @@
 <template>
   <div class="basic-input">
     <label>{{$t(translatePath)}}</label>
-    <input :type="inputType" @input="handleChange"/>
+    <input :type="inputType" :value="value" @input="handleChange"/>
   </div>
 </template>
 <script>

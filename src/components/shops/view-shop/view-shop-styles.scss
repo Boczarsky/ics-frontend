@@ -1,0 +1,16 @@
+.reaction {
+  cursor: pointer;
+  &.selected {
+    border: 1px solid lightblue;
+  }
+}
+.flavours-table {
+  width: 100%;
+}
+.flavour-reactions {
+  display: flex;
+  justify-content: center;
+}
+.icecream-shops-table {
+  width: 100%;
+}

@@ -3,11 +3,11 @@
     <basic-button
       v-if="userType === 3"
       @buttonClick="handleCreateNew"
-      translatePath="manage.buttons.createNew"
+      translatePath="buttons.createNew"
     ></basic-button>
-    <table>
+    <table class="icecream-shops-table">
       <thead>
-        <th>ID</th>
+        <th></th>
         <th>Nazwa</th>
         <th>Ulica</th>
         <th>Kod pocztowy</th>
@@ -16,11 +16,19 @@
       <tr
         v-for="icecreamShop in icecreamShops"
         :key="icecreamShop.icecream_shop_id"
-        @click="$router.push(`myShops/edit/${icecreamShop.icecream_shop_id}`)"
+        @click="$router.push(`shops/view/${icecreamShop.icecream_shop_id}`)"
+        class="icecream-shop-row"
       >
-        <td>{{icecreamShop.icecream_shop_id}}</td>
+        <td class="logo-column">
+          <img
+            class="logo-image"
+            :src="getLogoUrl(icecreamShop.logo_file_name)"
+            v-if="icecreamShop.logo_file_name"
+          />
+          <div class="logo-placeholder" v-if="!icecreamShop.logo_file_name"></div>
+        </td>
         <td>{{icecreamShop.name}}</td>
-        <td>{{icecreamShop.stret}}</td>
+        <td>{{icecreamShop.street}}</td>
         <td>{{icecreamShop.postal_code}}</td>
         <td>{{icecreamShop.city}}</td>
       </tr>
@@ -30,8 +38,9 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import BasicButton from '../../../common/button/BasicButton.vue';
+import BasicButton from '../../common/button/BasicButton.vue';
 import { fetchIcecreamShops } from '../requests';
+import { composeSecureUrl } from '../../../utils/common';
 
 export default {
   async mounted() {
@@ -50,17 +59,20 @@ export default {
   },
   methods: {
     async fetchIcecreamShops() {
-      let filters;
+      const filters = { limit: 100, offset: 0 };
       if (this.userType === 2) {
-        filters = { limit: 100, offset: 0, employeeId: this.userId };
-      } else {
-        filters = { limit: 100, offset: 0, managerId: this.userId };
+        filters.employeeId = this.userId;
+      } else if (this.userType === 3) {
+        filters.managerId = this.userId;
       }
       const { result } = await fetchIcecreamShops(filters);
       this.icecreamShops = result;
     },
     handleCreateNew() {
-      this.$router.push('myShops/create');
+      this.$router.push('shops/create');
+    },
+    getLogoUrl(fileName) {
+      return composeSecureUrl(fileName);
     },
   },
   components: {
@@ -68,3 +80,7 @@ export default {
   },
 };
 </script>
+
+<style lang="scss">
+@import './list-shops-styles.scss';
+</style>

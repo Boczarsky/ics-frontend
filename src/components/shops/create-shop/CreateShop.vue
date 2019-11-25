@@ -3,23 +3,23 @@
     <div class="form-wrapper">
       <form @submit.prevent class="create-form">
         <basic-input
-          translatePath="manage.inputs.shopName"
+          translatePath="inputs.shopName"
           v-model="name"
         ></basic-input>
         <basic-input
-          translatePath="manage.inputs.street"
+          translatePath="inputs.street"
           v-model="street"
         ></basic-input>
         <basic-input
-          translatePath="manage.inputs.city"
+          translatePath="inputs.city"
           v-model="city"
         ></basic-input>
         <basic-input
-          translatePath="manage.inputs.postalCode"
+          translatePath="inputs.postalCode"
           v-model="postal_code"
         ></basic-input>
         <basic-input
-          translatePath="manage.inputs.description"
+          translatePath="inputs.description"
           v-model="description"
         ></basic-input>
         <div class="upload-wrapper">
@@ -30,7 +30,7 @@
           />
           <basic-button
             v-if="uploadedLogo"
-            translatePath="manage.buttons.cancelFile"
+            translatePath="buttons.cancelFile"
             @buttonClick="() => this.uploadedLogo = ''"
           ></basic-button>
           <input
@@ -46,7 +46,7 @@
             for="logo"
             class="file-upload"
           >
-            {{$t('manage.inputs.logo')}}
+            {{$t('inputs.logo')}}
           </label>
         </div>
         <div class="upload-wrapper">
@@ -57,7 +57,7 @@
           />
           <basic-button
             v-if="uploadedPhoto"
-            translatePath="manage.buttons.cancelFile"
+            translatePath="buttons.cancelFile"
             @buttonClick="() => this.uploadedPhoto = ''"
           ></basic-button>
           <input
@@ -73,20 +73,26 @@
             for="photo"
             class="file-upload"
           >
-            {{$t('manage.inputs.photo')}}
+            {{$t('inputs.photo')}}
           </label>
         </div>
       </form>
       <div class="buttons-wrapper">
         <div class="button-wrapper">
           <basic-button
-            translatePath="manage.buttons.create"
+            v-if="!id"
+            translatePath="buttons.create"
             @buttonClick="handleCreate"
+          ></basic-button>
+          <basic-button
+            v-if="id"
+            translatePath="buttons.save"
+            @buttonClick="handleSave"
           ></basic-button>
         </div>
         <div class="button-wrapper">
           <basic-button
-            translatePath="manage.buttons.cancel"
+            translatePath="buttons.cancel"
             @buttonClick="handleCancel"
           ></basic-button>
         </div>
@@ -96,14 +102,38 @@
 </template>
 
 <script>
-import BasicInput from '../../../common/input/BasicInput.vue';
-import BasicButton from '../../../common/button/BasicButton.vue';
-import { uploadFile, createNewShop } from '../requests';
-import { composeSecureUrl } from '../../../../utils/common';
+import BasicInput from '../../common/input/BasicInput.vue';
+import BasicButton from '../../common/button/BasicButton.vue';
+import {
+  uploadFile,
+  createNewShop,
+  fetchIcecreamShop,
+  editShop,
+} from '../requests';
+import { composeSecureUrl } from '../../../utils/common';
 
 export default {
+  mounted() {
+    if (this.$attrs && this.$attrs.id) {
+      fetchIcecreamShop(this.$attrs.id).then(
+        (response) => {
+          if (response) {
+            this.id = response.icecream_shop_id;
+            this.name = response.name;
+            this.street = response.street;
+            this.city = response.city;
+            this.postal_code = response.postal_code;
+            this.description = response.description;
+            this.uploadedLogo = response.logo_file_name;
+            this.uploadedPhoto = response.photo_file_name;
+          }
+        },
+      );
+    }
+  },
   data() {
     return {
+      id: '',
       name: '',
       street: '',
       city: '',
@@ -153,11 +183,42 @@ export default {
           'notifications/pushNotification',
           { notification, timeout: 1000 },
         );
-        this.$router.push('/manage/myShops');
+        this.$router.push('/shops');
+      }
+    },
+    async handleSave() {
+      const data = {
+        icecreamShopId: this.id,
+        name: this.name,
+        street: this.street,
+        city: this.city,
+        postal_code: this.postal_code,
+        description: this.description,
+        logo_file_name: this.uploadedLogo,
+        photo_file_name: this.uploadedPhoto,
+      };
+      const result = await editShop(data);
+      if (!result) {
+        const notification = { message: this.$t('notifications.error'), type: 'error' };
+        this.$store.dispatch(
+          'notifications/pushNotification',
+          { notification, timeout: 1000 },
+        );
+      } else {
+        const notification = { message: this.$t('notifications.created'), type: 'info' };
+        this.$store.dispatch(
+          'notifications/pushNotification',
+          { notification, timeout: 1000 },
+        );
+        this.$router.push(`/shops/view/${this.id}`);
       }
     },
     handleCancel() {
-      this.$router.push('/manage/myShops');
+      if (this.id) {
+        this.$router.push(`/shops/view/${this.id}`);
+      } else {
+        this.$router.push('/shops');
+      }
     },
     async fileUpload(file) {
       const formData = new FormData();
