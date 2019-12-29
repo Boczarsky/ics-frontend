@@ -1,3 +1,41 @@
 body {
   margin: 0;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+.p-font {
+  font-family: 'Pacifico', cursive;
+}
+.s-font {
+  font-family: 'Open Sans', sans-serif;
+}
+.b-button {
+  font-family: 'Pacifico', cursive;
+  border: none;
+  background-color: #4B889F;
+  font-size: 16px;
+  padding: 10px 40px;
+  border-radius: 10px;
+  color: white;
+  box-shadow: 1px 2px 6px 1px rgba(0,0,0,0.16)
+}
+.b-button:disabled {
+  background-color: rgb(76, 90, 95);
+}
+.b-button:hover {
+  box-shadow: 1px 2px 6px 1px rgba(0,0,0,0.4);
+}
+.b-button:focus {
+  outline: none;
+  box-shadow: 1px 2px 6px 1px rgba(0,0,0,0.4);
+}
+.card {
+  padding: 20px;
+  background: white;
+  border-radius: 15px;
+}
+a, a:link, a:visited, a:hover, a:active, a:-webkit-any-link:active, a:-webkit-any-link {
+  text-decoration: none;
+  color: white;
 }

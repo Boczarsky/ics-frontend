@@ -1,0 +1,21 @@
+.basic-toggle {
+  width: 40px;
+  height: 20px;
+  border: 4px solid #98DFEB;
+  border-radius: 18px;
+}
+.basic-toggle__dot {
+  margin: -1px;
+  width: 22px;
+  height: 22px;
+  border-radius: 10px;
+  background-color: #4B889F;
+  transition-property: transform;
+  transition-duration: .5s;
+}
+.basic-toggle--on > .basic-toggle__dot {
+  transform: translateX(20px);
+}
+.basic-toggle--off > .basic-toggle__dot {
+  transform: translateX(0px);
+}

@@ -9,7 +9,7 @@ export const SearchShops = () => {
 
   useEffect(() => {
     dispatch(fetchIcecreamShops());
-  }, [filters]);
+  }, [filters, dispatch]);
 
   return (
     <div className="search-shops">
