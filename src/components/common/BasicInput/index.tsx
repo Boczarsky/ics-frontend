@@ -3,13 +3,14 @@ import './style.css';
 
 export interface BasicInputProps {
   label?: string;
+  labelClass?: string;
   inputProps: any;
   handleChange?: (value: string) => void;
   validationError?: string;
 }
 
 const BasicInput = (props: BasicInputProps) => {
-  const { inputProps, handleChange, label, validationError } = props;
+  const { inputProps, handleChange, label, labelClass, validationError } = props;
 
   const parseInputEvent = (event: any) => {
     if (event.target) {
@@ -20,7 +21,7 @@ const BasicInput = (props: BasicInputProps) => {
   }
   return (
     <div className={`basic-input${validationError ? ' basic-input--invalid' : ''}`}>
-      {label && <div className="basic-input__label p-font">{label}</div>}
+      {label && <div className={`basic-input__label p-font ${labelClass}`}>{label}</div>}
       <input
         onChange={parseInputEvent}
         className="basic-input__input"

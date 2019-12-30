@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react'
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchIcecreamShops } from '../../../reducers/IcecreamShops/operations';
+import { fetchIcecreamShops } from '../../reducers/IcecreamShops/operations';
 
-export const SearchShops = () => {
+const BrowseShops = () => {
   const filters = useSelector((state: any) => state.icecreamShops.filters);
   const icecreamShops = useSelector((state: any) => state.icecreamShops.list);
   const dispatch = useDispatch();
@@ -16,4 +16,6 @@ export const SearchShops = () => {
       {icecreamShops && icecreamShops.map((data: any) => <div key={data}>{data}</div>)}
     </div>
   )
-}
+};
+
+export default BrowseShops;

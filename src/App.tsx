@@ -1,10 +1,11 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './App.css';
-import { Home } from './components/Home';
 import Login from './components/Login';
 import PageNotFound from './components/PageNotFound';
 import Register from './components/Register';
+import Dashboard from './components/Dashboard';
+import BrowseShops from './components/BrowseShops';
 
 const App: React.FC = () => {
   return (
@@ -17,8 +18,11 @@ const App: React.FC = () => {
           <Route path="/register">
             <Register/>
           </Route>
+          <Route path="/browse">
+            <BrowseShops/>
+          </Route>
           <Route path="/">
-            <Home/>
+            <Dashboard/>
           </Route>
           <Route path="*">
             <PageNotFound />

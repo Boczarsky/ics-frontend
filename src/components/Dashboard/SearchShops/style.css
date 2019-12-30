@@ -1,0 +1,27 @@
+.search-shops {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 80vw;
+  background-color: #98DFEB;
+  padding: 10px 20px 20px 20px;
+  border-radius: 40px;
+}
+.search-shops__form {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+}
+.search-shops__form > div {
+  padding: 0 20px;
+  width: calc(50% - 126px);
+}
+.search-shops__submit {
+  align-self: center;
+  margin: 20px;
+}
+.search-shops__form .search-shops__label {
+  align-self: center;
+  padding: 5px 0px;
+}

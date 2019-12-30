@@ -13,10 +13,6 @@ const Register = () => {
     // on success
     dispatch(clearForm());
   }
-
-  useEffect(() => {
-    console.log(state);
-  }, [state]);
   
   return (
     <div className="register">
