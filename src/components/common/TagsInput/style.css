@@ -44,6 +44,7 @@
   background: none;
   border: none;
   font-family: inherit;
+  padding: 5px 0;
 }
 .tags-input__input:focus {
   outline: none;

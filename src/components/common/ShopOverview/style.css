@@ -1,0 +1,61 @@
+.shop-overview {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  background: white;
+  border-radius: 10px;
+  margin: 0px 20px 20px 20px;
+  box-shadow: 1px 2px 6px 0 rgba(0,0,0,0.16);
+}
+.shop-overview__left-wrapper {
+  flex: 1;
+}
+.shop-overview__right-wrapper {
+  display: flex;
+  align-items: flex-end;
+}
+.shop-overview__flavours {
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+}
+.shop-overview__follow-count {
+  font-weight: bold;
+}
+.shop-header {
+  display: flex;
+  align-items: center;
+}
+.shop-header__logo {
+  height: 80px;
+  width: 80px;
+  overflow: hidden;
+  border-radius: 40px;
+  background-color: #AAAAAA;
+}
+.shop-header__info {
+  margin-left: 20px;
+}
+.shop-header__name {
+  font-size: 24px;
+}
+.shop-header__address {
+  font-size: 14px;
+  color: #A5A5A5;
+}
+.flavour-info {
+  display: flex;
+  align-items: center;
+  height: 40px;
+  padding: 0 10px;
+  box-shadow: 1px 2px 6px 0 rgba(0,0,0,0.16);
+  border-radius: 20px;
+  margin: 20px 10px 0px 10px;
+}
+.flavour-info__reactions {
+  margin-left: 10px;
+}
+.flavour-info__reaction-count {
+  margin-left: 5px;
+  font-weight: bold;
+}

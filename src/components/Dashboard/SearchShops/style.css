@@ -15,7 +15,7 @@
 }
 .search-shops__form > div {
   padding: 0 20px;
-  width: calc(50% - 126px);
+  width: 260px;
 }
 .search-shops__submit {
   align-self: center;

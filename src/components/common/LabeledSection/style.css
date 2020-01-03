@@ -1,0 +1,22 @@
+.labeled-section {
+  position: relative;
+  width: calc(100% - 40px);
+  border-top: 4px solid #98DFEB;
+  border-bottom: 4px solid #98DFEB;
+  background-color: #F8F8F8;
+  padding: 40px 20px 10px 20px;
+  margin-top: 40px;
+}
+.labeled-section__label {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, calc(-50% - 2px));
+  background-color: #98DFEB;
+  padding: 10px 0;
+  font-weight: bold;
+  color: white;
+  width: 300px;
+  font-size: 20px;
+  text-align: center;
+}
