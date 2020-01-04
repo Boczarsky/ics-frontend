@@ -1,4 +1,4 @@
-import React, { FormEvent, useReducer, useEffect } from 'react';
+import React, { FormEvent, useReducer } from 'react';
 import './style.css';
 import BasicInput from '../common/BasicInput';
 import { reducer, initialState, setValue, clearForm } from './formReducer';

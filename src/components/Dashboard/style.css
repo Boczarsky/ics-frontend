@@ -2,4 +2,14 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
+}
+.dashboard__menu-wrapper {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  z-index: 1;
+}
+.search-shops {
+  margin-top: 40px;
 }

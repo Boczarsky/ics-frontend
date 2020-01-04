@@ -1,0 +1,54 @@
+.app-menu__icon-wrapper {
+  height: 60px;
+  width: 60px;
+  border-radius: 30px;
+  background-color: #98DFEB;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 1px 2px 6px 0px rgba(0, 0, 0, 0.16);
+}
+.app-menu__icon-wrapper:hover {
+  box-shadow: 1px 2px 6px 2px rgba(0, 0, 0, 0.2);
+}
+.app-menu__menu-wrapper {
+  padding: 20px;
+  box-shadow: 1px 2px 6px 0px rgba(0,0,0,0.16);
+  border-radius: 5px;
+  background-color: white;
+}
+.app-menu__icon {
+  height: 24px;
+}
+.app-menu__navigation {
+  display: flex;
+  flex-direction: column;
+  color: #5A5A5A;
+}
+.app-menu__nav-item {
+  padding: 10px 20px;
+  margin-top: 5px;
+  margin-right: -20px;
+  margin-left: -20px;
+}
+.app-menu__nav-item:hover {
+  color: white;
+  background-color: #4B889F;
+}
+.menu-header {
+  display: flex;
+  width: 220px;
+  margin-bottom: 10px;
+}
+.menu-header__avatar {
+  height: 60px;
+  width: 60px;
+  border-radius: 30px;
+  background-color: #A5A5A5;
+}
+.menu-header__name-wrapper {
+  margin-left: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
