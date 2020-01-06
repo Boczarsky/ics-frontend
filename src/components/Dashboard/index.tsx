@@ -19,16 +19,6 @@ const Dashboard = () => {
         <AppMenu/>
       </div>
       <SearchShops/>
-      <LabeledSection label="Favorite" contentClass="dashboard__favorite">
-        {favoriteShops.map((shop: any) => (
-          <ShopOverview
-            key={randomKey()}
-            header={{logoUrl: shop.logoUrl, name: shop.name, address: shop.address}}
-            flavours={shop.flavours || []}
-            follows={shop.follows || 0}
-          />
-        ))}
-      </LabeledSection>
     </div>
   )
 };

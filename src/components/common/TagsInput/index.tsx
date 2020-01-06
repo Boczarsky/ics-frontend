@@ -1,4 +1,4 @@
-import React, { KeyboardEvent } from 'react';
+import React, { KeyboardEvent, useRef, FocusEvent } from 'react';
 import './style.css';
 
 export interface TagsInputProps {
@@ -36,16 +36,33 @@ const TagsInput = (props: TagsInputProps) => {
       input.value = '';
     }
   }
+
+  const handleBlurInsertTag = (event: FocusEvent<HTMLInputElement>) => {
+    const input = event.target as HTMLInputElement;
+    if(input.value.trim()) {
+      const set = new Set(tags);
+      set.add(input.value.trim());
+      handleChange(setToArray(set));
+      input.value = '';
+    }
+  }
+
+  const input = useRef(null);
+  const focusInput = () => {
+    const inputElement = input.current || {focus: () => {}};
+    inputElement.focus();
+  }
+
   return (
     <div className="tags-input">
       {label && <div className={`tags-input__label p-font ${labelClass}`}>{label}</div>}
-      <div className="tags-input__wrapper">
+      <div className="tags-input__wrapper" onClick={focusInput}>
         {tags.map((tag: string) => (
           <div className="tags-input__tag" key={tag} onClick={() => removeTag(tag)}>
-            <span>#{tag}</span>
+            <span className="overflow-ellipsis">#{tag}</span>
           </div>
         ))}
-        <input className="tags-input__input" onKeyDown={handleInsertTag}/>
+        <input ref={input} className="tags-input__input" onKeyDown={handleInsertTag} onBlur={handleBlurInsertTag}/>
       </div>
     </div>
   )

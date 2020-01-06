@@ -3,9 +3,18 @@ import './style.css';
 import { ReactComponent as MenuIcon } from '../../../icons/menu.svg';
 import MenuHeader from './MenuHeader';
 import useOutsideClick from '../../../utils/useOutsideClick';
-import { Link } from 'react-router-dom';
+import { Link, useRouteMatch, useHistory } from 'react-router-dom';
 
 const AppMenu = () => {
+  const match = useRouteMatch();
+  console.log(match);
+  const history = useHistory();
+  const NavItem = (props: {path: string, text: string}) => {
+    const { path, text } = props;
+    return match.path !== path ? (
+      <div className="app-menu__nav-item clickable" onClick={() => history.push(path)}>{text}</div>
+    ) : null;
+  }
   const [isOpen, setOpen] = useState(false);
   const menu = useRef(null);
   useOutsideClick(menu, () => {
@@ -21,13 +30,14 @@ const AppMenu = () => {
       {isOpen && <div className="app-menu__menu-wrapper" ref={menu}>
         <MenuHeader username="Admin" firstName="Adam" lastName="Dminowicz"/>
         <div className="app-menu__navigation">
-          <Link to="" className="app-menu__nav-item">My account</Link>
-          <Link to="" className="app-menu__nav-item">Promotions</Link>
-          <Link to="" className="app-menu__nav-item">News feed</Link>
-          <Link to="" className="app-menu__nav-item">Employees</Link>
-          <Link to="" className="app-menu__nav-item">Icecream shops</Link>
-          <Link to="" className="app-menu__nav-item">Add points</Link>
-          <Link to="" className="app-menu__nav-item">Redeem coupon</Link>
+          <NavItem path="/" text="Main page"/>
+          <NavItem path="/my-account" text="My account"/>
+          <NavItem path="/promotions" text="Promotions"/>
+          <NavItem path="/news-feed" text="News feed"/>
+          <NavItem path="/employees" text="Employees"/>
+          <NavItem path="/icecream-shops" text="Icecream shops"/>
+          <div className="app-menu__nav-item clickable">Add points</div>
+          <div className="app-menu__nav-item clickable">Redeem coupon</div>
           <div className="app-menu__nav-item clickable">Logout</div>
         </div>
       </div>}

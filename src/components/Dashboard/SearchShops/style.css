@@ -9,9 +9,9 @@
 }
 .search-shops__form {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: flex-start;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
 }
 .search-shops__form > div {
   padding: 0 20px;

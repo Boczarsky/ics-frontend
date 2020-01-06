@@ -2,13 +2,20 @@ import React, { FormEvent, useState } from 'react';
 import './style.css';
 import BasicInput from '../../common/BasicInput';
 import TagsInput from '../../common/TagsInput';
+import { useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { searchIcecreamShops } from '../../../reducers/IcecreamShops/operations';
 
 const SearchShops = () => {
   const [tags, setTags] = useState([] as string[]);
   const [city, setCity] = useState('');
+  const history = useHistory();
+  const dispatch = useDispatch();
   const handleFormSubmit = (event: FormEvent) => {
     event.preventDefault();
-    console.log(city, tags);
+    if (tags.length || city) {
+      dispatch(searchIcecreamShops(() => history.push('/browse'), {tags: tags.length ? tags : [], city: city}));
+    }
   }
   return (
     <div className="search-shops">
