@@ -7,7 +7,6 @@ import { Link, useRouteMatch, useHistory } from 'react-router-dom';
 
 const AppMenu = () => {
   const match = useRouteMatch();
-  console.log(match);
   const history = useHistory();
   const NavItem = (props: {path: string, text: string}) => {
     const { path, text } = props;

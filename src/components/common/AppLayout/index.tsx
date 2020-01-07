@@ -7,15 +7,16 @@ import { useHistory } from 'react-router-dom';
 export interface AppLayoutProps {
   topbarContent: any;
   children: any;
+  returnPath?: string;
 }
 
 const AppLayout = (props: AppLayoutProps) => {
-  const { topbarContent, children } = props;
+  const { topbarContent, children, returnPath } = props;
   const history = useHistory();
   return (
     <div className="app-layout">
       <div className="app-layout__topbar">
-        <div className="app-layout__back-button clickable" onClick={() => history.push('/')}>
+        <div className="app-layout__back-button clickable" onClick={() => history.push(returnPath || '/')}>
           <BackIcon className="app-layout__back-icon"/>
         </div>
         <div className="app-layout__topbar-content-wrapper">

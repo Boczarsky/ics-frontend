@@ -11,42 +11,24 @@ import Promotions from './components/Promotions';
 import NewsFeed from './components/NewsFeed';
 import Employees from './components/Employees';
 import IcecreamShops from './components/IcecreamShops';
+import CreateIcecreamShop from './components/CreateIcecreamShop';
 
 const App: React.FC = () => {
   return (
     <div className="App">
       <Router>
         <Switch>
-          <Route path="/login">
-            <Login/>
-          </Route>
-          <Route path="/register">
-            <Register/>
-          </Route>
-          <Route path="/browse">
-            <BrowseShops/>
-          </Route>
-          <Route path="/my-account">
-            <MyAccount/>
-          </Route>
-          <Route path="/promotions">
-            <Promotions/>
-          </Route>
-          <Route path="/news-feed">
-            <NewsFeed/>
-          </Route>
-          <Route path="/employees">
-            <Employees/>
-          </Route>
-          <Route path="/icecream-shops">
-            <IcecreamShops/>
-          </Route>
-          <Route path="/" exact>
-            <Dashboard/>
-          </Route>
-          <Route path="*">
-            <PageNotFound />
-          </Route>
+          <Route path="/login" component={Login}/>
+          <Route path="/register" component={Register}/>
+          <Route path="/browse" component={BrowseShops}/>
+          <Route path="/my-account" component={MyAccount}/>
+          <Route path="/promotions" component={Promotions}/>
+          <Route path="/news-feed" component={NewsFeed}/>
+          <Route path="/employees" component={Employees}/>
+          <Route path="/icecream-shops/create" component={CreateIcecreamShop}/>
+          <Route path="/icecream-shops" component={IcecreamShops}/>
+          <Route path="/" exact component={Dashboard}/>
+          <Route path="*" component={PageNotFound}/>
         </Switch>
       </Router>
     </div>
