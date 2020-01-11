@@ -7,10 +7,11 @@ export interface BasicInputProps {
   inputProps: any;
   handleChange?: (value: string) => void;
   validationError?: string;
+  textarea?: boolean;
 }
 
 const BasicInput = (props: BasicInputProps) => {
-  const { inputProps, handleChange, label, labelClass, validationError } = props;
+  const { inputProps, handleChange, label, labelClass, validationError, textarea } = props;
 
   const parseInputEvent = (event: any) => {
     if (event.target) {
@@ -21,13 +22,21 @@ const BasicInput = (props: BasicInputProps) => {
   }
   return (
     <div className={`basic-input${validationError ? ' basic-input--invalid' : ''}`}>
-      {label && <div className={`basic-input__label p-font ${labelClass}`}>{label}</div>}
+      {label && <div className={`basic-input__label p-font ${labelClass || ''}`}>{label}</div>}
+      {textarea ?
+      <textarea
+        onChange={parseInputEvent}
+        className="basic-input__textarea"
+        data-invalid={validationError ? true : false}
+        {...inputProps}
+      />
+      :
       <input
         onChange={parseInputEvent}
         className="basic-input__input"
         data-invalid={validationError ? true : false}
         {...inputProps}
-      />
+      />}
       <div className="basic-input__validation-error">{validationError}</div>
     </div>
   )

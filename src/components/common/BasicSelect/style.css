@@ -1,9 +1,9 @@
-.basic-input {
+.basic-select {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
 }
-.basic-input__label {
+.basic-select__label {
   padding: 5px 20px;
   margin: 10px 20px;
   background-color: #4B889F;
@@ -11,37 +11,26 @@
   color: white;
   min-width: 120px;
 }
-.basic-input__input {
+.basic-select__select {
   background-color: white;
   border: none;
   box-shadow: 1px 2px 6px 1px rgba(0,0,0,0.16);
   border-radius: 15px;
   padding: 0px 10px;
   height: 40px;
-  width: calc(100% - 20px);
+  width: 100%;
   font-family: inherit;
   font-size: 0.9rem;
 }
-.basic-input__textarea {
-  background-color: white;
-  border: none;
-  box-shadow: 1px 2px 6px 1px rgba(0,0,0,0.16);
-  border-radius: 15px;
-  padding: 10px;
-  width: calc(100% - 20px);
-  font-family: inherit;
-  font-size: 0.9rem;
-  resize: none;
-}
-.basic-input__input:focus, .basic-input__textarea:focus {
+.basic-select__select:focus {
   box-shadow: 1px 2px 6px 1px rgba(0,0,0,0.4);
   outline: none;
 }
-.basic-input--invalid > .basic-input__input, .basic-input--invalid > .basic-input__textarea {
+.basic-select--invalid > .basic-select__select {
   background-color: rgba(255, 0, 0, 0.15);
 }
 
-.basic-input__validation-error {
+.basic-select__validation-error {
   font-size: 10px;
   height: 12px;
   width: 100%;

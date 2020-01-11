@@ -1,7 +1,7 @@
 .app-layout {
   display: flex;
   flex-direction: column;
-  width: 100vw;
+  width: 100%;
   min-height: 100vh;
 }
 .app-layout__topbar {
@@ -16,8 +16,9 @@
 }
 .app-layout__menu-wrapper {
   position: relative;
-  height: 60px;
-  width: 60px;
+  height: 50px;
+  width: 50px;
+  z-index: 1;
 }
 .app-layout__menu {
   position: absolute;
@@ -28,13 +29,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 60px;
-  width: 60px;
+  height: 50px;
+  width: 50px;
   background-color: #98DFEB;
-  border-radius: 30px;
+  border-radius: 25px;
 }
 .app-layout__back-icon {
-  width: 40px;
+  width: 34px;
 }
 .app-layout__topbar-content-wrapper {
   flex: 1;

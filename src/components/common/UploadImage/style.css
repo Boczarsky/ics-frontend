@@ -1,0 +1,43 @@
+.upload-image {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+.upload-image__hidden-input {
+  width: 0;
+}
+.upload-image__preview {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  background-color: white;
+}
+.upload-image__preview > img {
+  width: 100%;
+}
+.upload-image__placeholder {
+  width: 100%;
+  height: 100%;
+  background-color: #A5A5A5;
+}
+.upload-image__upload-button {
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+  position: absolute;
+  background-color: #4B889F;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  right: 10px;
+  top: 10px;
+}
+.upload-image__upload-icon {
+  width: 20px;
+  height: 20px;
+  color: white;
+}

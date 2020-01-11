@@ -1,7 +1,7 @@
 .app-menu__icon-wrapper {
-  height: 60px;
-  width: 60px;
-  border-radius: 30px;
+  height: 50px;
+  width: 50px;
+  border-radius: 25px;
   background-color: #98DFEB;
   display: flex;
   justify-content: center;
@@ -18,7 +18,7 @@
   background-color: white;
 }
 .app-menu__icon {
-  height: 24px;
+  height: 20px;
 }
 .app-menu__navigation {
   display: flex;
@@ -41,9 +41,9 @@
   margin-bottom: 10px;
 }
 .menu-header__avatar {
-  height: 60px;
-  width: 60px;
-  border-radius: 30px;
+  height: 50px;
+  width: 50px;
+  border-radius: 25px;
   background-color: #A5A5A5;
 }
 .menu-header__name-wrapper {
