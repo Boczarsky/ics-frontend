@@ -1,3 +1,5 @@
+import randomKey from "../../utils/randomKey";
+
 export interface CreateIcecreamShopFormState {
   logoUrl: {value: string, error: string};
   backgroundUrl: {value: string, error: string};
@@ -9,12 +11,14 @@ export interface CreateIcecreamShopFormState {
   latitude: {value: string, error: string};
   longitude: {value: string, error: string};
   openDays: {
-    dayFrom: {value: string, error: string},
-    dayTo: {value: string, error: string},
+    uniqueKey: string;
+    openFrom: {value: string, error: string},
+    openTo: {value: string, error: string},
     hourFrom: {value: string, error: string},
     hourTo: {value: string, error: string}
   }[];
   specialDays: {
+    uniqueKey: string;
     closed: boolean,
     from: {value: string, error: string},
     to: {value: string, error: string},
@@ -34,30 +38,54 @@ export const initialState: CreateIcecreamShopFormState = {
   postalCode: {value: '', error: ''},
   latitude: {value: '', error: ''},
   longitude: {value: '', error: ''},
-  openDays: [{
-    dayFrom: {value: '', error: ''},
-    dayTo: {value: '', error: ''},
+  openDays: [],
+  specialDays: [],
+  formValid: false,
+};
+
+const emptyDynamicField = {
+  openDays: {
+    uniqueKey: '',
+    openFrom: {value: '', error: ''},
+    openTo: {value: '', error: ''},
     hourFrom: {value: '', error: ''},
     hourTo: {value: '', error: ''}
-  }],
-  specialDays: [{
-    closed: true,
+  },
+  specialDays: {
+    uniqueKey: '',
+    closed: 1,
     from: {value: '', error: ''},
     to: {value: '', error: ''},
     hourFrom: {value: '', error: ''},
     hourTo: {value: '', error: ''}
-  }],
-  formValid: false,
-};
+  },
+}
 
 export function reducer(state: any, action: any) {
   function validateForm(state: CreateIcecreamShopFormState) {
     return state;
   }
   const {type, payload} = action;
+  let newState;
   switch (type) {
     case 'SET_VALUE':
       return validateForm({...state, [payload.key]: {value: payload.value, error: ''}, formValid: true});
+    case 'SET_DYNAMIC_VALUE':
+      newState = {...state, formValid: true};
+      const dynamicItem = newState[payload.key].find((item: {uniqueKey: string}) => item.uniqueKey === payload.uniqueKey);
+      if (dynamicItem) {
+        dynamicItem[payload.field] = {value: payload.value, error: ''}
+      }
+      return validateForm(newState);
+    case 'ADD_DYNAMIC_VALUE':
+      newState = {...state, formValid: true};
+      // @ts-ignore
+      newState[payload.key].push({...emptyDynamicField[payload.key], uniqueKey: randomKey()});
+      return validateForm(newState);
+    case 'DELETE_DYNAMIC_VALUE':
+      newState = {...state, formValid: true};
+      newState[payload.key] = newState[payload.key].filter((item: {uniqueKey: string}) => item.uniqueKey !== payload.uniqueKey);
+      return validateForm(newState);
     case 'CLEAR_FORM':
       return initialState;
     default:
@@ -65,6 +93,12 @@ export function reducer(state: any, action: any) {
   }
 }
 
-export const setValue = (key: string, value: string | boolean) => ({type: 'SET_VALUE', payload: {key, value}});
+export const setValue = (key: string, value: any) => ({type: 'SET_VALUE', payload: {key, value}});
+
+export const setDynamicValue = (key: string, uniqueKey: string, field: string, value: any) => ({type: 'SET_DYNAMIC_VALUE', payload: {key, uniqueKey, field, value}});
+
+export const addDynamicValue = (key: string) => ({type: 'ADD_DYNAMIC_VALUE', payload: {key}});
+
+export const deleteDynamicValue = (key: string, uniqueKey: string) => ({type: 'DELETE_DYNAMIC_VALUE', payload: {key, uniqueKey}});
 
 export const clearForm = () => ({type: 'CLEAR_FORM'});

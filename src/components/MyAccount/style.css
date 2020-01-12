@@ -1,0 +1,23 @@
+.my-account {
+  min-height: calc(100vh - 94px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.my-account__avatar {
+  width: 200px;
+  height: 200px;
+  margin: 20px 60px;
+}
+.my-account__avatar > .upload-image__preview {
+  border-radius: 50%;
+}
+.my-account__personal-info, .my-account__password-change {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.my-account__personal-info > div, .my-account__password-change > div {
+  margin: 20px;
+}

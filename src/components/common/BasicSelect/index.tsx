@@ -38,4 +38,4 @@ const BasicSelect = (props: BasicSelectProps) => {
   )
 }
 
-export default BasicSelect;
+export default React.memo(BasicSelect);

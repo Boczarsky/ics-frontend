@@ -3,7 +3,7 @@ import './style.css';
 import { ReactComponent as MenuIcon } from '../../../icons/menu.svg';
 import MenuHeader from './MenuHeader';
 import useOutsideClick from '../../../utils/useOutsideClick';
-import { Link, useRouteMatch, useHistory } from 'react-router-dom';
+import { useRouteMatch, useHistory } from 'react-router-dom';
 
 const AppMenu = () => {
   const match = useRouteMatch();
