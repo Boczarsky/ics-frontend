@@ -12,10 +12,14 @@ import NewsFeed from './components/NewsFeed';
 import Employees from './components/Employees';
 import IcecreamShops from './components/IcecreamShops';
 import EditIcecreamShop from './components/EditIcecreamShop';
+import ModalContainer from './components/ModalContainer';
+import NotificationContainer from './components/NotificationContainer';
 
 const App: React.FC = () => {
   return (
     <div className="App">
+      <ModalContainer/>
+      <NotificationContainer/>
       <Router>
         <Switch>
           <Route path="/login" component={Login}/>

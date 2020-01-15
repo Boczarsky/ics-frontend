@@ -1,0 +1,8 @@
+.redeem-coupon-modal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.redeem-coupon-modal__button {
+  width: 120px;
+}

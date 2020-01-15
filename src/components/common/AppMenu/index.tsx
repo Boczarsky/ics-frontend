@@ -4,6 +4,8 @@ import { ReactComponent as MenuIcon } from '../../../icons/menu.svg';
 import MenuHeader from './MenuHeader';
 import useOutsideClick from '../../../utils/useOutsideClick';
 import { useRouteMatch, useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { openModal } from '../../../reducers/Modals/actions';
 
 const AppMenu = () => {
   const match = useRouteMatch();
@@ -21,6 +23,11 @@ const AppMenu = () => {
       setOpen(false);
     }
   });
+  const dispatch = useDispatch();
+  const handleOpenModal = (modalName: string) => () => {
+    dispatch(openModal(modalName));
+    setOpen(false);
+  }
   return (
     <div className="app-menu">
       {!isOpen && <div className="app-menu__icon-wrapper" onClick={() => setOpen(true)}>
@@ -35,8 +42,8 @@ const AppMenu = () => {
           <NavItem path="/news-feed" text="News feed"/>
           <NavItem path="/employees" text="Employees"/>
           <NavItem path="/icecream-shops" text="Icecream shops"/>
-          <div className="app-menu__nav-item clickable">Add points</div>
-          <div className="app-menu__nav-item clickable">Redeem coupon</div>
+          <div className="app-menu__nav-item clickable" onClick={handleOpenModal('addPoints')}>Add points</div>
+          <div className="app-menu__nav-item clickable" onClick={handleOpenModal('redeemCoupon')}>Redeem coupon</div>
           <div className="app-menu__nav-item clickable">Logout</div>
         </div>
       </div>}
