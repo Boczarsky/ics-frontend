@@ -2,11 +2,13 @@ import { OPEN_MODAL, CLOSE_MODAL } from './action-types';
 export interface ModalsState {
   redeemCoupon: boolean;
   addPoints: boolean;
+  createPromotion: boolean;
 }
 
 const initialState: ModalsState = {
   redeemCoupon: false,
-  addPoints: false
+  addPoints: false,
+  createPromotion: false,
 };
 
 export const Modals = (state: ModalsState = initialState, action: any) => {

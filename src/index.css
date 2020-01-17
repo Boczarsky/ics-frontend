@@ -64,3 +64,8 @@ a, a:link, a:visited, a:hover, a:active, a:-webkit-any-link:active, a:-webkit-an
   text-overflow: ellipsis;
   width: 100%;
 }
+.f-col-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

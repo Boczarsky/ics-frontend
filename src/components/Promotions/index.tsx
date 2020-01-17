@@ -1,6 +1,7 @@
 import React from 'react';
 import AppLayout from '../common/AppLayout';
 import './style.css';
+import PromotionList from './PromotionList';
 
 const Promotions = () => {
   return (
@@ -9,7 +10,9 @@ const Promotions = () => {
         <div className="page-title">Promotions</div>
       }
     >
-      <div className="promotions"></div>
+      <div className="promotions">
+        <PromotionList/>
+      </div>
     </AppLayout>
   )
 }

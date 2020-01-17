@@ -28,6 +28,9 @@ const AppMenu = () => {
     dispatch(openModal(modalName));
     setOpen(false);
   }
+  const handleLogout = () => {
+    history.push('/login');
+  }
   return (
     <div className="app-menu">
       {!isOpen && <div className="app-menu__icon-wrapper" onClick={() => setOpen(true)}>
@@ -44,7 +47,7 @@ const AppMenu = () => {
           <NavItem path="/icecream-shops" text="Icecream shops"/>
           <div className="app-menu__nav-item clickable" onClick={handleOpenModal('addPoints')}>Add points</div>
           <div className="app-menu__nav-item clickable" onClick={handleOpenModal('redeemCoupon')}>Redeem coupon</div>
-          <div className="app-menu__nav-item clickable">Logout</div>
+          <div className="app-menu__nav-item clickable" onClick={handleLogout}>Logout</div>
         </div>
       </div>}
     </div>

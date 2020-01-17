@@ -1,0 +1,8 @@
+.create-promotion-modal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.create-promotion-modal > .basic-input {
+  width: 100%;
+}

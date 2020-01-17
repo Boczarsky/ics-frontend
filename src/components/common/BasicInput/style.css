@@ -3,6 +3,7 @@
   flex-direction: column;
   align-items: flex-start;
 }
+.basic-input__input::-webkit-inner-spin-button { display: none; }
 .basic-input__label {
   padding: 5px 20px;
   margin: 10px 20px;

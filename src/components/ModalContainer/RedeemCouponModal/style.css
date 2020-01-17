@@ -3,6 +3,9 @@
   flex-direction: column;
   align-items: center;
 }
+.redeem-coupon-modal > .basic-input {
+  width: 100%;
+}
 .redeem-coupon-modal__button {
   width: 120px;
 }

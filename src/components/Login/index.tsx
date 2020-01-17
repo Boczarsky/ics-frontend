@@ -1,14 +1,15 @@
 import React, { FormEvent } from 'react'
 import BasicInput from '../common/BasicInput';
 import './style.css';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 const Login = () => {
+  const history = useHistory();
   const handleFormSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const form = event.target as HTMLFormElement;
     const {username, password} = form;
-    console.log(username.value, password.value);
+    history.push('/');
   }
 
   return (
