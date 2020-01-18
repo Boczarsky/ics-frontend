@@ -1,0 +1,25 @@
+.assign-employee-modal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.assign-employee-modal > .basic-input {
+  width: 100%;
+}
+.assign-employee-modal__assign, .assign-employee-modal__assigned-shop {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.assign-employee-modal__assigned-shop {
+  margin-bottom: 20px;
+}
+.assign-employee-modal__unassign-button {
+  margin-left: 20px;
+}
+.assign-employee-modal__assign-button {
+  margin-bottom: 15px;
+  margin-left: 20px;
+}

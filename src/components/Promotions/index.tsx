@@ -2,8 +2,10 @@ import React from 'react';
 import AppLayout from '../common/AppLayout';
 import './style.css';
 import PromotionList from './PromotionList';
+import CouponsList from './CouponsList';
 
 const Promotions = () => {
+  const isManager = false;
   return (
     <AppLayout
       topbarContent={
@@ -11,7 +13,7 @@ const Promotions = () => {
       }
     >
       <div className="promotions">
-        <PromotionList/>
+        {isManager ? <PromotionList/> : <CouponsList/>}
       </div>
     </AppLayout>
   )

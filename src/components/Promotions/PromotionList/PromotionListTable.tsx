@@ -14,6 +14,7 @@ export interface PromotionListTableProps {
 }
 
 const PromotionListTable = (props: PromotionListTableProps) => {
+  const { promotions } = props;
   return (
     <div className="promotion-list-table">
       <table>
@@ -27,7 +28,7 @@ const PromotionListTable = (props: PromotionListTableProps) => {
             <th>Icecream shops involved</th>
             <th colSpan={2}></th>
           </tr>
-          {props.promotions.map(promotion => (
+          {promotions.map(promotion => (
           <tr key={`promotion-list-row-${promotion.id}`}>
             <td>{promotion.id}</td>
             <td>{promotion.info}</td>
@@ -35,9 +36,9 @@ const PromotionListTable = (props: PromotionListTableProps) => {
             <td>{promotion.limit}</td>
             <td>{promotion.startDate}</td>
             <td>{promotion.endDate}</td>
-            <td className="f-col-center">{promotion.icecreamShops.map(icecreamShop => (<span>{icecreamShop}</span>))}</td>
-            <td><div className="clickable p-font b-button">End promotion</div></td>
+            <td><div className="f-col-center">{promotion.icecreamShops.map(icecreamShop => (<span>{icecreamShop}</span>))}</div></td>
             <td><div className="clickable p-font b-button">Assign icecream shop</div></td>
+            <td><div className="clickable p-font b-button b-button--red">End promotion</div></td>
           </tr>
           ))}
       </table>

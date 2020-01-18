@@ -5,7 +5,7 @@ export interface BasicSelectProps {
   label?: string;
   labelClass?: string;
   selectProps: any;
-  handleChange?: (value: string) => void;
+  handleChange?: (value: any) => void;
   validationError?: string;
   options: any[];
   nameKey: string;
@@ -26,7 +26,7 @@ const BasicSelect = (props: BasicSelectProps) => {
     <div className={`basic-select${validationError ? ' basic-select--invalid' : ''}`}>
       {label && <div className={`basic-select__label p-font ${labelClass || ''}`}>{label}</div>}
       <select
-        onChange={parseInputEvent}
+        onInput={parseInputEvent}
         className="basic-select__select"
         data-invalid={validationError ? true : false}
         {...selectProps}

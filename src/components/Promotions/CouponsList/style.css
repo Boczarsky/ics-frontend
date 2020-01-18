@@ -1,0 +1,78 @@
+.coupon-list {
+  display: flex;
+  flex-direction: column;
+}
+.coupon {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin: 20px;
+}
+.coupon__prize {
+  font-size: 18px;
+  font-weight: bold;
+  margin-top: 20px;
+}
+.coupon__id {
+  margin: 10px;
+  font-size: 18px;
+  font-weight: bold;
+}
+.coupon__header, .coupon__content {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.coupon__header {
+  align-items: flex-start;
+  padding: 0 0 20px 0;
+}
+.coupon__wrapper {
+  width: 800px;
+  max-width: calc(100% - 40px);
+  padding: 20px;
+  box-shadow: 1px 2px 6px 1px rgba(0,0,0,.14);
+  border-radius: 20px;
+  background-color: white;
+}
+.coupon__stamp-field {
+  margin: 5px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 2px solid #98DFEB;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #4B889F;
+}
+.coupon__stamp-field > .coupon__stamp {
+  width: 36px;
+}
+.coupon__content-left {
+  width: 280px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.coupon__content-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.coupon__promotion-duration {
+  align-self: flex-end;
+  display: flex;
+  flex-wrap: wrap;
+}
+.coupon__promotion-duration > span:first-child {
+  padding-right: 20px;
+  font-weight: bold;
+}
+.coupon__spacer {
+  padding: 0 10px;
+}
+.coupon__info {
+  padding: 20px;
+}
