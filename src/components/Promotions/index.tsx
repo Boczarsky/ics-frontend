@@ -5,7 +5,7 @@ import PromotionList from './PromotionList';
 import CouponsList from './CouponsList';
 
 const Promotions = () => {
-  const isManager = false;
+  const isManager = true;
   return (
     <AppLayout
       topbarContent={

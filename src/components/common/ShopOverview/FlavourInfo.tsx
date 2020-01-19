@@ -2,7 +2,7 @@ import React from 'react';
 
 export interface FlavourInfoProps {
   name: string;
-  reactions: [number, number, number];
+  reactions: number[];
 }
 
 const FlavourInfo = (props: FlavourInfoProps) => {

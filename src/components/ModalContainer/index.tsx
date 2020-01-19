@@ -6,6 +6,8 @@ import RedeemCouponModal from './RedeemCouponModal';
 import CreatePromotionModal from './CreatePromotionModal';
 import EmployeeFormModal from './EmployeeFormModal';
 import AssignEmployeeModal from './AssignEmployeeModal';
+import AssignShopModal from './AssignShopModal';
+import FlavourFormModal from './FlavourForm';
 
 const ModalContainer = () => {
   const addPoints = useSelector((state: any) => state.modals.addPoints);
@@ -13,6 +15,8 @@ const ModalContainer = () => {
   const createPromotion = useSelector((state: any) => state.modals.createPromotion);
   const employeeForm = useSelector((state: any) => state.modals.employeeForm);
   const assignEmployee = useSelector((state: any) => state.modals.assignEmployee);
+  const assignShop = useSelector((state: any) => state.modals.assignShop);
+  const flavourForm = useSelector((state: any) => state.modals.flavourForm);
   return (
     <div className="modal-container">
       {addPoints && <AddPointsModal/>}
@@ -20,6 +24,8 @@ const ModalContainer = () => {
       {createPromotion && <CreatePromotionModal/>}
       {employeeForm && <EmployeeFormModal data={employeeForm}/>}
       {assignEmployee && <AssignEmployeeModal data={assignEmployee}/>}
+      {assignShop && <AssignShopModal data={assignShop}/>}
+      {flavourForm && <FlavourFormModal data={flavourForm}/>}
     </div>
   )
 }

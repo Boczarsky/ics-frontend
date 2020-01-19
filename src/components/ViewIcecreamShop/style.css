@@ -1,0 +1,135 @@
+.view-icecream-shop__header-images {
+  position: relative;
+}
+.view-icecream-shop__background {
+  width: 100%;
+  max-height: 50vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+.view-icecream-shop__logo {
+  width: 200px;
+  height: 200px;
+  transform: translate(-50%, 50%);
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid white;
+}
+.view-icecream-shop__image-placeholder {
+  width: 100%;
+  height: 100%;
+  background-color: #A5A5A5;
+}
+.view-icecream-shop__logo > img, .view-icecream-shop__background > img {
+  width: 100%;
+}
+.view-icecream-shop__favorite {
+  margin-top: 125px;
+  display: flex;
+  justify-content: center;
+}
+.view-icecream-shop__description-wrapper {
+  display: flex;
+  justify-content: center;
+}
+.view-icecream-shop__description {
+  padding: 20px;
+  background-color: white;
+  margin: 40px;
+  border-radius: 20px;
+  box-shadow: 1px 2px 6px 1px rgba(0,0,0,.14);
+}
+
+.shop-flavours {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.shop-flavours__wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.icecream-flavour {
+  flex: 1 0 auto;
+  border-radius: 10px;
+  box-shadow: 1px 2px 6px 1px rgba(0,0,0,.14);
+  background-color: white;
+  width: 500px;
+  max-width: calc(100vw - 40px);
+  margin: 20px;
+  display: flex;
+  flex-direction: column;
+}
+.icecream-flavour__header {
+  padding: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: bold;
+}
+.icecream-flavour__reactions {
+  display: flex;
+  margin: 5px 0;
+}
+.icecream-flavour__reaction {
+  margin-left: 10px;
+  transition: transform .3s ease;
+}
+.icecream-flavour__reaction:first-child {
+  margin-left: 0;
+  transition: transform .3s ease;
+}
+.icecream-flavour__reaction-type {
+  margin-left: 5px;
+}
+.icecream-flavour__reaction:hover {
+  transform: scale(1.2);
+}
+.icecream-flavour__composition {
+  padding: 10px;
+  background-color: #4b889f;
+  color: white;
+}
+.icecream-flavour__tags {
+  padding: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  flex: 1;
+}
+.icecream-flavour__tag {
+  margin: 5px;
+  max-width: calc(100% - 30px);
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.icecream-flavour__extra-options {
+  padding: 10px;
+  display: flex;
+  background-color: #5A5A5A;
+  color: white;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+.icecream-flavour__extra-option > svg {
+  height: 20px;
+  width: 20px;
+}
+.icecream-flavour__extra-option {
+  margin-right: 20px;
+  transition: transform .3s ease;
+}
+.icecream-flavour__extra-option:hover {
+  transform: scale(1.2);
+}
+.icecream-flavour__toggle-out-of-stock.out-of-stock {
+  color: rgb(182, 32, 32);
+}

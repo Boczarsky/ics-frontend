@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './style.css';
+import { useDispatch } from 'react-redux';
+import { openModal } from '../../../reducers/Modals/actions';
 
 export interface PromotionListTableProps {
   promotions: {
@@ -15,6 +17,10 @@ export interface PromotionListTableProps {
 
 const PromotionListTable = (props: PromotionListTableProps) => {
   const { promotions } = props;
+  const dispatch = useDispatch();
+  const openAssignModal = (promotionId: number) => () => {
+    dispatch(openModal('assignShop', {promotionId}));
+  }
   return (
     <div className="promotion-list-table">
       <table>
@@ -37,7 +43,7 @@ const PromotionListTable = (props: PromotionListTableProps) => {
             <td>{promotion.startDate}</td>
             <td>{promotion.endDate}</td>
             <td><div className="f-col-center">{promotion.icecreamShops.map(icecreamShop => (<span>{icecreamShop}</span>))}</div></td>
-            <td><div className="clickable p-font b-button">Assign icecream shop</div></td>
+            <td><div className="clickable p-font b-button" onClick={openAssignModal(promotion.id)}>Assign icecream shop</div></td>
             <td><div className="clickable p-font b-button b-button--red">End promotion</div></td>
           </tr>
           ))}

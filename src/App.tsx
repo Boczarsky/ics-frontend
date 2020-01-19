@@ -14,6 +14,7 @@ import IcecreamShops from './components/IcecreamShops';
 import EditIcecreamShop from './components/EditIcecreamShop';
 import ModalContainer from './components/ModalContainer';
 import NotificationContainer from './components/NotificationContainer';
+import ViewIcecreamShop from './components/ViewIcecreamShop';
 
 const App: React.FC = () => {
   return (
@@ -24,6 +25,7 @@ const App: React.FC = () => {
         <Switch>
           <Route path="/login" component={Login}/>
           <Route path="/register" component={Register}/>
+          <Route path="/browse/:id" component={ViewIcecreamShop}/>
           <Route path="/browse" component={BrowseShops}/>
           <Route path="/my-account" component={MyAccount}/>
           <Route path="/promotions" component={Promotions}/>
@@ -31,7 +33,7 @@ const App: React.FC = () => {
           <Route path="/employees" component={Employees}/>
           <Route path="/icecream-shops/create" component={EditIcecreamShop}/>
           <Route path="/icecream-shops/edit/:id" component={EditIcecreamShop}/>
-          <Route path="/icecream-shops" component={IcecreamShops}/>
+          <Route path="/icecream-shops" exact component={IcecreamShops}/>
           <Route path="/" exact component={Dashboard}/>
           <Route path="*" component={PageNotFound}/>
         </Switch>
