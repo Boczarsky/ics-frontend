@@ -7,12 +7,13 @@ import { useParams } from 'react-router-dom';
 import BasicInput from '../common/BasicInput';
 import { ReactComponent as PlusIcon } from '../../icons/plus.svg';
 import BasicSelect from '../common/BasicSelect';
+import { dayOptions } from '../../utils/dayOptions';
 
 const EditIcecreamShop = () => {
   const params = useParams<{id?: string}>();
   const [state, dispatch] = useReducer(reducer, initialState);
   const edit = Boolean(params.id);
-  const dayOptions = [{val: 1, name: 'Monday'}, {val: 2, name: 'Tuesday'}, {val: 3, name: 'Wednesday'}, {val: 4, name: 'Thursday'}, {val: 5, name: 'Friday'}, {val: 6, name: 'Saturday'}, {val: 7, name: 'Sunday'}];
+  
   return (
     <AppLayout
       returnPath="/icecream-shops"
@@ -54,14 +55,9 @@ const EditIcecreamShop = () => {
               label="Postal code"
             />
             <BasicInput
-              inputProps={{id: 'icecreamShopLatitude', type: 'number', placeholder: '0.0000', value: state.latitude.value}}
-              handleChange={value => dispatch(setValue('latitude', Number(value)))}
-              label="Latitude"
-            />
-            <BasicInput
-              inputProps={{id: 'icecreamShopLongitude', type: 'number', placeholder: '0.0000', value: state.longitude.value}}
-              handleChange={value => dispatch(setValue('longitude', Number(value)))}
-              label="Longitude"
+              inputProps={{id: 'icecreamShopGoogleMapLink', placeholder: 'Source for embeded google map', value: state.googleMapLink.value}}
+              handleChange={value => dispatch(setValue('googleMapLink', value))}
+              label="Google map link"
             />
           </div>
           <div className="edit-icecream-shop__dynamic-open-days">

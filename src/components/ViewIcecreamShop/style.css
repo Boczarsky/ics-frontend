@@ -133,3 +133,41 @@
 .icecream-flavour__toggle-out-of-stock.out-of-stock {
   color: rgb(182, 32, 32);
 }
+.shop-info {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  align-items: center;
+  padding: 40px 0px;
+}
+.shop-info__info-wrapper {
+  width: 320px;
+  background: white;
+  padding: 20px 40px 20px 20px;
+  border-radius: 20px;
+  box-shadow: 1px 2px 6px 1px rgba(0,0,0,.14);
+}
+.shop-info__embeded-map {
+  width: 600px;
+  height: 400px;
+  max-width: 100%;
+}
+.shop-info__address-wrapper {
+  margin-top: 5px;
+}
+.shop-info__open-days-header, .shop-info__special-days-header, .shop-info__address-header {
+  font-weight: bold;
+  font-size: 20px;
+}
+.shop-info__open-days-row, .shop-info__special-days-row {
+  margin-top: 10px;
+}
+.shop-info__address-wrapper, .shop-info__open-days-wrapper, .shop-info__special-days-wrapper {
+  font-size: 14px;
+  margin-left: 20px;
+}
+.shop-info__open-days-row, .shop-info__special-days-row {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}

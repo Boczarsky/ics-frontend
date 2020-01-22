@@ -8,8 +8,7 @@ export interface CreateIcecreamShopFormState {
   street: {value: string, error: string};
   city: {value: string, error: string};
   postalCode: {value: string, error: string};
-  latitude: {value: string, error: string};
-  longitude: {value: string, error: string};
+  googleMapLink: {value: string, error: string};
   openDays: {
     uniqueKey: string;
     openFrom: {value: string, error: string},
@@ -36,8 +35,7 @@ export const initialState: CreateIcecreamShopFormState = {
   street: {value: '', error: ''},
   city: {value: '', error: ''},
   postalCode: {value: '', error: ''},
-  latitude: {value: '', error: ''},
-  longitude: {value: '', error: ''},
+  googleMapLink: {value: '', error: ''},
   openDays: [],
   specialDays: [],
   formValid: false,
