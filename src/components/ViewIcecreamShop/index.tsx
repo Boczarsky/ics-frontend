@@ -43,7 +43,13 @@ const ViewIcecreamShop = () => {
           />
         </LabeledSection>
         <LabeledSection label="Opinions">
-          <ShopOpinions/>
+          <ShopOpinions
+            icecreamShopId={1}
+            opinions={[
+              {id: 1, avatarUrl: '', username: 'LoveIcecreamMan', grade: 10, opinion: 'Very good icecreams! Love it! 😍', comments: [{id: 1, avatarUrl: '', username: 'Cool Icecream Shop', content: 'Thank you for your opinion! 😍😍😍' }, {id: 2, avatarUrl: '', username: 'LoveIcecreamMan', content: 'What can i say except you welcome! 😂' }]},
+              {id: 2, avatarUrl: '', username: 'LoveIcecreamMan', grade: 10, opinion: 'Very good icecreams! Love it! 😍', comments: [{id: 1, avatarUrl: '', username: 'Cool Icecream Shop', content: 'Thank you for your opinion! 😍😍😍' }, {id: 2, avatarUrl: '', username: 'LoveIcecreamMan', content: 'What can i say except you welcome! 😂' }]}
+            ]}
+          />
         </LabeledSection>
         <LabeledSection label="Posts">
           <ShopPosts/>
