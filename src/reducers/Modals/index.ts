@@ -7,6 +7,7 @@ export interface ModalsState {
   assignEmployee: any;
   assignShop: any;
   flavourForm: any;
+  postForm: any;
 }
 
 const initialState: ModalsState = {
@@ -17,6 +18,7 @@ const initialState: ModalsState = {
   assignEmployee: false,
   assignShop: false,
   flavourForm: false,
+  postForm: false,
 };
 
 export const Modals = (state: ModalsState = initialState, action: any) => {

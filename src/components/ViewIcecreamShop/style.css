@@ -278,3 +278,7 @@
 .shop-opinons__opinion-submit {
   margin-top: 20px;
 }
+.shop-posts__add-post {
+  display: flex;
+  justify-content: center;
+}

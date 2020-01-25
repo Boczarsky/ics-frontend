@@ -1,0 +1,11 @@
+.post-form-modal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.post-form-modal > .basic-input {
+  width: 100%;
+}
+.post-form-modal__button {
+  width: 80px;
+}
