@@ -11,7 +11,7 @@ import Promotions from './components/Promotions';
 import NewsFeed from './components/NewsFeed';
 import Employees from './components/Employees';
 import IcecreamShops from './components/IcecreamShops';
-import EditIcecreamShop from './components/EditIcecreamShop';
+import IcecreamShopForm from './components/IcecreamShopForm';
 import ModalContainer from './components/ModalContainer';
 import NotificationContainer from './components/NotificationContainer';
 import ViewIcecreamShop from './components/ViewIcecreamShop';
@@ -31,8 +31,8 @@ const App: React.FC = () => {
           <Route path="/promotions" component={Promotions}/>
           <Route path="/news-feed" component={NewsFeed}/>
           <Route path="/employees" component={Employees}/>
-          <Route path="/icecream-shops/create" component={EditIcecreamShop}/>
-          <Route path="/icecream-shops/edit/:id" component={EditIcecreamShop}/>
+          <Route path="/icecream-shops/create" component={IcecreamShopForm}/>
+          <Route path="/icecream-shops/edit/:id" component={IcecreamShopForm}/>
           <Route path="/icecream-shops" exact component={IcecreamShops}/>
           <Route path="/" exact component={Dashboard}/>
           <Route path="*" component={PageNotFound}/>

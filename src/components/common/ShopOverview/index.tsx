@@ -1,23 +1,25 @@
 import React from 'react';
-import ShopHeader, { ShopHeaderProps } from './ShopHeader';
-import FlavourInfo, { FlavourInfoProps } from './FlavourInfo';
+import ShopHeader from './ShopHeader';
+import FlavourInfo from './FlavourInfo';
 import randomKey from '../../../utils/randomKey';
 import './style.css';
 
 export interface ShopOverviewProps {
-  header: ShopHeaderProps;
-  flavours: FlavourInfoProps[];
-  follows: number;
+  data: any;
+  handleClick: (data: any) => any;
 }
 
 const ShopOverview = (props: ShopOverviewProps) => {
-  const {header, flavours, follows} = props;
+  const { data, handleClick = () => {} } = props;
+  const header = { name: data.name, logoUrl: data.logoUrl, address: data.address };
+  const flavours = data.flavours;
+  const follows = data.follows;
   return (
-    <div className="shop-overview">
+    <div className="shop-overview" onClick={() => handleClick(data)}>
       <div className="shop-overview__left-wrapper">
         <ShopHeader {...header}/>
         <div className="shop-overview__flavours">
-          {flavours.map((flavour) => 
+          {flavours.map((flavour: any) => 
             <FlavourInfo {...flavour} key={randomKey()}/>
           )}
         </div>

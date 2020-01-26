@@ -1,6 +1,14 @@
 .icecream-shops {
+  width: calc(100% - 40px);
+  margin: 20px;
+}
+.icecream-shops__owned-list, .icecream-shops__favorite-list {
+  width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  margin: 20px;
+  align-items: stretch;
+}
+.icecream-shops__create {
+  align-self: flex-start;
+  margin: 0 0 20px 20px;
 }

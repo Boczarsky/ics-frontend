@@ -21,7 +21,7 @@ const initialState: ModalsState = {
   postForm: false,
 };
 
-export const Modals = (state: ModalsState = initialState, action: any) => {
+export const modals = (state: ModalsState = initialState, action: any) => {
   switch (action.type) {
     case OPEN_MODAL:
       const newState: any = {...state};

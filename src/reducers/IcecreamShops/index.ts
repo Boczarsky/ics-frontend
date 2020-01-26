@@ -18,7 +18,7 @@ const initialState: IcecreamShopsState = {
   error: {},
 };
 
-export const IcecreamShops = (state: IcecreamShopsState = initialState, action: any) => {
+export const icecreamShops = (state: IcecreamShopsState = initialState, action: any) => {
   switch (action.type) {
     case FETCH_ICECREAM_SHOPS_START:
       return {...state, loading: true, error: {}}

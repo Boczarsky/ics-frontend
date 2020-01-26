@@ -13,7 +13,7 @@ const SearchShops = () => {
   const dispatch = useDispatch();
   const handleFormSubmit = (event: FormEvent) => {
     event.preventDefault();
-    if (tags.length || city) {
+    if (city) {
       dispatch(searchIcecreamShops(() => history.push('/browse'), {tags: tags.length ? tags : [], city: city}));
     }
   }
@@ -25,6 +25,7 @@ const SearchShops = () => {
           labelClass="search-shops__label"
           inputProps={{type: 'text', name: 'city', id: 'city', value: city}}
           handleChange={setCity}
+          validationError={city ? '' : 'City is required'}
         />
         <TagsInput
           label="#Tags"
@@ -32,7 +33,7 @@ const SearchShops = () => {
           tags={tags}
           handleChange={setTags}
         />
-        <button className="search-shops__submit b-button">Search</button>
+        <button className="search-shops__submit clickable b-button">Search</button>
       </form>
     </div>
   )

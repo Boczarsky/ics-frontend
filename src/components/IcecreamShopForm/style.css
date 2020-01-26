@@ -1,16 +1,16 @@
-.edit-icecream-shop__header-images {
+.icecream-shop-form__header-images {
   position: relative;
   width: 100%;
 }
-.edit-icecream-shop__header-images .upload-image__preview.mobile-preview > img  {
+.icecream-shop-form__header-images .upload-image__preview.mobile-preview > img  {
   width: initial;
   height: 100%;
 }
-.edit-icecream-shop__background {
+.icecream-shop-form__background {
   width: 100%;
   height: 50vh;
 }
-.edit-icecream-shop__logo {
+.icecream-shop-form__logo {
   width: 200px;
   height: 200px;
   transform: translate(-50%, 50%);
@@ -18,27 +18,27 @@
   left: 50%;
   bottom: 0;
 }
-.edit-icecream-shop__logo > .upload-image__preview {
+.icecream-shop-form__logo > .upload-image__preview {
   width: calc(100% - 6px);
   height: calc(100% - 6px);
   border-radius: 50%;
   border: 3px solid white;
 }
-.edit-icecream-shop__edit-form {
+.icecream-shop-form__edit-form {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   padding: 100px 20px 20px 20px;
   width: calc(100% - 40px);
 }
-.edit-icecream-shop__address-wrapper {
+.icecream-shop-form__address-wrapper {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
   width: calc(100% + 40px);
   margin: 0 -20px;
 }
-.edit-icecream-shop__add-button {
+.icecream-shop-form__add-button {
   width: 40px;
   background-color: #4B889F;
   height: 40px;
@@ -51,36 +51,36 @@
   box-shadow: 1px 2px 6px 1px rgba(0,0,0,0.16);
   cursor: pointer;
 }
-.edit-icecream-shop__add-button:hover {
+.icecream-shop-form__add-button:hover {
   box-shadow: 1px 2px 6px 1px rgba(0,0,0,.4);
 }
-.edit-icecream-shop__address-wrapper > .basic-input {
+.icecream-shop-form__address-wrapper > .basic-input {
   flex: 1;
   padding: 0 20px;
 }
-.edit-icecream-shop__address-wrapper > .basic-input:nth-child(1) {
+.icecream-shop-form__address-wrapper > .basic-input:nth-child(1) {
   flex: 6;
 }
-.edit-icecream-shop__address-wrapper > .basic-input:nth-child(2) {
+.icecream-shop-form__address-wrapper > .basic-input:nth-child(2) {
   flex: 2;
 }
-.edit-icecream-shop__address-wrapper > .basic-input:nth-child(4) {
+.icecream-shop-form__address-wrapper > .basic-input:nth-child(4) {
   flex: 3;
 }
-.edit-icecream-shop__dynamic-open-days, .edit-icecream-shop__dynamic-special-days {
+.icecream-shop-form__dynamic-open-days, .icecream-shop-form__dynamic-special-days {
   display: flex;
   align-items: flex-end;
   flex-wrap: wrap;
 }
-.edit-icecream-shop__open-days, .edit-icecream-shop__special-days {
+.icecream-shop-form__open-days, .icecream-shop-form__special-days {
   display: flex;
   flex-wrap: wrap;
   margin: 0 -20px;
 }
-.edit-icecream-shop__open-days > div, .edit-icecream-shop__special-days > div {
+.icecream-shop-form__open-days > div, .icecream-shop-form__special-days > div {
   padding: 0 20px;
 }
-.edit-icecream-shop__dynamic-fields-label {
+.icecream-shop-form__dynamic-fields-label {
   padding: 5px 20px;
   margin: 10px 20px 16px 20px;
   background-color: #4B889F;
@@ -88,7 +88,7 @@
   color: white;
   min-width: 120px;
 }
-div.edit-icecream-shop__delete-button {
+div.icecream-shop-form__delete-button {
   width: 40px;
   padding: 0;
   background-color: #4B889F;
@@ -102,17 +102,17 @@ div.edit-icecream-shop__delete-button {
   box-shadow: 1px 2px 6px 1px rgba(0,0,0,0.16);
   cursor: pointer;
 }
-.edit-icecream-shop__plus-icon--45deg {
+.icecream-shop-form__plus-icon--45deg {
   transform: rotate(45deg);
 }
-.edit-icecream-shop__form-controls {
+.icecream-shop-form__form-controls {
   display: flex;
   flex-wrap: wrap;
   max-width: 100%;
   justify-content: flex-start;
   margin-top: 10px;
 }
-.edit-icecream-shop__form-controls > div {
+.icecream-shop-form__form-controls > div {
   margin-left: 40px;
   margin-bottom: 20px;
 }

@@ -1,10 +1,16 @@
-import { Notifications as notifications } from './Notifications/index';
-import { Modals as modals } from './Modals/index';
 import { combineReducers } from "redux";
-import { IcecreamShops as icecreamShops } from "./IcecreamShops";
+import { notifications } from './Notifications/index';
+import { modals } from './Modals/index';
+import { icecreamShops } from "./IcecreamShops";
+import { favoriteShops } from './FavoriteShops';
+import { ownedShops } from './OwnedShops';
+import { viewShop } from './ViewShop';
 
 export default combineReducers({
   icecreamShops,
   modals,
-  notifications
+  notifications,
+  favoriteShops,
+  ownedShops,
+  viewShop,
 });

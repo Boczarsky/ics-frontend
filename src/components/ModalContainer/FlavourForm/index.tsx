@@ -12,6 +12,9 @@ export interface FlavourFormModalProps {
 
 const FlavourFormModal = (props: FlavourFormModalProps) => {
   const { data } = props;
+  const [name, setName] = useState(data.name || '');
+  const [composition, setComposition] = useState(data.composition || '');
+  const [tags, setTags] = useState<string[]>(data.tags || []);
   const dispatch = useDispatch();
   const closeModalWindow = (event: MouseEvent<HTMLDivElement>) => {
     const target: any = event.target;
@@ -21,20 +24,19 @@ const FlavourFormModal = (props: FlavourFormModalProps) => {
   }
   const handleFlavourForm = () => {
     dispatch(closeModal('flavourForm'));
-    if (data.flavourId) {
+    if (data.id) {
       dispatch(pushNotification('Flavour edited successfuly', 'normal', 2000));
     } else {
       dispatch(pushNotification('Flavour created successfuly', 'normal', 2000));
     }
   }
-  const [tags, setTags] = useState<string[]>([]);
   return (
     <div className="modal-overlay" onClick={closeModalWindow}>
       <div className="modal-wrapper flavour-form-modal">
-        <BasicInput inputProps={{id:'flavour-name'}} label="Flavour name"/>
-        <BasicInput inputProps={{id:'flavour-composition', rows: 5}} label="Composition" textarea/>
+        <BasicInput inputProps={{id:'flavour-name', value: name}} handleChange={setName} label="Flavour name"/>
+        <BasicInput inputProps={{id:'flavour-composition', rows: 5, value: composition}} handleChange={setComposition} label="Composition" textarea/>
         <TagsInput tags={tags} label="#Tags" handleChange={setTags}/>
-        <div className="b-button p-font clickable flavour-form-modal__button" onClick={handleFlavourForm}>{data.flavourId ? 'Edit' : 'Create'}</div>
+        <div className="b-button p-font clickable flavour-form-modal__button" onClick={handleFlavourForm}>{data.id ? 'Edit' : 'Create'}</div>
       </div>
     </div>
   )

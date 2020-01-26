@@ -7,6 +7,10 @@
   margin: 0px 20px 20px 20px;
   box-shadow: 1px 2px 6px 0 rgba(0,0,0,0.16);
 }
+.shop-overview:hover {
+  cursor: pointer;
+  box-shadow: 1px 2px 6px 0 rgba(0,0,0,0.3);
+}
 .shop-overview__left-wrapper {
   flex: 1;
 }

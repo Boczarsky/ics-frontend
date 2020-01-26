@@ -44,14 +44,14 @@ export const initialState: CreateIcecreamShopFormState = {
 const emptyDynamicField = {
   openDays: {
     uniqueKey: '',
-    openFrom: {value: '', error: ''},
-    openTo: {value: '', error: ''},
+    openFrom: {value: '1', error: ''},
+    openTo: {value: '1', error: ''},
     hourFrom: {value: '', error: ''},
     hourTo: {value: '', error: ''}
   },
   specialDays: {
     uniqueKey: '',
-    closed: 1,
+    closed: {value: '0', error: ''},
     from: {value: '', error: ''},
     to: {value: '', error: ''},
     hourFrom: {value: '', error: ''},
@@ -59,16 +59,57 @@ const emptyDynamicField = {
   },
 }
 
+function validateForm(state: CreateIcecreamShopFormState) {
+  return state;
+}
+
+function setInitialValues(data: any) {
+ return {
+  logoUrl: {value: data.logoUrl || '', error: ''},
+  backgroundUrl: {value: data.backgroundUrl || '', error: ''},
+  name: {value: data.name || '', error: ''},
+  description: {value: data.description || '', error: ''},
+  street: {value: data.street || '', error: ''},
+  city: {value: data.city || '', error: ''},
+  postalCode: {value: data.postalCode || '', error: ''},
+  googleMapLink: {value: data.googleMapLink || '', error: ''},
+  openDays: data.openDays && data.openDays.length ? data.openDays.map(
+    (openDay: any) => (
+      {
+        uniqueKey: randomKey(),
+        openFrom: {value: openDay.openFrom || '', error: ''},
+        openTo: {value: openDay.openTo || '', error: ''},
+        hourFrom: {value: openDay.hourFrom || '', error: ''},
+        hourTo: {value: openDay.hourTo || '', error: ''}
+      }
+    )
+  ) : [],
+  specialDays: data.specialDays && data.specialDays.length ? data.specialDays.map(
+    (specialDay: any) => (
+      {
+        uniqueKey: randomKey(),
+        closed: { value: specialDay.closed || '0', error: '' },
+        from: {value: specialDay.from || '', error: ''},
+        to: {value: specialDay.to || '', error: ''},
+        hourFrom: {value: specialDay.hourFrom || '', error: ''},
+        hourTo: {value: specialDay.hourTo || '', error: ''}
+      }
+    )
+  ) : [],
+  formValid: true,
+ }
+}
+
 export function reducer(state: any, action: any) {
-  function validateForm(state: CreateIcecreamShopFormState) {
-    return state;
-  }
   const {type, payload} = action;
   let newState;
   switch (type) {
+    case 'SET_INITIAL':
+      return setInitialValues(payload);
     case 'SET_VALUE':
       return validateForm({...state, [payload.key]: {value: payload.value, error: ''}, formValid: true});
     case 'SET_DYNAMIC_VALUE':
+      console.log(payload);
       newState = {...state, formValid: true};
       const dynamicItem = newState[payload.key].find((item: {uniqueKey: string}) => item.uniqueKey === payload.uniqueKey);
       if (dynamicItem) {
@@ -90,6 +131,8 @@ export function reducer(state: any, action: any) {
       return state;
   }
 }
+
+export const setInitial = (data: any) => ({type: 'SET_INITIAL', payload: data});
 
 export const setValue = (key: string, value: any) => ({type: 'SET_VALUE', payload: {key, value}});
 

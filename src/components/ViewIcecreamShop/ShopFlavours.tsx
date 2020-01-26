@@ -4,18 +4,16 @@ import randomKey from '../../utils/randomKey';
 import { useDispatch } from 'react-redux';
 import { openModal } from '../../reducers/Modals/actions';
 
-const ShopFlavours = () => {
-  const flavours = [
-    {id: 1, name: 'Fancy flavour name', reactions: [105,15,2], composition: 'Natural cream, sugar, secret ingredient, another secret ingredient, some love, sparkling awesomness', tags: ['Tag', 'Another', 'Again', 'AndAgain', 'AnotherOne', 'SomeCrazyAssLongOneThatNoOneWillRemember', 'AnotherOneAnother', 'AgainAndAgain', 'NextUp', 'Dingididong'], status: 1},
-    {id: 2, name: 'Fancy flavour name', reactions: [105,15,2], composition: 'Natural cream, sugar, secret ingredient, another secret ingredient, some love, sparkling awesomness', tags: ['Tag', 'Another', 'Again', 'AndAgain', 'AnotherOne', 'SomeCrazyAssLongOneThatNoOneWillRemember'], status: 2},
-    {id: 3, name: 'Fancy flavour name', reactions: [105,15,2], composition: 'Natural cream, sugar, secret ingredient, another secret ingredient, some love, sparkling awesomness', tags: ['Tag', 'Another', 'Again', 'AndAgain', 'AnotherOne', 'SomeCrazyAssLongOneThatNoOneWillRemember'], status: 3},
-    {id: 4, name: 'Fancy flavour name', reactions: [105,15,2], composition: 'Natural cream, sugar, secret ingredient, another secret ingredient, some love, sparkling awesomness', tags: ['Tag', 'Another', 'Again', 'AndAgain', 'AnotherOne', 'SomeCrazyAssLongOneThatNoOneWillRemember'], status: 1},
-    {id: 5, name: 'Fancy flavour name', reactions: [105,15,2], composition: 'Natural cream, sugar, secret ingredient, another secret ingredient, some love, sparkling awesomness', tags: ['Tag', 'Another', 'Again', 'AndAgain', 'AnotherOne', 'SomeCrazyAssLongOneThatNoOneWillRemember'], status: 2},
-    {id: 6, name: 'Fancy flavour name', reactions: [105,15,2], composition: 'Natural cream, sugar, secret ingredient, another secret ingredient, some love, sparkling awesomness', tags: ['Tag', 'Another', 'Again', 'AndAgain', 'AnotherOne', 'SomeCrazyAssLongOneThatNoOneWillRemember'], status: 3},
-  ];
+export interface ShopFlavoursProps {
+  flavours: any[];
+  icecreamShopId: number;
+}
+
+const ShopFlavours = (props: ShopFlavoursProps) => {
+  const { flavours, icecreamShopId } = props;
   const dispatch = useDispatch();
   const openCreateModal = () => {
-    dispatch(openModal('flavourForm'));
+    dispatch(openModal('flavourForm', {icecreamShopId}));
   };
   return (
     <div className="shop-flavours">

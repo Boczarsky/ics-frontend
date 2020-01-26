@@ -23,8 +23,8 @@ export interface IcecreamFlavourProps {
 const IcecreamFlavour = (props: IcecreamFlavourProps) => {
   const { flavourData, specialOptions } = props;
   const dispatch = useDispatch();
-  const openEditModal = (flavourId: number) => () => {
-    dispatch(openModal('flavourForm', {flavourId}));
+  const openEditModal = () => {
+    dispatch(openModal('flavourForm', flavourData));
   };
   return (
     <div className="icecream-flavour">
@@ -54,7 +54,7 @@ const IcecreamFlavour = (props: IcecreamFlavourProps) => {
       {specialOptions && <div className="icecream-flavour__extra-options">
         <div className="icecream-flavour__toggle-hide icecream-flavour__extra-option">{flavourData.status === 3 ? <EyeOffIcon/> : <EyeOnIcon/>}</div>
         <div className={`icecream-flavour__toggle-out-of-stock icecream-flavour__extra-option ${flavourData.status === 2 ? 'out-of-stock' : ''}`}><BlockIcon/></div>
-        <div className="icecream-flavour__edit icecream-flavour__extra-option" onClick={openEditModal(flavourData.id)}><EditIcon/></div>
+        <div className="icecream-flavour__edit icecream-flavour__extra-option" onClick={openEditModal}><EditIcon/></div>
         <div className="icecream-flavour__delete icecream-flavour__extra-option"><DeleteIcon/></div>
       </div>}
     </div>

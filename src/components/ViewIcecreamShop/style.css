@@ -282,3 +282,23 @@
   display: flex;
   justify-content: center;
 }
+.shop-posts__post {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.shop-posts__edit-post {
+  top: 40px;
+  left: 10px;
+  position: absolute;
+  transform: rotate(-45deg);
+}
+@media screen and (max-width: 800px) {
+  .shop-posts__edit-post {
+    top: 50px;
+    left: -15px;
+    position: absolute;
+    transform: rotate(-45deg);
+  }
+}

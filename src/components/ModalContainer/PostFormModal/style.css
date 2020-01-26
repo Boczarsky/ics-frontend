@@ -9,3 +9,7 @@
 .post-form-modal__button {
   width: 80px;
 }
+.post-form-modal__upload-image {
+  height: 100%;
+  width: 100%;
+}

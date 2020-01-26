@@ -8,15 +8,23 @@ export interface AppLayoutProps {
   topbarContent: any;
   children: any;
   returnPath?: string;
+  handleBackClick?: () => any;
 }
 
 const AppLayout = (props: AppLayoutProps) => {
-  const { topbarContent, children, returnPath } = props;
+  const { topbarContent, children, returnPath, handleBackClick } = props;
   const history = useHistory();
+  const handleClick = () => {
+    if (handleBackClick) {
+      handleBackClick();
+    } else {
+      history.push(returnPath || '/')
+    }
+  }
   return (
     <div className="app-layout">
       <div className="app-layout__topbar">
-        <div className="app-layout__back-button clickable" onClick={() => history.push(returnPath || '/')}>
+        <div className="app-layout__back-button clickable" onClick={handleClick}>
           <BackIcon className="app-layout__back-icon"/>
         </div>
         <div className="app-layout__topbar-content-wrapper">

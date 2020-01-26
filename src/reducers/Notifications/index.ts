@@ -7,7 +7,7 @@ const initialState: NotificationsState = {
   list: [],
 };
 
-export const Notifications = (state: NotificationsState = initialState, action: any) => {
+export const notifications = (state: NotificationsState = initialState, action: any) => {
   switch (action.type) {
     case ADD_NOTIFICATION:
       return {list: [...state.list, action.payload]};
