@@ -109,7 +109,6 @@ export function reducer(state: any, action: any) {
     case 'SET_VALUE':
       return validateForm({...state, [payload.key]: {value: payload.value, error: ''}, formValid: true});
     case 'SET_DYNAMIC_VALUE':
-      console.log(payload);
       newState = {...state, formValid: true};
       const dynamicItem = newState[payload.key].find((item: {uniqueKey: string}) => item.uniqueKey === payload.uniqueKey);
       if (dynamicItem) {

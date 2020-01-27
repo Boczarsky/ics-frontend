@@ -17,11 +17,11 @@ export interface EmployeeListTableProps {
 const EmployeeListTable = (props: EmployeeListTableProps) => {
   const {employees} = props;
   const dispatch = useDispatch();
-  const handleOpenEditModal = (employeeId: number) => () => {
-    dispatch(openModal('employeeForm', {employeeId}));
+  const handleOpenEditModal = (employee: any) => () => {
+    dispatch(openModal('employeeForm', employee));
   };
   const handleOpenAssignModal = (employeeId: number) => () => {
-    dispatch(openModal('assignEmployee', {employeeId}));
+    dispatch(openModal('assignEmployee', { employeeId }));
   };
   return (
     <div className="employee-list-table">
@@ -43,7 +43,7 @@ const EmployeeListTable = (props: EmployeeListTableProps) => {
             <td>{employee.login}</td>
             <td>{employee.email}</td>
             <td><div className="f-col-center">{employee.shopsAssigned.map(icecreamShop => (<span>{icecreamShop}</span>))}</div></td>
-            <td><div className="clickable p-font b-button" onClick={handleOpenEditModal(employee.id)}>Edit</div></td>
+            <td><div className="clickable p-font b-button" onClick={handleOpenEditModal(employee)}>Edit</div></td>
             <td><div className="clickable p-font b-button" onClick={handleOpenAssignModal(employee.id)}>Assign</div></td>
             <td><div className="clickable p-font b-button b-button--red">Delete</div></td>
           </tr>

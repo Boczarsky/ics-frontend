@@ -1,3 +1,4 @@
+import { employees } from './Employees/index';
 import { combineReducers } from "redux";
 import { notifications } from './Notifications/index';
 import { modals } from './Modals/index';
@@ -13,4 +14,5 @@ export default combineReducers({
   favoriteShops,
   ownedShops,
   viewShop,
+  employees,
 });

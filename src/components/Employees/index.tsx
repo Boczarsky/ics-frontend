@@ -1,38 +1,17 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import AppLayout from '../common/AppLayout';
 import './style.css';
 import EmployeeListTable from './EmployeeListTable';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { openModal } from '../../reducers/Modals/actions';
+import { fetchEmployees } from '../../reducers/Employees/operations';
 
 const Employees = () => {
-  const employees = [
-    {
-      id: 1,
-      firstName: 'Mark',
-      lastName: 'Ketting',
-      login: 'truemarkketing',
-      email: 'mark.ketting@gmail.com',
-      shopsAssigned: ['Cool Icecream Shop Name', 'Cool Icecream Shop Name II'],
-    },
-    {
-      id: 2,
-      firstName: 'Elen',
-      lastName: 'Onora',
-      login: 'theelenonora',
-      email: 'elen.onora@gmail.com',
-      shopsAssigned: ['Cool Icecream Shop Name'],
-    },
-    {
-      id: 3,
-      firstName: 'Iccy',
-      lastName: 'Creeam',
-      login: 'iceycreamy',
-      email: 'iccy.creeam@gmail.com',
-      shopsAssigned: ['Cool Icecream Shop Name II'],
-    }
-  ];
   const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchEmployees());
+  }, [dispatch])
+  const employees = useSelector((state: any) => state.employees.list);
   const handleOpenCreateModal = () => {
     dispatch(openModal('employeeForm'));
   };

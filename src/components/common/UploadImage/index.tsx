@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './style.css';
 import randomKey from '../../../utils/randomKey';
 import { ReactComponent as UploadIcon } from '../../../icons/upload.svg';
@@ -12,6 +12,11 @@ export interface UploadImageProps {
 const UploadImage = (props: UploadImageProps) => {
   const {className, initialUrl, onFileUploaded} = props; 
   const [imageUrl, setImageUrl] = useState(initialUrl || '');
+  useEffect(() => {
+    if (initialUrl && imageUrl !== initialUrl) {
+      setImageUrl(initialUrl);
+    }
+  }, [initialUrl, imageUrl]);
   const handleFileUpload = (event: any) => {
     let url = ''
     if (event.target.files[0]) {

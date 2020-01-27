@@ -1,9 +1,10 @@
-import React, { MouseEvent } from 'react';
+import React, { MouseEvent, useReducer, useEffect } from 'react';
 import './style.css';
 import { useDispatch } from 'react-redux';
 import { closeModal } from '../../../reducers/Modals/actions';
 import { pushNotification } from '../../../reducers/Notifications/operations';
 import BasicInput from '../../common/BasicInput';
+import { reducer, initialState, setValue, setInitial } from './formReducer';
 
 export interface EmployeeFormModalProps {
   data: any;
@@ -11,6 +12,11 @@ export interface EmployeeFormModalProps {
 
 const EmployeeFormModal = (props: EmployeeFormModalProps) => {
   const { data } = props;
+  const [state, formDispatch] = useReducer(reducer, initialState);
+  useEffect(() => {
+    formDispatch(setInitial(data));
+  }, [data])
+  const isEdit = Boolean(data.id);
   const dispatch = useDispatch();
   const closeModalWindow = (event: MouseEvent<HTMLDivElement>) => {
     const target: any = event.target;
@@ -20,7 +26,7 @@ const EmployeeFormModal = (props: EmployeeFormModalProps) => {
   }
   const handleEmployeeForm = () => {
     dispatch(closeModal('employeeForm'));
-    if (data.employeeId) {
+    if (isEdit) {
       dispatch(pushNotification('Employee edited successfuly', 'normal', 2000));
     } else {
       dispatch(pushNotification('Employee created successfuly', 'normal', 2000));
@@ -29,13 +35,13 @@ const EmployeeFormModal = (props: EmployeeFormModalProps) => {
   return (
     <div className="modal-overlay" onClick={closeModalWindow}>
       <div className="modal-wrapper employee-form-modal">
-        <BasicInput inputProps={{id:'employee-login'}} label="Username"/>
-        <BasicInput inputProps={{id:'employee-email', type: 'email'}} label="Email"/>
-        <BasicInput inputProps={{id:'employee-first-name'}} label="First name"/>
-        <BasicInput inputProps={{id:'employee-last-name'}} label="Last name"/>
-        <BasicInput inputProps={{id:'employee-password', type: 'password'}} label="Password"/>
-        <BasicInput inputProps={{id:'employee-re-password', type: 'password'}} label="Re-Password"/>
-        <div className="b-button p-font clickable employee-form-modal__button" onClick={handleEmployeeForm}>{data.employeeId ? 'Edit' : 'Create'}</div>
+        <BasicInput inputProps={{id:'employee-login', value: state.login.value}} label="Username" handleChange={value => formDispatch(setValue('login', value))}/>
+        <BasicInput inputProps={{id:'employee-email', type: 'email', value: state.email.value}} label="Email" handleChange={value => formDispatch(setValue('email', value))}/>
+        <BasicInput inputProps={{id:'employee-first-name', value: state.firstName.value}} label="First name" handleChange={value => formDispatch(setValue('firstName', value))}/>
+        <BasicInput inputProps={{id:'employee-last-name', value: state.lastName.value}} label="Last name" handleChange={value => formDispatch(setValue('lastName', value))}/>
+        <BasicInput inputProps={{id:'employee-password', type: 'password', value: state.password.value}} label="Password" handleChange={value => formDispatch(setValue('password', value))}/>
+        <BasicInput inputProps={{id:'employee-re-password', type: 'password', value: state.rePassword.value}} label="Re-Password" handleChange={value => formDispatch(setValue('rePassword', value))}/>
+        <div className="b-button p-font clickable employee-form-modal__button" onClick={handleEmployeeForm}>{isEdit ? 'Edit' : 'Create'}</div>
       </div>
     </div>
   )

@@ -32,6 +32,7 @@ const BasicInput = (props: BasicInputProps) => {
       />
       :
       <input
+        autoComplete="new-password"
         onChange={parseInputEvent}
         className="basic-input__input"
         data-invalid={validationError ? true : false}
