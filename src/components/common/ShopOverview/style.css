@@ -38,6 +38,9 @@
   border-radius: 40px;
   background-color: #AAAAAA;
 }
+.shop-header__logo > img {
+  height: 100%;
+}
 .shop-header__info {
   margin-left: 20px;
 }

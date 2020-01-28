@@ -30,9 +30,7 @@ const Coupon = (props: CouponProps) => {
         <div className="coupon__header">
           <div className="coupon__header-left">
             <ShopHeader
-              logoUrl={icecreamShopData.logoUrl}
-              name={icecreamShopData.name}
-              address={icecreamShopData.address}
+              headerData={icecreamShopData}
             />
           </div>
           <div className="coupon__header-right">

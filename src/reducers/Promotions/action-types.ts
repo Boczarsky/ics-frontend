@@ -1,0 +1,4 @@
+export const prefix = 'PROMOTIONS';
+export const FETCH_PROMOTIONS_START = `${prefix}/FETCH_PROMOTIONS_START`;
+export const FETCH_PROMOTIONS_SUCCESS = `${prefix}/FETCH_PROMOTIONS_SUCCESS`;
+export const FETCH_PROMOTIONS_FAIL = `${prefix}/FETCH_PROMOTIONS_FAIL`;

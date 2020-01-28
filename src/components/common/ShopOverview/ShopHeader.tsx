@@ -1,14 +1,17 @@
 import React from 'react';
 import './style.css';
 
-export interface ShopHeaderProps {
+export interface ShopHeaderData {
   logoUrl: string;
   name: string;
   address: string;
 }
+export interface ShopHeaderProps {
+  headerData: ShopHeaderData;
+}
 
 const ShopHeader = (props: ShopHeaderProps) => {
-  const {logoUrl, name, address} = props;
+  const {logoUrl, name, address} = props.headerData;
   return (
     <div className="shop-header">
       <div className="shop-header__logo">

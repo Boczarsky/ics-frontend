@@ -1,0 +1,12 @@
+.news-feed__news {
+  padding: 20px;
+}
+.news-feed__news > .shop-header {
+  margin-left: 40px;
+  cursor: pointer;
+}
+@media screen and (max-width: 800px) {
+  .news-feed__news > .shop-header {
+    margin-left: 0;
+  }
+}

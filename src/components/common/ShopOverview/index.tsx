@@ -17,7 +17,7 @@ const ShopOverview = (props: ShopOverviewProps) => {
   return (
     <div className="shop-overview" onClick={() => handleClick(data)}>
       <div className="shop-overview__left-wrapper">
-        <ShopHeader {...header}/>
+        <ShopHeader headerData={header}/>
         <div className="shop-overview__flavours">
           {flavours.map((flavour: any) => 
             <FlavourInfo {...flavour} key={randomKey()}/>

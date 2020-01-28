@@ -1,3 +1,6 @@
+import { newsFeed } from './NewsFeed/index';
+import { coupons } from './Coupons/index';
+import { promotions } from './Promotions/index';
 import { employees } from './Employees/index';
 import { combineReducers } from "redux";
 import { notifications } from './Notifications/index';
@@ -15,4 +18,7 @@ export default combineReducers({
   ownedShops,
   viewShop,
   employees,
+  promotions,
+  coupons,
+  newsFeed,
 });
