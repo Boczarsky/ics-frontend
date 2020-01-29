@@ -1,3 +1,4 @@
+import { auth } from './Auth/index';
 import { newsFeed } from './NewsFeed/index';
 import { coupons } from './Coupons/index';
 import { promotions } from './Promotions/index';
@@ -21,4 +22,5 @@ export default combineReducers({
   promotions,
   coupons,
   newsFeed,
+  auth,
 });

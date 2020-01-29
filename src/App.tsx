@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import './App.css';
 import Login from './components/Login';
 import PageNotFound from './components/PageNotFound';
@@ -15,8 +15,10 @@ import IcecreamShopForm from './components/IcecreamShopForm';
 import ModalContainer from './components/ModalContainer';
 import NotificationContainer from './components/NotificationContainer';
 import ViewIcecreamShop from './components/ViewIcecreamShop';
+import { useSelector } from 'react-redux';
 
 const App: React.FC = () => {
+  const isLoggedIn = useSelector((state: any) => state.auth.loggedIn);
   return (
     <div className="App">
       <ModalContainer/>
@@ -25,6 +27,7 @@ const App: React.FC = () => {
         <Switch>
           <Route path="/login" component={Login}/>
           <Route path="/register" component={Register}/>
+          {!isLoggedIn && <Redirect path="*" to="/login"/>}
           <Route path="/browse/:id" component={ViewIcecreamShop}/>
           <Route path="/browse" component={BrowseShops}/>
           <Route path="/my-account" component={MyAccount}/>
