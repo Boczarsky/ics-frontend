@@ -1,31 +1,23 @@
-import { fetchEmployeesStart, fetchEmployeesSuccess } from './actions';
+import { fetchEmployeesStart, fetchEmployeesSuccess, fetchEmployeesFail } from './actions';
+import { dataProvider } from '../../utils/requestBuilder';
+import { pushNotification } from '../Notifications/operations';
 export const fetchEmployees = () => (dispatch: Function, getState: Function) => {
   dispatch(fetchEmployeesStart());
-  const employees = [
-    {
-      id: 1,
-      firstName: 'Mark',
-      lastName: 'Ketting',
-      login: 'truemarkketing',
-      email: 'mark.ketting@gmail.com',
-      shopsAssigned: ['Cool Icecream Shop Name', 'Cool Icecream Shop Name II'],
-    },
-    {
-      id: 2,
-      firstName: 'Elen',
-      lastName: 'Onora',
-      login: 'theelenonora',
-      email: 'elen.onora@gmail.com',
-      shopsAssigned: ['Cool Icecream Shop Name'],
-    },
-    {
-      id: 3,
-      firstName: 'Iccy',
-      lastName: 'Creeam',
-      login: 'iceycreamy',
-      email: 'iccy.creeam@gmail.com',
-      shopsAssigned: ['Cool Icecream Shop Name II'],
-    }
-  ];
-  dispatch(fetchEmployeesSuccess(employees));
+  dataProvider().post('employees/list', { offset: 0, limit: 999 })
+    .then(response => {
+      const { result } = response.data;
+      const employees = result.map((employee: any) => ({
+        id: employee.user_id,
+        firstName: employee.first_name,
+        lastName: employee.last_name,
+        login: employee.login,
+        email: employee.email,
+        shopsAssigned: employee.workplaces,
+      }))
+      dispatch(fetchEmployeesSuccess(employees));
+    })
+    .catch(error => {
+      dispatch(pushNotification('Failed to fetch employees', 'error', 2000));
+      dispatch(fetchEmployeesFail());
+    });
 };

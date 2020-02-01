@@ -1,26 +1,32 @@
-import React, { MouseEvent, useState } from 'react';
+import React, { MouseEvent, useState, useEffect } from 'react';
 import './style.css';
 import { useDispatch } from 'react-redux';
 import { closeModal } from '../../../reducers/Modals/actions';
 import { pushNotification } from '../../../reducers/Notifications/operations';
 import BasicSelect from '../../common/BasicSelect';
 import randomKey from '../../../utils/randomKey';
+import { dataProvider } from '../../../utils/requestBuilder';
 
 export interface AssignEmployeeModalProps {
   data: any;
 }
 
 const AssignEmployeeModal = (props: AssignEmployeeModalProps) => {
-  const { data } = props;
-  const icecreamShops = [
-    {value: 0, name: ''},
-    {value: 1, name: 'Cool Icecream Shop'},
-    {value: 2, name: 'Cool Icecream Shop II'},
-    {value: 3, name: 'Cool Icecream Shop III'}
-  ];
+  const { employee } = props.data;
+  useEffect(() => {
+    dataProvider().get('employees/shopsToAssign')
+    .then(response => {
+      const shops = response.data.map((shop: any) => ({value: shop.icecream_shop_id, name: shop.name}))
+      setIcecreamShops(shops);
+    })
+    .catch(error => {
+      setIcecreamShops([]);
+    });
+  }, [employee]);
+  const [icecreamShops, setIcecreamShops] = useState<any>([]);
   const [selectedShop, setSelectedShop] = useState(0);
-  const [shopsAssigned, setShopsAssigned] = useState([1,2,3]);
-  const filteredOptions = icecreamShops.filter(option => !shopsAssigned.includes(option.value));
+  const [shopsAssigned, setShopsAssigned] = useState(employee.shopsAssigned.map((shop: any) => shop.id));
+  const filteredOptions = icecreamShops.filter((option: any) => !shopsAssigned.includes(option.value));
   const dispatch = useDispatch();
   const closeModalWindow = (event: MouseEvent<HTMLDivElement>) => {
     const target: any = event.target;
@@ -29,7 +35,7 @@ const AssignEmployeeModal = (props: AssignEmployeeModalProps) => {
     }
   }
   const handleAssignEmployee = () => {
-    const shop = icecreamShops.find(option => +option.value === +selectedShop);
+    const shop = icecreamShops.find((option: any) => +option.value === +selectedShop);
     if (shop && shop.name) {
       setSelectedShop(0);
       setShopsAssigned([...shopsAssigned, shop.value]);
@@ -37,14 +43,14 @@ const AssignEmployeeModal = (props: AssignEmployeeModalProps) => {
     }
   }
   const handleUnassignEmployee = (shopId: number) => () => {
-    setShopsAssigned(shopsAssigned.filter(assignedShopId => assignedShopId !== shopId));
+    setShopsAssigned(shopsAssigned.filter((assignedShopId: number) => assignedShopId !== shopId));
     dispatch(pushNotification('Employee unassigned', 'normal', 2000));
   }
   return (
     <div className="modal-overlay" onClick={closeModalWindow}>
       <div className="modal-wrapper assign-employee-modal">
-        {shopsAssigned.map(shopId => {
-          const shop = icecreamShops.find(option => +option.value === +shopId);
+        {Boolean(icecreamShops.length) && shopsAssigned.map((shopId: number) => {
+          const shop = icecreamShops.find((option: any) => +option.value === +shopId);
           if (shop && shop.name) {
             return <div key={randomKey()} className="assign-employee-modal__assigned-shop">
               <div>{shop.name}</div>

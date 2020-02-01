@@ -1,20 +1,26 @@
 import { SET_USER_DATA, CLEAR_USER_DATA } from './action-types';
 export interface AuthState {
   loggedIn: boolean;
-  login: string;
+  userId: number;
+  managerId: number;
   userType: number;
+  login: string;
   firstName: string;
   lastName: string;
-  logoUrl: string;
+  email: string;
+  avatarFileName: string;
 }
 
 const initialState: AuthState = {
   loggedIn: false,
-  login: '',
+  userId: -1,
+  managerId: -1,
   userType: -1,
+  login: '',
   firstName: '',
   lastName: '',
-  logoUrl: '',
+  email: '',
+  avatarFileName: '',
 };
 
 function checkInLocalStorage(initialState: any) {
@@ -35,11 +41,14 @@ export const auth = (state: AuthState = checkInLocalStorage(initialState), actio
       localStorage.removeItem('userData');
       return {
         loggedIn: false,
-        login: '',
+        userId: -1,
+        managerId: -1,
         userType: -1,
+        login: '',
         firstName: '',
         lastName: '',
-        logoUrl: '',
+        email: '',
+        avatarFileName: '',
       };
     default:
       return state;

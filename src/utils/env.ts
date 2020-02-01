@@ -1,0 +1,1 @@
+export const REST_URL = process.env.REST_URL || 'http://localhost:3000/';

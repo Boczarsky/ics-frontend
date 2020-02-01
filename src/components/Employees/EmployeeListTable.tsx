@@ -10,7 +10,7 @@ export interface EmployeeListTableProps {
     lastName: string;
     login: string;
     email: string;
-    shopsAssigned: string[];
+    shopsAssigned: {id: number, name: string}[];
   }[]
 }
 
@@ -20,8 +20,8 @@ const EmployeeListTable = (props: EmployeeListTableProps) => {
   const handleOpenEditModal = (employee: any) => () => {
     dispatch(openModal('employeeForm', employee));
   };
-  const handleOpenAssignModal = (employeeId: number) => () => {
-    dispatch(openModal('assignEmployee', { employeeId }));
+  const handleOpenAssignModal = (employee: any) => () => {
+    dispatch(openModal('assignEmployee', { employee }));
   };
   return (
     <div className="employee-list-table">
@@ -42,9 +42,9 @@ const EmployeeListTable = (props: EmployeeListTableProps) => {
             <td>{employee.lastName}</td>
             <td>{employee.login}</td>
             <td>{employee.email}</td>
-            <td><div className="f-col-center">{employee.shopsAssigned.map(icecreamShop => (<span>{icecreamShop}</span>))}</div></td>
+            <td><div className="f-col-center">{employee.shopsAssigned.map(icecreamShop => (<span>{icecreamShop.name}</span>))}</div></td>
             <td><div className="clickable p-font b-button" onClick={handleOpenEditModal(employee)}>Edit</div></td>
-            <td><div className="clickable p-font b-button" onClick={handleOpenAssignModal(employee.id)}>Assign</div></td>
+            <td><div className="clickable p-font b-button" onClick={handleOpenAssignModal(employee)}>Assign</div></td>
             <td><div className="clickable p-font b-button b-button--red">Delete</div></td>
           </tr>
           ))}

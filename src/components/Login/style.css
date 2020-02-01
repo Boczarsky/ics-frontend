@@ -17,6 +17,10 @@
 .login__form > .basic-input {
   width: 100%;
 }
+.login__form:invalid > .login__submit {
+  cursor: not-allowed;
+  background-color: rgb(76, 90, 95);
+}
 .login__submit {
   margin: 20px 0 10px 0;
 }

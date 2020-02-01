@@ -6,6 +6,7 @@ import useOutsideClick from '../../../utils/useOutsideClick';
 import { useRouteMatch, useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { openModal } from '../../../reducers/Modals/actions';
+import { clearUserData } from '../../../reducers/Auth/actions';
 
 const AppMenu = () => {
   const match = useRouteMatch();
@@ -29,6 +30,7 @@ const AppMenu = () => {
     setOpen(false);
   }
   const handleLogout = () => {
+    dispatch(clearUserData());
     history.push('/login');
   }
   return (
