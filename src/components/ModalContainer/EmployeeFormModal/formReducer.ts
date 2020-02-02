@@ -6,6 +6,7 @@ export interface EmployeeFormState {
   password: {value: string, error: string};
   rePassword: {value: string, error: string};
   formValid: boolean;
+  edit: boolean;
 }
 
 export const initialState: EmployeeFormState = {
@@ -16,9 +17,34 @@ export const initialState: EmployeeFormState = {
   password: {value: '', error: ''},
   rePassword: {value: '', error: ''},
   formValid: false,
+  edit: false,
 };
 
 function validateForm(state: EmployeeFormState) {
+  if (!state.login.value) {
+    state.login.error = 'This field is required';
+    state.formValid = false;
+  }
+  if (!state.email.value) {
+    state.email.error = 'This field is required';
+    state.formValid = false;
+  }
+  if (!state.edit && !state.password.value) {
+    state.password.error = 'This field is required';
+    state.formValid = false;
+  }
+  if (state.rePassword.value !== state.password.value) {
+    state.rePassword.error = 'Password and Re-password must be the same';
+    state.formValid = false;
+  }
+  if (!state.firstName.value) {
+    state.firstName.error = 'This field is required';
+    state.formValid = false;
+  }
+  if (!state.lastName.value) {
+    state.lastName.error = 'This field is required';
+    state.formValid = false;
+  }
   return state;
 }
 
@@ -35,6 +61,7 @@ function setInitialValues(data: any) {
   password: createInputObject(),
   rePassword: createInputObject(),
   formValid: true,
+  edit: true,
  }
 }
 

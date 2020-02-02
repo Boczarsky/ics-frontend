@@ -2,12 +2,24 @@ import React, { useState, useEffect } from 'react';
 import './style.css';
 import randomKey from '../../../utils/randomKey';
 import { ReactComponent as UploadIcon } from '../../../icons/upload.svg';
+import { REST_URL } from '../../../utils/env';
+import { dataProvider } from '../../../utils/requestBuilder';
+import { useDispatch } from 'react-redux';
+import { pushNotification } from '../../../reducers/Notifications/operations';
 
 export interface UploadImageProps {
   className?: string;
   initialUrl?: string;
   onFileUploaded: (imageUrl: string) => any;
 }
+
+export const generateUrl = (fileName: string) => {
+  const session = localStorage.getItem('access_token');
+  if (!fileName || !session) {
+    return '';
+  }
+  return `${REST_URL}files/${session}/${fileName}`
+};
 
 const UploadImage = (props: UploadImageProps) => {
   const {className, initialUrl, onFileUploaded} = props; 
@@ -17,13 +29,20 @@ const UploadImage = (props: UploadImageProps) => {
       setImageUrl(initialUrl);
     }
   }, [initialUrl, imageUrl]);
+  const dispatch = useDispatch();
   const handleFileUpload = (event: any) => {
-    let url = ''
     if (event.target.files[0]) {
-      url = URL.createObjectURL(event.target.files[0]);
+      const data = new FormData();
+      data.append('file', event.target.files[0]);
+      dataProvider().post('files/upload', data)
+        .then(response => {
+          const { fileName } = response.data;
+          onFileUploaded(fileName);
+        })
+        .catch(() => {
+          dispatch(pushNotification('Error during file upload', 'error', 2000));
+        });
     }
-    setImageUrl(url);
-    onFileUploaded(url);
   };
   const uploadImageButtonId = randomKey();
   const getMobileClass = () => {

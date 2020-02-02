@@ -4,7 +4,7 @@ import './style.css';
 import { useDispatch } from 'react-redux';
 import { closeModal } from '../../../reducers/Modals/actions';
 import { pushNotification } from '../../../reducers/Notifications/operations';
-import UploadImage from '../../common/UploadImage';
+import UploadImage, { generateUrl } from '../../common/UploadImage';
 import { reducer, initialState, setValue, setInitial } from './formReducer';
 
 export interface PostFormModalProps {
@@ -31,7 +31,7 @@ const PostFormModal = (props: PostFormModalProps) => {
   return (
     <div className="modal-overlay" onClick={closeModalWindow}>
       <div className="modal-wrapper post-form-modal">
-        <UploadImage className="post-form-modal__upload-image" initialUrl={state.imageUrl.value} onFileUploaded={value => formDispatch(setValue('imageUrl', value))}/>
+        <UploadImage className="post-form-modal__upload-image" initialUrl={generateUrl(state.imageUrl.value)} onFileUploaded={value => formDispatch(setValue('imageUrl', value))}/>
         <BasicInput inputProps={{id:'post-title', value: state.title.value}} label="Title" handleChange={value => formDispatch(setValue('title', value))}/>
         <BasicInput inputProps={{id:'post-content', value: state.content.value, rows: 10}} label="Content" textarea handleChange={value => formDispatch(setValue('content', value))}/>
         <div className="b-button p-font clickable post-form-modal__button" onClick={handlePostForm}>{data.id ? 'Edit post' : 'Add post'}</div>

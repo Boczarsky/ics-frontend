@@ -6,6 +6,7 @@ import { pushNotification } from '../../../reducers/Notifications/operations';
 import BasicSelect from '../../common/BasicSelect';
 import randomKey from '../../../utils/randomKey';
 import { dataProvider } from '../../../utils/requestBuilder';
+import { fetchEmployees } from '../../../reducers/Employees/operations';
 
 export interface AssignEmployeeModalProps {
   data: any;
@@ -36,15 +37,32 @@ const AssignEmployeeModal = (props: AssignEmployeeModalProps) => {
   }
   const handleAssignEmployee = () => {
     const shop = icecreamShops.find((option: any) => +option.value === +selectedShop);
-    if (shop && shop.name) {
-      setSelectedShop(0);
-      setShopsAssigned([...shopsAssigned, shop.value]);
-      dispatch(pushNotification(`Employee assigned to: ${shop.name}`, 'normal', 2000));
+    if (shop) {
+      const requestData = { employeeId: employee.id, icecreamShopId: shop.value }
+      dataProvider().post('employees/assign', requestData)
+        .then((response: any) => {
+          setSelectedShop(0);
+          setShopsAssigned([...shopsAssigned, shop.value]);
+          dispatch(pushNotification(`Employee assigned to: ${shop.name}`, 'normal', 2000));
+          dispatch(fetchEmployees());
+        })
+        .catch((error: any) => {
+          setSelectedShop(0);
+          dispatch(pushNotification(`Error during assignment`, 'error', 2000));
+        });
     }
   }
   const handleUnassignEmployee = (shopId: number) => () => {
-    setShopsAssigned(shopsAssigned.filter((assignedShopId: number) => assignedShopId !== shopId));
-    dispatch(pushNotification('Employee unassigned', 'normal', 2000));
+    const requestData = { employeeId: employee.id, icecreamShopId: shopId }
+    dataProvider().post('employees/unassign', requestData)
+      .then((request: any) => {
+        setShopsAssigned(shopsAssigned.filter((assignedShopId: number) => assignedShopId !== shopId));
+        dispatch(pushNotification('Employee unassigned', 'normal', 2000));
+        dispatch(fetchEmployees());
+      })
+      .catch((error: any) => {
+        dispatch(pushNotification(`Error during unassignment`, 'error', 2000));
+      });
   }
   return (
     <div className="modal-overlay" onClick={closeModalWindow}>
@@ -60,7 +78,7 @@ const AssignEmployeeModal = (props: AssignEmployeeModalProps) => {
           return undefined;
         })}
         <div className="assign-employee-modal__assign">
-          <BasicSelect selectProps={{id: 'assign-employee-select', value: selectedShop}} handleChange={setSelectedShop} options={filteredOptions} nameKey="name" valueKey="value"/>
+          <BasicSelect selectProps={{id: 'assign-employee-select', value: selectedShop}} handleChange={setSelectedShop} options={filteredOptions} nameKey="name" valueKey="value" emptyOption/>
           <div className="clickable p-font b-button assign-employee-modal__assign-button" onClick={handleAssignEmployee}>Assign</div>
         </div>
       </div>

@@ -1,8 +1,8 @@
 import randomKey from "../../utils/randomKey";
 
 export interface CreateIcecreamShopFormState {
-  logoUrl: {value: string, error: string};
-  backgroundUrl: {value: string, error: string};
+  logoFileName: {value: string, error: string};
+  backgroundFileName: {value: string, error: string};
   name: {value: string, error: string};
   description: {value: string, error: string};
   street: {value: string, error: string};
@@ -11,7 +11,7 @@ export interface CreateIcecreamShopFormState {
   googleMapLink: {value: string, error: string};
   openDays: {
     uniqueKey: string;
-    openFrom: {value: string, error: string},
+    from: {value: string, error: string},
     openTo: {value: string, error: string},
     hourFrom: {value: string, error: string},
     hourTo: {value: string, error: string}
@@ -25,11 +25,12 @@ export interface CreateIcecreamShopFormState {
     hourTo: {value: string, error: string}
   }[]
   formValid: boolean;
+  touched: boolean;
 }
 
 export const initialState: CreateIcecreamShopFormState = {
-  logoUrl: {value: '', error: ''},
-  backgroundUrl: {value: '', error: ''},
+  logoFileName: {value: '', error: ''},
+  backgroundFileName: {value: '', error: ''},
   name: {value: '', error: ''},
   description: {value: '', error: ''},
   street: {value: '', error: ''},
@@ -39,13 +40,14 @@ export const initialState: CreateIcecreamShopFormState = {
   openDays: [],
   specialDays: [],
   formValid: false,
+  touched: false,
 };
 
 const emptyDynamicField = {
   openDays: {
     uniqueKey: '',
-    openFrom: {value: '1', error: ''},
-    openTo: {value: '1', error: ''},
+    from: {value: '1', error: ''},
+    to: {value: '1', error: ''},
     hourFrom: {value: '', error: ''},
     hourTo: {value: '', error: ''}
   },
@@ -60,13 +62,35 @@ const emptyDynamicField = {
 }
 
 function validateForm(state: CreateIcecreamShopFormState) {
+  state.touched = true;
+  if (!state.name.value) {
+    state.name.error = 'This field is required';
+    state.formValid = false;
+  }
+  if (!state.description.value) {
+    state.description.error = 'This field is required';
+    state.formValid = false;
+  }
+  if (!state.street.value) {
+    state.street.error = 'This field is required';
+    state.formValid = false;
+  }
+  if (!state.city.value) {
+    state.city.error = 'This field is required';
+    state.formValid = false;
+  }
+  if (!state.postalCode.value) {
+    state.postalCode.error = 'This field is required';
+    state.formValid = false;
+  }
   return state;
 }
 
 function setInitialValues(data: any) {
+  console.log(data);
  return {
-  logoUrl: {value: data.logoUrl || '', error: ''},
-  backgroundUrl: {value: data.backgroundUrl || '', error: ''},
+  logoFileName: {value: data.logoFileName || '', error: ''},
+  backgroundFileName: {value: data.backgroundFileName || '', error: ''},
   name: {value: data.name || '', error: ''},
   description: {value: data.description || '', error: ''},
   street: {value: data.street || '', error: ''},
@@ -77,8 +101,8 @@ function setInitialValues(data: any) {
     (openDay: any) => (
       {
         uniqueKey: randomKey(),
-        openFrom: {value: openDay.openFrom || '', error: ''},
-        openTo: {value: openDay.openTo || '', error: ''},
+        from: {value: openDay.from || '', error: ''},
+        to: {value: openDay.to || '', error: ''},
         hourFrom: {value: openDay.hourFrom || '', error: ''},
         hourTo: {value: openDay.hourTo || '', error: ''}
       }
@@ -97,6 +121,7 @@ function setInitialValues(data: any) {
     )
   ) : [],
   formValid: true,
+  touched: false,
  }
 }
 

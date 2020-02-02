@@ -6,3 +6,7 @@
 .employee-form-modal > .basic-input {
   width: 100%;
 }
+.employee-form-modal__button.disabled {
+  background: #4C5A5F;
+  cursor: not-allowed;
+}

@@ -25,8 +25,9 @@ body {
 .b-button--red {
   background-color: rgb(182, 32, 32);
 }
-.b-button:disabled {
+.b-button:disabled, .b-button.disabled {
   background-color: rgb(76, 90, 95);
+  cursor: not-allowed;
 }
 .b-button:hover {
   box-shadow: 1px 2px 6px 1px rgba(0,0,0,0.4);
