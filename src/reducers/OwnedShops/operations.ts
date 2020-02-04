@@ -16,7 +16,7 @@ export const fetchOwnedShops = (uType: number, userId: number) => (dispatch: Fun
       dispatch(fetchIcecreamShopsSuccess(response.data.result.map((ics: any) => ({
         id: ics.icecream_shop_id,
         name: ics.name,
-        logoUrl: ics.logo_file_name && generateUrl(ics.logo_file_name),
+        logoUrl: generateUrl(ics.logo_file_name),
         address: `${ics.street}, ${ics.postal_code} ${ics.city}`,
         flavours: [],
         follows: Number(ics.follows),

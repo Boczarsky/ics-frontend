@@ -9,11 +9,11 @@ import ShopPosts from './ShopPosts';
 import { useHistory, useRouteMatch } from 'react-router-dom';
 import { fetchShop } from '../../reducers/ViewShop/operations';
 import { useSelector, useDispatch } from 'react-redux';
+import { generateUrl } from '../common/UploadImage';
 
 const ViewIcecreamShop = () => {
-  const id = useSelector((state: any) => state.viewShop.data.id);
-  const logoUrl = useSelector((state: any) => state.viewShop.data.logoUrl);
-  const backgroundUrl = useSelector((state: any) => state.viewShop.data.backgroundUrl);
+  const logoUrl = useSelector((state: any) => generateUrl(state.viewShop.data.logoFileName));
+  const backgroundUrl = useSelector((state: any) => generateUrl(state.viewShop.data.backgroundFileName));
   const description = useSelector((state: any) => state.viewShop.data.description);
   const street = useSelector((state: any) => state.viewShop.data.street);
   const city = useSelector((state: any) => state.viewShop.data.city);
@@ -27,6 +27,7 @@ const ViewIcecreamShop = () => {
   const history = useHistory();
   const match = useRouteMatch<any>();
   const dispatch = useDispatch();
+  const id = Number(match.params.id);
 
   useEffect(() => {
     if (match.params.id) {

@@ -8,7 +8,7 @@ export interface ShopInfoProps {
   city: string;
   postalCode: string;
   googleMapLink: string;
-  openDays: {openFrom: string, openTo: string, hourFrom: string, hourTo: string}[]
+  openDays: {from: string, to: string, hourFrom: string, hourTo: string}[]
   specialDays: {closed: number, from: string, to: string, hourFrom: string, hourTo: string}[]
 }
 
@@ -31,11 +31,11 @@ const ShopInfo = (props: ShopInfoProps) => {
           <div className="shop-info__open-days-wrapper">
             {openDays.map(data => (
               <div key={randomKey()} className="shop-info__open-days-row">
-                {data.openFrom !== data.openTo ? <>
-                  <span>{days[data.openFrom]} - {days[data.openTo]}</span>
+                {data.from !== data.to ? <>
+                  <span>{days[data.from]} - {days[data.to]}</span>
                   <span>{data.hourFrom} - {data.hourTo}</span>
                 </> : <>
-                  <span>{days[data.openFrom]}</span>
+                  <span>{days[data.from]}</span>
                   <span>{data.hourFrom} - {data.hourTo}</span>
                 </>
                 }
@@ -74,9 +74,9 @@ const ShopInfo = (props: ShopInfoProps) => {
           </div>
         </div>}
       </div>
-      <div className="shop-info__map-wrapper">
+      {googleMapLink && <div className="shop-info__map-wrapper">
         <iframe className="shop-info__embeded-map" src={googleMapLink} title="google maps preview"/>
-      </div>
+      </div>}
     </div>
   );
 };

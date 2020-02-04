@@ -98,6 +98,9 @@
   background-color: #4b889f;
   color: white;
 }
+.icecream-flavour__composition.out-of-stock {
+  background-color: #949494;
+}
 .icecream-flavour__tags {
   padding: 10px;
   display: flex;

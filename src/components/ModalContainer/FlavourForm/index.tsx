@@ -6,6 +6,8 @@ import { pushNotification } from '../../../reducers/Notifications/operations';
 import BasicInput from '../../common/BasicInput';
 import TagsInput from '../../common/TagsInput';
 import { reducer, initialState, setValue, setInitial } from './formReducer';
+import { dataProvider } from '../../../utils/requestBuilder';
+import { fetchShop } from '../../../reducers/ViewShop/operations';
 
 export interface FlavourFormModalProps {
   data: any;
@@ -25,11 +27,40 @@ const FlavourFormModal = (props: FlavourFormModalProps) => {
     }
   }
   const handleFlavourForm = () => {
-    dispatch(closeModal('flavourForm'));
     if (data.id) {
-      dispatch(pushNotification('Flavour edited successfuly', 'normal', 2000));
+      const requestData = {
+        icecreamShopId: data.icecreamShopId,
+        flavourId: data.id,
+        name: state.name.value,
+        composition: state.composition.value,
+        hashtags: state.tags.value,
+      }
+      dataProvider().post('flavours/edit', requestData)
+        .then(() => {
+          dispatch(pushNotification('Flavour edited successfuly', 'normal', 2000));
+          dispatch(closeModal('flavourForm'));
+          dispatch(fetchShop(data.icecreamShopId));
+        })
+        .catch(() => {
+          dispatch(pushNotification('Error during edit', 'error', 2000));
+        })
     } else {
-      dispatch(pushNotification('Flavour created successfuly', 'normal', 2000));
+      const requestData = {
+        icecreamShopId: data.icecreamShopId,
+        name: state.name.value,
+        composition: state.composition.value,
+        status: 3,
+        hashtags: state.tags.value,
+      }
+      dataProvider().post('flavours/add', requestData)
+        .then(() => {
+          dispatch(pushNotification('Flavour created successfuly', 'normal', 2000));
+          dispatch(closeModal('flavourForm'));
+          dispatch(fetchShop(data.icecreamShopId));
+        })
+        .catch(() => {
+          dispatch(pushNotification('Error during create', 'error', 2000));
+        })
     }
   }
   return (

@@ -26,10 +26,10 @@ const IcecreamShops = () => {
   }, [dispatch, uType, uId])
   
   const history = useHistory();
-  const handleOwnedClick = (data: any) => {
+  const handleEditClick = (data: any) => {
     history.push(`/icecream-shops/edit/${data.id}`);
   };
-  const handleFavoriteClick = (data: any) => {
+  const handleBrowseClick = (data: any) => {
     history.push(`/browse/${data.id}`);
   };
 
@@ -41,15 +41,15 @@ const IcecreamShops = () => {
     >
       <div className="icecream-shops">
         {userType.client === uType && <div className="icecream-shops__favorite-list">
-          {favorites.map((favoriteShop: any) => <ShopOverview key={`favorite-${favoriteShop.id}`} data={favoriteShop} handleClick={handleFavoriteClick}/>)}
+          {favorites.map((favoriteShop: any) => <ShopOverview key={`favorite-${favoriteShop.id}`} data={favoriteShop} handleClick={handleBrowseClick}/>)}
         </div>}
         <div className="icecream-shops__owned-list">
-          {userType.manager === uType && <>
-          <Link className="icecream-shops__create" to="/icecream-shops/create"><div className="b-button clickable">Create icecream shop</div></Link>}
-          {owned.map((ownedShop: any) => <ShopOverview key={`owned-${ownedShop.id}`} data={ownedShop} handleClick={handleOwnedClick}/>)}
-          </>}
-          {userType.employee === uType && <>
-          {owned.map((ownedShop: any) => <ShopOverview key={`owned-${ownedShop.id}`} data={ownedShop} handleClick={handleFavoriteClick}/>)}
+          {[userType.manager, userType.employee].includes(uType) && <>
+          {userType.manager === uType && <Link className="icecream-shops__create" to="/icecream-shops/create"><div className="b-button clickable">Create icecream shop</div></Link>}
+          {owned.map((ownedShop: any) => <div className="icecream-shops__overview-wrapper">
+            <ShopOverview key={`owned-${ownedShop.id}`} data={ownedShop} handleClick={handleBrowseClick}/>
+            {userType.manager === uType && <div className="b-button clickable icecream-shops__edit-button" onClick={() => handleEditClick(ownedShop)}>Edit</div>}
+          </div>)}
           </>}
         </div>
       </div>

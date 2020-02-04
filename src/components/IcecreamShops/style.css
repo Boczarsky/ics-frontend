@@ -12,3 +12,13 @@
   align-self: flex-start;
   margin: 0 0 20px 20px;
 }
+.icecream-shops__overview-wrapper {
+  display: flex;
+  align-items: center;
+}
+.icecream-shops__overview-wrapper > div:first-child {
+  flex: 1;
+}
+.icecream-shops__edit-button {
+  margin-bottom: 20px;
+}
