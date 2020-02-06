@@ -1,37 +1,69 @@
-import React, { KeyboardEvent, FormEvent } from 'react';
+import React, { KeyboardEvent, FormEvent, useEffect, useState } from 'react';
 import randomKey from '../../utils/randomKey';
+import { dataProvider } from '../../utils/requestBuilder';
+import { useDispatch } from 'react-redux';
+import { pushNotification } from '../../reducers/Notifications/operations';
+import { generateUrl } from '../common/UploadImage';
 
 export interface ShopOpinionsProps {
   icecreamShopId: number;
-  opinions: {
-    id: number,
-    avatarUrl: string,
-    username: string,
-    grade: number,
-    opinion: string,
-    comments: {
-      id: number,
-      avatarUrl: string,
-      username: string,
-      content: string
-    }[]
-  }[]
 }
 
 const ShopOpinions = (props: ShopOpinionsProps) => {
-  const { opinions = [] } = props;
+  const { icecreamShopId } = props;
+  const [opinions, setOpinions] = useState<any[]>([]);
+  const dispatch = useDispatch();
+  const fetchOpinions = () => {
+    dataProvider().post('opinions/list', { offset: 0, limit: 5, icecreamShopId })
+      .then((response: any) => {
+        setOpinions(response.data.result.map((opinion: any) => (
+          {
+            id: opinion.opinion_id,
+            userId: opinion.user_id,
+            avatarUrl: generateUrl(opinion.avatar_file_name),
+            username: opinion.login,
+            grade: opinion.grade,
+            opinion: opinion.content,
+            comments: opinion.comments.map((comment: any) => ({
+              id: comment.comment_id,
+              avatarUrl: comment.shop_name ? generateUrl(comment.shop_logo) : generateUrl(comment.avatar),
+              username: comment.shop_name ? comment.shop_name : `${comment.first_name || ''} ${comment.last_name || ''}`.trim() || comment.username,
+              content: comment.content,
+            })),
+          }
+        )));
+      })
+  }
   const handleAddComment = (opinionId: number) => (event: KeyboardEvent<HTMLInputElement>) => {
     if (event.keyCode === 13) {
       const input = event.target as HTMLInputElement;
-      console.log(opinionId, input.value);
-      input.value = '';
+      dataProvider().post('opinions/addComment', { opinionId, content: input.value })
+      .then(() => {
+        dispatch(pushNotification('Comment added', 'normal', 2000));
+        input.value = '';
+        fetchOpinions();
+      })
+      .catch(() => {
+        dispatch(pushNotification('Error during adding comment', 'error', 2000));
+      })
     }
   }
+  useEffect(() => {
+    fetchOpinions();
+  }, [icecreamShopId]);
   const handleSubmitOpinion = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const form = event.target as HTMLFormElement;
-    console.log(form.opinion.value, form.grade.value);
-    form.reset();
+    const [content, grade] = [form.opinion.value, Number(form.grade.value)];
+    dataProvider().post('opinions/add', { content, grade, icecreamShopId })
+      .then(() => {
+        dispatch(pushNotification('Opinion added', 'normal', 2000));
+        form.reset();
+        fetchOpinions();
+      })
+      .catch(() => {
+        dispatch(pushNotification('Error during creating opinion', 'error', 2000));
+      })
   }
   return (
     <div className="shop-opinions">
@@ -53,7 +85,7 @@ const ShopOpinions = (props: ShopOpinionsProps) => {
             <div className="shop-opinions__opinion-content">
               <div className="shop-opinions__opinion-text">{opinion.opinion}</div>
               <div className="shop-opinions__opinion-comments">
-                {opinion.comments.map(comment => (
+                {opinion.comments.map((comment: any) => (
                   <div key={randomKey()} className="shop-opinions__comment">
                     <div className="shop-opinions__comment-header">
                       <div className="shop-opinions__avatar">

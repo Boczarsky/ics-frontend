@@ -31,6 +31,9 @@
   align-items: center;
 }
 .shop-header__logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   min-width: 80px;
   height: 80px;
   width: 80px;
@@ -39,7 +42,7 @@
   background-color: #AAAAAA;
 }
 .shop-header__logo > img {
-  height: 100%;
+  width: 100%;
 }
 .shop-header__info {
   margin-left: 20px;

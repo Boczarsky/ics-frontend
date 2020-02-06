@@ -74,7 +74,6 @@ const ViewIcecreamShop = () => {
         <LabeledSection label="Opinions">
           <ShopOpinions
             icecreamShopId={id}
-            opinions={opinions || []}
           />
         </LabeledSection>
         <LabeledSection label="Posts">
