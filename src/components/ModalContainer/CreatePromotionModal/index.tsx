@@ -20,7 +20,7 @@ const CreatePromotionModal = () => {
     dispatch(pushNotification('Promotion created successfuly', 'normal', 2000));
   }
   return (
-    <div className="modal-overlay" onClick={closeModalWindow}>
+    <div className="modal-overlay" onMouseDown={closeModalWindow}>
       <div className="modal-wrapper create-promotion-modal">
         <BasicInput inputProps={{id:'promotion-info', rows: 5, value: state.info.value}} label="Info" textarea handleChange={value => formDispatch(setValue('info', value))}/>
         <BasicInput inputProps={{id:'promotion-prize', value: state.prize.value}} label="Prize" handleChange={value => formDispatch(setValue('prize', value))}/>

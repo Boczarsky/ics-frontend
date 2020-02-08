@@ -41,7 +41,7 @@ const AssignShopModal = (props: AssignShopModalProps) => {
     dispatch(pushNotification('Shop unassigned', 'normal', 2000));
   }
   return (
-    <div className="modal-overlay" onClick={closeModalWindow}>
+    <div className="modal-overlay" onMouseDown={closeModalWindow}>
       <div className="modal-wrapper assign-shop-modal">
         {shopsAssigned.map(shopId => {
           const shop = icecreamShops.find(option => +option.value === +shopId);

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import AppLayout from '../common/AppLayout';
 import './style.css';
 import LabeledSection from '../common/LabeledSection';
@@ -10,6 +10,9 @@ import { useHistory, useRouteMatch } from 'react-router-dom';
 import { fetchShop } from '../../reducers/ViewShop/operations';
 import { useSelector, useDispatch } from 'react-redux';
 import { generateUrl } from '../common/UploadImage';
+import userType from '../../enums/userType';
+import { dataProvider } from '../../utils/requestBuilder';
+import { pushNotification } from '../../reducers/Notifications/operations';
 
 const ViewIcecreamShop = () => {
   const logoUrl = useSelector((state: any) => generateUrl(state.viewShop.data.logoFileName));
@@ -21,19 +24,46 @@ const ViewIcecreamShop = () => {
   const googleMapLink = useSelector((state: any) => state.viewShop.data.googleMapLink);
   const openDays = useSelector((state: any) => state.viewShop.data.openDays);
   const specialDays = useSelector((state: any) => state.viewShop.data.specialDays);
-  const opinions = useSelector((state: any) => state.viewShop.data.opinions);
-  const posts = useSelector((state: any) => state.viewShop.data.posts);
-  const flavours = useSelector((state: any) => state.viewShop.data.flavours)
+  const flavours = useSelector((state: any) => state.viewShop.data.flavours);
+  const uType = useSelector((state: any) => state.auth.userType);
+  const isFollowing = useSelector((state: any) => state.viewShop.data.following);
+  const followers = useSelector((state: any) => state.viewShop.data.followers);
+  const rated = useSelector((state: any) => state.viewShop.data.rated);
   const history = useHistory();
   const match = useRouteMatch<any>();
   const dispatch = useDispatch();
   const id = Number(match.params.id);
+  const [isFavorite, setFavorite] = useState(false);
+
+  useEffect(() => {
+    setFavorite(isFollowing);
+  }, [isFollowing]);
 
   useEffect(() => {
     if (match.params.id) {
       dispatch(fetchShop(match.params.id))
     }
-  }, [match.params.id, dispatch])
+  }, [match.params.id, dispatch]);
+
+  const handleAddToFavorite = () => {
+    dataProvider().post('icecream-shops/addToFavorite', { icecreamShopId: id })
+    .then(() => {
+      setFavorite(true);
+    })
+    .catch(() => {
+      dispatch(pushNotification('Adding to favorite failed', 'error', 2000));
+    })
+  };
+
+  const handleRemoveFromFavorite = () => {
+    dataProvider().post('icecream-shops/removeFromFavorite', { icecreamShopId: id })
+    .then(() => {
+      setFavorite(false);
+    })
+    .catch(() => {
+      dispatch(pushNotification('Removing from favorite failed', 'error', 2000));
+    })
+  };
 
   return (
     <AppLayout
@@ -50,7 +80,17 @@ const ViewIcecreamShop = () => {
           </div>
         </div>
         <div className="view-icecream-shop__favorite">
-          <div className="b-button p-font clickable">Add to favorite</div>
+          {uType === userType.client && (
+            <div
+              className="b-button p-font clickable"
+              onClick={isFavorite ? handleRemoveFromFavorite : handleAddToFavorite}
+            >
+              {isFavorite ? 'Remove from favorite' : 'Add to favorite'}
+            </div>
+          )}
+        </div>
+        <div className="view-icecream-shop__favorite-counter">
+          <span role="img" aria-label="favorite">💛</span><span>{followers || '0'}</span>
         </div>
         <div className="view-icecream-shop__description-wrapper">
           <div className="view-icecream-shop__description">{description}</div>
@@ -74,11 +114,11 @@ const ViewIcecreamShop = () => {
         <LabeledSection label="Opinions">
           <ShopOpinions
             icecreamShopId={id}
+            rated={rated}
           />
         </LabeledSection>
         <LabeledSection label="Posts">
           <ShopPosts
-            posts={posts || []}
             icecreamShopId={id}
           />
         </LabeledSection>

@@ -65,7 +65,7 @@ const AssignEmployeeModal = (props: AssignEmployeeModalProps) => {
       });
   }
   return (
-    <div className="modal-overlay" onClick={closeModalWindow}>
+    <div className="modal-overlay" onMouseDown={closeModalWindow}>
       <div className="modal-wrapper assign-employee-modal">
         {Boolean(icecreamShops.length) && shopsAssigned.map((shopId: number) => {
           const shop = icecreamShops.find((option: any) => +option.value === +shopId);

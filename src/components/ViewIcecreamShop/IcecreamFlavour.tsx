@@ -5,7 +5,7 @@ import { ReactComponent as BlockIcon } from '../../icons/block.svg';
 import { ReactComponent as DeleteIcon } from '../../icons/delete.svg';
 import { ReactComponent as EyeOffIcon } from '../../icons/eye-off.svg';
 import { ReactComponent as EyeOnIcon } from '../../icons/eye-on.svg';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { openModal } from '../../reducers/Modals/actions';
 import { useRouteMatch } from 'react-router-dom';
 import { fetchShop } from '../../reducers/ViewShop/operations';
@@ -16,7 +16,7 @@ export interface IcecreamFlavourProps {
   flavourData: {
     id: number;
     name: string,
-    reactions: number[],
+    reactions: Object[],
     composition: string;
     tags: string[];
     status: number;
@@ -29,6 +29,7 @@ const IcecreamFlavour = (props: IcecreamFlavourProps) => {
   const dispatch = useDispatch();
   const match = useRouteMatch<any>();
   const icecreamShopId = Number(match.params.id);
+  const uId = useSelector((state: any) => state.auth.userId);
   const openEditModal = () => {
     dispatch(openModal('flavourForm', {...flavourData, icecreamShopId}));
   };
@@ -59,21 +60,39 @@ const IcecreamFlavour = (props: IcecreamFlavourProps) => {
         dispatch(pushNotification('Error during delete', 'error', 2000));
       })
   }
+  const handleAddReaction = (reaction: number) => () => {
+    dataProvider().post('flavours/reactions/add', {flavourId: flavourData.id, reactionType: reaction}).then(() => {
+      dispatch(fetchShop(icecreamShopId));
+    })
+  }
+  const {reactions, selected} = flavourData.reactions.reduce((acc: any, current: any) => {
+    if (current.reaction_type === 3) {
+      acc.reactions[0] += 1
+    } else if (current.reaction_type === 2) {
+      acc.reactions[1] += 1
+    } else if (current.reaction_type === 1) {
+      acc.reactions[2] += 1
+    }
+    if (uId === current.user_id) {
+      acc.selected = current.reaction_type;
+    }
+    return acc;
+  }, {reactions: [0,0,0], selected: null})
   return (
     <div className="icecream-flavour">
       <div className="icecream-flavour__header">
         <div className="icecream-flavour__name">{flavourData.name}</div>
         <div className="icecream-flavour__reactions">
-          <div className="clickable icecream-flavour__reaction">
-            <span className="icecream-flavour__reaction-count">{flavourData.reactions[0] || '0'}</span>
+          <div className="clickable icecream-flavour__reaction" onClick={handleAddReaction(3)}>
+            <span className="icecream-flavour__reaction-count">{reactions[0] || '0'}</span>
             <span className="icecream-flavour__reaction-type" role="img" aria-label="love">😍</span>
           </div>
-          <div className="clickable icecream-flavour__reaction">
-          <span className="icecream-flavour__reaction-count">{flavourData.reactions[1] || '0'}</span>
+          <div className="clickable icecream-flavour__reaction" onClick={handleAddReaction(2)}>
+          <span className="icecream-flavour__reaction-count">{reactions[1] || '0'}</span>
             <span className="icecream-flavour__reaction-type" role="img" aria-label="meh">🥱</span>
           </div>
-          <div className="clickable icecream-flavour__reaction">
-            <span className="icecream-flavour__reaction-count">{flavourData.reactions[2] || '0'}</span>
+          <div className="clickable icecream-flavour__reaction" onClick={handleAddReaction(1)}>
+            <span className="icecream-flavour__reaction-count">{reactions[2] || '0'}</span>
             <span className="icecream-flavour__reaction-type" role="img" aria-label="hate">😒</span>
           </div>
         </div>

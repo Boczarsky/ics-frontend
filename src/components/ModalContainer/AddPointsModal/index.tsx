@@ -18,7 +18,7 @@ const AddPointsModal = () => {
     dispatch(pushNotification('Point added to coupon', 'normal', 2000));
   }
   return (
-    <div className="modal-overlay" onClick={closeModalWindow}>
+    <div className="modal-overlay" onMouseDown={closeModalWindow}>
       <div className="modal-wrapper add-points-modal">
         <BasicInput inputProps={{id:'coupon-id'}} label="Coupon id"/>
         <div className="b-button p-font clickable add-points-modal__button" onClick={handleAddPoints}>Add points</div>

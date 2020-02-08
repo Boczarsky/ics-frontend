@@ -65,7 +65,7 @@ const EmployeeFormModal = (props: EmployeeFormModalProps) => {
     }
   }
   return (
-    <div className="modal-overlay" onClick={closeModalWindow}>
+    <div className="modal-overlay" onMouseDown={closeModalWindow}>
       <div className="modal-wrapper employee-form-modal">
         {!isEdit && <>
           <BasicInput inputProps={{id:'employee-login', value: state.login.value}} label="Username" handleChange={value => formDispatch(setValue('login', value))} validationError={state.login.error}/>

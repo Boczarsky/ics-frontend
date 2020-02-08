@@ -1,17 +1,21 @@
 import React, { KeyboardEvent, FormEvent, useEffect, useState } from 'react';
 import randomKey from '../../utils/randomKey';
 import { dataProvider } from '../../utils/requestBuilder';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { pushNotification } from '../../reducers/Notifications/operations';
 import { generateUrl } from '../common/UploadImage';
+import userType from '../../enums/userType';
 
 export interface ShopOpinionsProps {
   icecreamShopId: number;
+  rated: boolean;
 }
 
 const ShopOpinions = (props: ShopOpinionsProps) => {
-  const { icecreamShopId } = props;
+  const { icecreamShopId, rated } = props;
   const [opinions, setOpinions] = useState<any[]>([]);
+  const uType = useSelector((state: any) => state.auth.userType);
+  const uId = useSelector((state: any) => state.auth.userId);
   const dispatch = useDispatch();
   const fetchOpinions = () => {
     dataProvider().post('opinions/list', { offset: 0, limit: 5, icecreamShopId })
@@ -100,14 +104,14 @@ const ShopOpinions = (props: ShopOpinionsProps) => {
                   </div>
                 ))}
               </div>
-              <div className="shop-opinions__add-comment">
+              {((opinion.userId === uId) || ([userType.employee, userType.manager].includes(uType))) && <div className="shop-opinions__add-comment">
                 <input className="shop-opinions__add-comment-input" placeholder="Insert your comment..." onKeyUp={handleAddComment(opinion.id)}/>
-              </div>
+              </div>}
             </div>
           </div>
         ))}
       </div>
-      <form className="shop-opinions__add-opinion" onSubmit={handleSubmitOpinion}>
+      {uType === userType.client && !rated && <form className="shop-opinions__add-opinion" onSubmit={handleSubmitOpinion}>
         <div className="shop-opinions__opinion-wrapper">
           <textarea id="opinion" required className="shop-opinions__opinion-textarea" placeholder="Insert your opinion here"/>
         </div>
@@ -117,7 +121,7 @@ const ShopOpinions = (props: ShopOpinionsProps) => {
         <div className="shop-opinons__opinion-submit">
           <button className="b-button">Send opinion</button>
         </div>
-      </form>
+      </form>}
     </div>
   )
 };

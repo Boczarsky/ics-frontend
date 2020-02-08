@@ -64,7 +64,7 @@ const FlavourFormModal = (props: FlavourFormModalProps) => {
     }
   }
   return (
-    <div className="modal-overlay" onClick={closeModalWindow}>
+    <div className="modal-overlay" onMouseDown={closeModalWindow}>
       <div className="modal-wrapper flavour-form-modal">
         <BasicInput inputProps={{id:'flavour-name', value: state.name.value}} handleChange={value => formDispatch(setValue('name', value))} label="Flavour name"/>
         <BasicInput inputProps={{id:'flavour-composition', rows: 5, value: state.composition.value}} handleChange={value => formDispatch(setValue('composition', value))} label="Composition" textarea/>

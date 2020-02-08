@@ -18,7 +18,7 @@ const RedeemCouponModal = () => {
     dispatch(pushNotification('Coupon redeemed', 'normal', 2000));
   }
   return (
-    <div className="modal-overlay" onClick={closeModalWindow}>
+    <div className="modal-overlay" onMouseDown={closeModalWindow}>
       <div className="modal-wrapper redeem-coupon-modal">
         <BasicInput inputProps={{id:'coupon-id'}} label="Coupon id"/>
         <div className="b-button p-font clickable redeem-coupon-modal__button" onClick={handleRedeemCoupon}>Redeem coupon</div>

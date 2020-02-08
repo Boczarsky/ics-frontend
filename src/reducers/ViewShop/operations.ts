@@ -5,7 +5,12 @@ export const fetchShop = (id: number) => (dispatch: Function, getState: Function
   dispatch(fetchIcecreamShopStart());
   dataProvider().get(`icecream-shops/${id}`)
         .then(response => {
-          const { name, city, street, postal_code, description, logo_file_name, background_file_name, google_map_link, open_days, special_days, opinions, posts, flavours } = response.data;
+          const {
+            name, city, street, postal_code, description,
+            logo_file_name, background_file_name, google_map_link,
+            open_days, special_days, opinions, posts,
+            flavours, followers, following, rated
+          } = response.data;
           const data = {
             name,
             city,
@@ -19,6 +24,9 @@ export const fetchShop = (id: number) => (dispatch: Function, getState: Function
             specialDays: special_days.map((sDay: any) => ({closed: sDay.closed, from: sDay.from, to: sDay.to, hourFrom: sDay.hour_from, hourTo: sDay.hour_to})),
             opinions,
             posts,
+            followers,
+            following,
+            rated,
             flavours: flavours.map((flavour: any) => (
               {
                 id: flavour.icecream_flavour_id,

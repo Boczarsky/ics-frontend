@@ -1,18 +1,26 @@
 export interface PostFormState {
-  imageUrl: {value: string, error: string};
+  fileName: {value: string, error: string};
   title: {value: string, error: string};
   content: {value: string , error: string};
   formValid: boolean;
 }
 
 export const initialState: PostFormState = {
-  imageUrl: {value: '', error: ''},
+  fileName: {value: '', error: ''},
   title: {value: '', error: ''},
   content: {value: '', error: ''},
   formValid: false,
 };
 
 function validateForm(state: PostFormState) {
+  if (!state.title.value) {
+    state.title.error = "This field is required";
+    state.formValid = false;
+  }
+  if (!state.content.value) {
+    state.content.error = "This field is required";
+    state.formValid = false;
+  }
   return state;
 }
 
@@ -22,7 +30,7 @@ function createInputObject(value: any = '') {
 
 function setInitialValues(data: any) {
   return {
-    imageUrl: createInputObject(data.imageUrl),
+    fileName: createInputObject(data.fileName),
     title: createInputObject(data.title),
     content: createInputObject(data.content),
     formValid: true,
