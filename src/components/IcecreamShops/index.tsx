@@ -7,6 +7,8 @@ import ShopOverview from '../common/ShopOverview';
 import { fetchFavoriteShops } from '../../reducers/FavoriteShops/operations';
 import { fetchOwnedShops } from '../../reducers/OwnedShops/operations';
 import userType from '../../enums/userType';
+import { dataProvider } from '../../utils/requestBuilder';
+import { pushNotification } from '../../reducers/Notifications/operations';
 
 const IcecreamShops = () => {
   const dispatch = useDispatch();
@@ -33,6 +35,15 @@ const IcecreamShops = () => {
     history.push(`/browse/${data.id}`);
   };
 
+  const handleDeleteClick = (data: any) => {
+    dataProvider().post('icecream-shops/delete', {icecreamShopId: data.id})
+    .then(() => {
+      dispatch(fetchOwnedShops(uType, uId));
+    })
+    .catch(() => {
+      dispatch(pushNotification('Error during removal', 'error', 2000));
+    })
+  }
   return (
     <AppLayout
       topbarContent={
@@ -49,6 +60,7 @@ const IcecreamShops = () => {
           {owned.map((ownedShop: any) => <div className="icecream-shops__overview-wrapper">
             <ShopOverview key={`owned-${ownedShop.id}`} data={ownedShop} handleClick={handleBrowseClick}/>
             {userType.manager === uType && <div className="b-button clickable icecream-shops__edit-button" onClick={() => handleEditClick(ownedShop)}>Edit</div>}
+            {userType.manager === uType && <div className="b-button clickable icecream-shops__delete-button" onClick={() => handleDeleteClick(ownedShop)}>Remove</div>}
           </div>)}
           </>}
         </div>

@@ -14,7 +14,7 @@ const SearchShops = () => {
   const handleFormSubmit = (event: FormEvent) => {
     event.preventDefault();
     if (city) {
-      dispatch(searchIcecreamShops(() => history.push('/browse'), {tags: tags.length ? tags : [], city: city}));
+      dispatch(searchIcecreamShops(() => history.push('/browse'), {tags: tags.length ? tags.map(tag => tag.toLowerCase()) : [], city: city}));
     }
   }
   return (

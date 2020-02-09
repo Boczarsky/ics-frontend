@@ -59,12 +59,17 @@ const IcecreamFlavour = (props: IcecreamFlavourProps) => {
       .catch(() => {
         dispatch(pushNotification('Error during delete', 'error', 2000));
       })
-  }
+  };
   const handleAddReaction = (reaction: number) => () => {
     dataProvider().post('flavours/reactions/add', {flavourId: flavourData.id, reactionType: reaction}).then(() => {
       dispatch(fetchShop(icecreamShopId));
     })
-  }
+  };
+  const handleRemoveReaction = () => {
+    dataProvider().post('flavours/reactions/remove', {flavourId: flavourData.id}).then(() => {
+      dispatch(fetchShop(icecreamShopId));
+    })
+  };
   const {reactions, selected} = flavourData.reactions.reduce((acc: any, current: any) => {
     if (current.reaction_type === 3) {
       acc.reactions[0] += 1
@@ -83,15 +88,15 @@ const IcecreamFlavour = (props: IcecreamFlavourProps) => {
       <div className="icecream-flavour__header">
         <div className="icecream-flavour__name">{flavourData.name}</div>
         <div className="icecream-flavour__reactions">
-          <div className="clickable icecream-flavour__reaction" onClick={handleAddReaction(3)}>
+          <div className={`clickable icecream-flavour__reaction ${selected === 3 ? 'selected' : ''}`} onClick={selected !== 3 ? handleAddReaction(3) : handleRemoveReaction}>
             <span className="icecream-flavour__reaction-count">{reactions[0] || '0'}</span>
             <span className="icecream-flavour__reaction-type" role="img" aria-label="love">😍</span>
           </div>
-          <div className="clickable icecream-flavour__reaction" onClick={handleAddReaction(2)}>
+          <div className={`clickable icecream-flavour__reaction ${selected === 2 ? 'selected' : ''}`} onClick={selected !== 2 ? handleAddReaction(2) : handleRemoveReaction}>
           <span className="icecream-flavour__reaction-count">{reactions[1] || '0'}</span>
             <span className="icecream-flavour__reaction-type" role="img" aria-label="meh">🥱</span>
           </div>
-          <div className="clickable icecream-flavour__reaction" onClick={handleAddReaction(1)}>
+          <div className={`clickable icecream-flavour__reaction ${selected === 1 ? 'selected' : ''}`} onClick={selected !== 1 ? handleAddReaction(1) : handleRemoveReaction}>
             <span className="icecream-flavour__reaction-count">{reactions[2] || '0'}</span>
             <span className="icecream-flavour__reaction-type" role="img" aria-label="hate">😒</span>
           </div>

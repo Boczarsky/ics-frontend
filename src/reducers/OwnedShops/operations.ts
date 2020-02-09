@@ -1,5 +1,5 @@
 import { generateUrl } from './../../components/common/UploadImage/index';
-import { fetchIcecreamShopsStart, fetchIcecreamShopsSuccess } from './actions';
+import { fetchIcecreamShopsStart, fetchIcecreamShopsSuccess, fetchIcecreamShopsFail } from './actions';
 import { dataProvider } from '../../utils/requestBuilder';
 import userType from '../../enums/userType';
 export const fetchOwnedShops = (uType: number, userId: number) => (dispatch: Function, getState: Function) => {
@@ -24,5 +24,6 @@ export const fetchOwnedShops = (uType: number, userId: number) => (dispatch: Fun
     })
     .catch((error) => {
       console.error(error);
+      dispatch(fetchIcecreamShopsFail());
     })
 };

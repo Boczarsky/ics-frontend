@@ -189,7 +189,6 @@ const IcecreamShopForm = () => {
               <div className="icecream-shop-form__dynamic-fields-label p-font">Special days</div>
               {state.specialDays.map((special: any, index: number) => (
                 <div className="icecream-shop-form__special-days" key={special.uniqueKey}>
-                  {console.log(special.closed.value)}
                   <BasicSelect
                     selectProps={{id: `icecreamShopDayFrom${index}`, type: 'datetime-local', value: special.closed.value}}
                     label="Open / Closed"

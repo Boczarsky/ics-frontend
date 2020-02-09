@@ -29,7 +29,7 @@ const TagsInput = (props: TagsInputProps) => {
   const handleInsertTag = (event: KeyboardEvent<HTMLInputElement>) => {
     const input = event.target as HTMLInputElement;
     const { keyCode } = event;
-    if(keyCode === 32 && input.value.trim()) {
+    if((keyCode === 32 || keyCode === 13) && input.value.trim()) {
       const set = new Set(tags);
       set.add(input.value.trim());
       handleChange(setToArray(set));

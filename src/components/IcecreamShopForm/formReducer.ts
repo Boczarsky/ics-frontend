@@ -87,7 +87,6 @@ function validateForm(state: CreateIcecreamShopFormState) {
 }
 
 function setInitialValues(data: any) {
-  console.log(data);
  return {
   logoFileName: {value: data.logoFileName || '', error: ''},
   backgroundFileName: {value: data.backgroundFileName || '', error: ''},

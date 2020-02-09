@@ -1,6 +1,5 @@
 import React from 'react';
 import ShopHeader from './ShopHeader';
-import FlavourInfo from './FlavourInfo';
 import randomKey from '../../../utils/randomKey';
 import './style.css';
 
@@ -19,8 +18,10 @@ const ShopOverview = (props: ShopOverviewProps) => {
       <div className="shop-overview__left-wrapper">
         <ShopHeader headerData={header}/>
         <div className="shop-overview__flavours">
-          {flavours.map((flavour: any) => 
-            <FlavourInfo {...flavour} key={randomKey()}/>
+          {flavours.filter((flavour: any) => flavour.status !== 3).slice(0, 5).map((flavour: any) => 
+            <div className="flavour-info" key={randomKey()}>
+              <span className="flavour-info__name">{flavour.name}</span>
+            </div>
           )}
         </div>
       </div>

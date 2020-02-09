@@ -1,29 +1,25 @@
-import { fetchIcecreamShopsStart, fetchIcecreamShopsSuccess, setIcecreamShopsFilter } from './actions';
+import { generateUrl } from './../../components/common/UploadImage/index';
+import { fetchIcecreamShopsStart, fetchIcecreamShopsSuccess, setIcecreamShopsFilter, fetchIcecreamShopsFail } from './actions';
+import { dataProvider } from '../../utils/requestBuilder';
 export const fetchIcecreamShops = () => (dispatch: Function, getState: Function) => {
+  const state = getState();
+  const filters = state.icecreamShops.filters;
   dispatch(fetchIcecreamShopsStart());
-  const icecreamShops = [
-    {
-      id: 1,
-      name: 'Cool Icecream Shop',
-      logoUrl: '',
-      address: 'Króla Jankiela II 16/1, 44-100 Gliwice',
-      flavours: [
-        {name: 'Truskawkowe', reactions: [156,15,2]},
-        {name: 'Malinowe', reactions: [50,12,1]},
-        {name: 'Śmietankowe', reactions: [106,12,2]},
-      ],
-      follows: 1519
-    },
-    {
-      id: 2,
-      name: 'Cooler Icecream Shop',
-      logoUrl: '',
-      address: 'Króla Jankiela II 16/2, 44-100 Gliwice',
-      flavours: [],
-      follows: 5161
-    }
-  ];
-  dispatch(fetchIcecreamShopsSuccess(icecreamShops));
+  dataProvider().post('icecream-shops/list', {offset: filters.offset, limit: filters.limit, city: filters.city, hashtags: filters.tags})
+    .then((response) => {
+      dispatch(fetchIcecreamShopsSuccess(response.data.result.map((ics: any) => ({
+        id: ics.icecream_shop_id,
+        name: ics.name,
+        logoUrl: generateUrl(ics.logo_file_name),
+        address: `${ics.street}, ${ics.postal_code} ${ics.city}`,
+        flavours: ics.flavours,
+        follows: Number(ics.follows),
+      }))));
+    })
+    .catch((error) => {
+      console.error(error);
+      dispatch(fetchIcecreamShopsFail());
+    })
 };
 export const searchIcecreamShops = (callback: Function, filters: {tags: string[], city: string}) => (dispatch: Function, getState: Function) => {
   dispatch(setIcecreamShopsFilter(filters));

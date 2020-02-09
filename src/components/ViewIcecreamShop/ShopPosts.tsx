@@ -62,9 +62,9 @@ const ShopPosts = (props: ShopPostsProps) => {
           <ShopPost post={post}/>
         </div>)}
       </div>
-      <div className="shop-posts__add-post">
+      {[userType.employee, userType.manager].includes(uType) && <div className="shop-posts__add-post">
         <div className="clickable b-button" onClick={openCreateModal}>Add new post</div>
-      </div>
+      </div>}
     </div>
   )
 };

@@ -95,9 +95,12 @@
   margin-left: 10px;
   transition: transform .3s ease;
 }
+.icecream-flavour__reaction.selected {
+  margin-left: 10px;
+  transform: scale(1.2);
+}
 .icecream-flavour__reaction:first-child {
   margin-left: 0;
-  transition: transform .3s ease;
 }
 .icecream-flavour__reaction-type {
   margin-left: 5px;
@@ -109,6 +112,7 @@
   padding: 10px;
   background-color: #4b889f;
   color: white;
+  white-space: pre-line;
 }
 .icecream-flavour__composition.out-of-stock {
   background-color: #949494;
@@ -326,4 +330,7 @@
     position: absolute;
     transform: rotate(45deg);
   }
+}
+.view-icecream-shop__background-placeholder {
+  height: 120px;
 }

@@ -54,6 +54,9 @@
   margin-left: 10px;
   transition: transform .3s ease;
 }
+.shop-post__reaction.selected {
+  transform: scale(1.2);
+}
 .shop-post__reaction-type {
   margin-left: 5px;
 }

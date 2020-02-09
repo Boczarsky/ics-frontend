@@ -15,10 +15,16 @@
 .icecream-shops__overview-wrapper {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
 }
 .icecream-shops__overview-wrapper > div:first-child {
   flex: 1;
 }
 .icecream-shops__edit-button {
   margin-bottom: 20px;
+}
+.icecream-shops__delete-button {
+  margin-bottom: 20px;
+  margin-left: 10px;
+  background: #B62020;
 }

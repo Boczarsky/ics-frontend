@@ -1,23 +1,21 @@
-import { fetchIcecreamShopsStart, fetchIcecreamShopsSuccess } from './actions';
+import { generateUrl } from './../../components/common/UploadImage/index';
+import { fetchIcecreamShopsStart, fetchIcecreamShopsSuccess, fetchIcecreamShopsFail } from './actions';
+import { dataProvider } from '../../utils/requestBuilder';
 export const fetchFavoriteShops = () => (dispatch: Function, getState: Function) => {
   dispatch(fetchIcecreamShopsStart());
-  const icecreamShops = [
-    {
-      id: 1,
-      name: 'Cool Icecream Shop',
-      logoUrl: '',
-      address: 'Króla Jankiela II 16/1, 44-100 Gliwice',
+  dataProvider().post('icecream-shops/list/favorite', {limit: 999, offset: 0}).then(response => {
+    const shops = response.data.result.map((ics: any) => ({
+      id: ics.id,
+      name: ics.name,
+      logoUrl: generateUrl(ics.logo_file_name),
+      address: `${ics.street}, ${ics.postal_code} ${ics.city}`,
       flavours: [],
-      follows: 1519
-    },
-    {
-      id: 2,
-      name: 'Cooler Icecream Shop',
-      logoUrl: '',
-      address: 'Króla Jankiela II 16/2, 44-100 Gliwice',
-      flavours: [],
-      follows: 5161
-    }
-  ];
-  dispatch(fetchIcecreamShopsSuccess(icecreamShops));
+      follows: Number(ics.follows),
+    }));
+    dispatch(fetchIcecreamShopsSuccess(shops));
+  })
+  .catch((error) => {
+    console.error(error);
+    dispatch(fetchIcecreamShopsFail());
+  })
 };

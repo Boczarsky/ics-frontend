@@ -29,6 +29,7 @@ const ViewIcecreamShop = () => {
   const isFollowing = useSelector((state: any) => state.viewShop.data.following);
   const followers = useSelector((state: any) => state.viewShop.data.followers);
   const rated = useSelector((state: any) => state.viewShop.data.rated);
+  const name = useSelector((state: any) => state.viewShop.data.name);
   const history = useHistory();
   const match = useRouteMatch<any>();
   const dispatch = useDispatch();
@@ -68,12 +69,12 @@ const ViewIcecreamShop = () => {
   return (
     <AppLayout
       handleBackClick={() => history.goBack()}
-      topbarContent={<div className="page-title">{'Cool Icecream Shop'}</div>}
+      topbarContent={<div className="page-title">{name}</div>}
     >
       <div className="view-icecream-shop">
         <div className="view-icecream-shop__header-images">
           <div className="view-icecream-shop__background">
-            {backgroundUrl ? <img src={backgroundUrl} alt="background"/> : <div className="view-icecream-shop__image-placeholder"/>}
+            {backgroundUrl ? <img src={backgroundUrl} alt="background"/> : <div className="view-icecream-shop__background-placeholder"/>}
           </div>
           <div className="view-icecream-shop__logo">
             {logoUrl ? <img src={logoUrl} alt="logo"/> : <div className="view-icecream-shop__image-placeholder"/>}
