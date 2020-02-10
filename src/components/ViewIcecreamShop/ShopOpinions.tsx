@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { pushNotification } from '../../reducers/Notifications/operations';
 import { generateUrl } from '../common/UploadImage';
 import userType from '../../enums/userType';
+import { ReactComponent as DeleteIcon } from '../../icons/delete.svg';
 
 export interface ShopOpinionsProps {
   icecreamShopId: number;
@@ -14,6 +15,7 @@ export interface ShopOpinionsProps {
 const ShopOpinions = (props: ShopOpinionsProps) => {
   const { icecreamShopId, rated } = props;
   const [opinions, setOpinions] = useState<any[]>([]);
+  const [isRated, setRated] = useState(rated || false);
   const uType = useSelector((state: any) => state.auth.userType);
   const uId = useSelector((state: any) => state.auth.userId);
   const dispatch = useDispatch();
@@ -63,28 +65,45 @@ const ShopOpinions = (props: ShopOpinionsProps) => {
       .then(() => {
         dispatch(pushNotification('Opinion added', 'normal', 2000));
         form.reset();
+        setRated(true);
         fetchOpinions();
       })
       .catch(() => {
         dispatch(pushNotification('Error during creating opinion', 'error', 2000));
       })
   }
+  const handleDelete = (opinionId: number) => () => {
+    dataProvider().post('opinions/remove', {opinionId})
+      .then(() => {
+        dispatch(pushNotification('Opinion added', 'normal', 2000));
+          setRated(false);
+          fetchOpinions();
+      })
+      .catch(() => {
+        dispatch(pushNotification('Error during deleting opinion', 'error', 2000));
+      })
+  };
   return (
     <div className="shop-opinions">
       <div className="shop-opinions__opinions">
         {opinions.map(opinion => (
           <div key={randomKey()} className="shop-opinions__opinion">
-            <div className="shop-opinions__opinion-header">
-              <div className="shop-opinions__author">
-                <div className="shop-opinions__avatar">
-                  {opinion.avatarUrl ?
-                    <img src={opinion.avatarUrl} alt="avatar"/> :
-                    <div className="shop-opinions__avatar-placeholder"></div>  
-                  }
+            <div className="shop-opinions__header-wrapper">
+              <div className="shop-opinions__opinion-header">
+                <div className="shop-opinions__author">
+                  <div className="shop-opinions__avatar">
+                    {opinion.avatarUrl ?
+                      <img src={opinion.avatarUrl} alt="avatar"/> :
+                      <div className="shop-opinions__avatar-placeholder"></div>  
+                    }
+                  </div>
+                  <div className="shop-opinions__username">{opinion.username}</div>
                 </div>
-                <div className="shop-opinions__username">{opinion.username}</div>
+                <div className="shop-opinions__grade">{opinion.grade} / 10</div>
               </div>
-              <div className="shop-opinions__grade">{opinion.grade} / 10</div>
+              {opinion.userId === uId && <div className="shop-opinions__delete-button" onClick={handleDelete(opinion.id)}>
+                <DeleteIcon/>
+              </div>}
             </div>
             <div className="shop-opinions__opinion-content">
               <div className="shop-opinions__opinion-text">{opinion.opinion}</div>
@@ -111,7 +130,7 @@ const ShopOpinions = (props: ShopOpinionsProps) => {
           </div>
         ))}
       </div>
-      {uType === userType.client && !rated && <form className="shop-opinions__add-opinion" onSubmit={handleSubmitOpinion}>
+      {uType === userType.client && !isRated && <form className="shop-opinions__add-opinion" onSubmit={handleSubmitOpinion}>
         <div className="shop-opinions__opinion-wrapper">
           <textarea id="opinion" required className="shop-opinions__opinion-textarea" placeholder="Insert your opinion here"/>
         </div>

@@ -35,10 +35,15 @@ const ViewIcecreamShop = () => {
   const dispatch = useDispatch();
   const id = Number(match.params.id);
   const [isFavorite, setFavorite] = useState(false);
+  const [currentFollowers, setFollowers] = useState(0);
 
   useEffect(() => {
     setFavorite(isFollowing);
   }, [isFollowing]);
+
+  useEffect(() => {
+    setFollowers(followers);
+  }, [followers]);
 
   useEffect(() => {
     if (match.params.id) {
@@ -50,6 +55,7 @@ const ViewIcecreamShop = () => {
     dataProvider().post('icecream-shops/addToFavorite', { icecreamShopId: id })
     .then(() => {
       setFavorite(true);
+      setFollowers(currentFollowers + 1);
     })
     .catch(() => {
       dispatch(pushNotification('Adding to favorite failed', 'error', 2000));
@@ -60,6 +66,7 @@ const ViewIcecreamShop = () => {
     dataProvider().post('icecream-shops/removeFromFavorite', { icecreamShopId: id })
     .then(() => {
       setFavorite(false);
+      setFollowers(currentFollowers - 1);
     })
     .catch(() => {
       dispatch(pushNotification('Removing from favorite failed', 'error', 2000));
@@ -91,7 +98,7 @@ const ViewIcecreamShop = () => {
           )}
         </div>
         <div className="view-icecream-shop__favorite-counter">
-          <span role="img" aria-label="favorite">💛</span><span>{followers || '0'}</span>
+          <span role="img" aria-label="favorite">💛</span><span>{currentFollowers || '0'}</span>
         </div>
         <div className="view-icecream-shop__description-wrapper">
           <div className="view-icecream-shop__description">{description}</div>

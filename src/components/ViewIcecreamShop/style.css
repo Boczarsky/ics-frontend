@@ -203,6 +203,31 @@
   box-shadow: 1px 2px 6px 1px rgba(0,0,0,.14);
   margin-left: 20px;
 }
+.shop-opinions__header-wrapper {
+  display: flex;
+  align-items: center;
+  max-width: 100%;
+}
+.shop-opinions__delete-button {
+  color: white;
+  min-width: 40px;
+  max-width: 40px;
+  width: 40px;
+  min-height: 40px;
+  max-height: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #B62020;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 20px;
+  cursor: pointer;
+  box-shadow: 1px 2px 6px 1px rgba(0,0,0,0.16);
+}
+.shop-opinions__delete-button:hover {
+  box-shadow: 1px 2px 6px 1px rgba(0,0,0,0.4);
+}
 @media screen and (max-width: 500px) {
   .shop-opinions__opinion-header {
     width: 100%;

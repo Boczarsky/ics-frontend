@@ -45,6 +45,13 @@
   width: 50px;
   border-radius: 25px;
   background-color: #A5A5A5;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.menu-header__avatar > img {
+  width: 100%;
 }
 .menu-header__name-wrapper {
   margin-left: 20px;
