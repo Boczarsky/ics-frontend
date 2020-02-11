@@ -17,6 +17,30 @@ export const initialState: CreatePromotionState = {
 };
 
 function validateForm(state: CreatePromotionState) {
+  if (!state.info.value) {
+    state.info.error = 'This field is required';
+    state.formValid = false;
+  }
+  if (!state.prize.value) {
+    state.prize.error = 'This field is required';
+    state.formValid = false;
+  }
+  if (Number(state.limit.value) <= 0) {
+    state.limit.error = 'Must be greater than 0';
+    state.formValid = false;
+  }
+  if (!state.startDate.value) {
+    state.startDate.error = 'This field is required';
+    state.formValid = false;
+  }
+  if (!state.endDate.value) {
+    state.endDate.error = 'This field is required';
+    state.formValid = false;
+  }
+  if (new Date(state.endDate.value) < new Date(state.startDate.value)) {
+    state.endDate.error = 'End date later than start date';
+    state.formValid = false;
+  }
   return state;
 }
 

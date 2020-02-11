@@ -359,3 +359,44 @@
 .view-icecream-shop__background-placeholder {
   height: 120px;
 }
+
+.shop-promotions-table {
+  max-width: 100%;
+  overflow-x: auto;
+}
+.shop-promotions-table table {
+  border-spacing: 0px 10px;
+}
+.shop-promotions-table table th {
+  font-weight: normal;
+  font-family: 'Pacifico', cursive;
+  border: 1px solid transparent;
+  background-color: #4B889F;
+  padding: 10px 20px;
+  color: white;
+}
+.shop-promotions-table table td {
+  border: 1px solid transparent;
+  background-color: white;
+  padding: 5px 20px;
+  transition: padding 0.3s ease-in-out;
+}
+.shop-promotions-table table tr:hover td {
+  padding: 15px 20px;
+}
+.shop-promotions-table table td:first-child {
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+.shop-promotions-table table td:last-child {
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+.shop-promotions-table table th:first-child {
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+.shop-promotions-table table th:last-child {
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+}

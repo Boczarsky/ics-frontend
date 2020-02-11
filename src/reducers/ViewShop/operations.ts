@@ -9,7 +9,7 @@ export const fetchShop = (id: number) => (dispatch: Function, getState: Function
             name, city, street, postal_code, description,
             logo_file_name, background_file_name, google_map_link,
             open_days, special_days, opinions, posts,
-            flavours, followers, following, rated
+            flavours, followers, following, rated, promotions
           } = response.data;
           const data = {
             name,
@@ -36,7 +36,14 @@ export const fetchShop = (id: number) => (dispatch: Function, getState: Function
                 reactions: flavour.reactions,
                 tags: flavour.hashtags.map((tag: any) => tag.hashtag)
               }
-            ))
+            )),
+            promotions: promotions.map((promData: any) => ({
+              id: promData.promotion_shop_id,
+              info: promData.promotion.info,
+              prize: promData.promotion.prize,
+              startDate: promData.promotion.start_date,
+              endDate: promData.promotion.end_date,
+            })),
           };
           dispatch(fetchIcecreamShopSuccess(data));
         })

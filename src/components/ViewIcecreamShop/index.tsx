@@ -13,6 +13,7 @@ import { generateUrl } from '../common/UploadImage';
 import userType from '../../enums/userType';
 import { dataProvider } from '../../utils/requestBuilder';
 import { pushNotification } from '../../reducers/Notifications/operations';
+import ShopPromotions from './ShopPromotions';
 
 const ViewIcecreamShop = () => {
   const logoUrl = useSelector((state: any) => generateUrl(state.viewShop.data.logoFileName));
@@ -30,6 +31,7 @@ const ViewIcecreamShop = () => {
   const followers = useSelector((state: any) => state.viewShop.data.followers);
   const rated = useSelector((state: any) => state.viewShop.data.rated);
   const name = useSelector((state: any) => state.viewShop.data.name);
+  const promotions = useSelector((state: any) => state.viewShop.data.promotions);
   const history = useHistory();
   const match = useRouteMatch<any>();
   const dispatch = useDispatch();
@@ -117,6 +119,12 @@ const ViewIcecreamShop = () => {
             googleMapLink={googleMapLink}
             openDays={openDays || []}
             specialDays={specialDays || []}
+          />
+        </LabeledSection>
+        <LabeledSection label="Promotions">
+          <ShopPromotions
+            promotions={promotions || []}
+            icecreamShopId={id}
           />
         </LabeledSection>
         <LabeledSection label="Opinions">

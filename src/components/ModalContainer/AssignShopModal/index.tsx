@@ -1,10 +1,12 @@
-import React, { MouseEvent, useState } from 'react';
+import React, { MouseEvent, useState, useEffect } from 'react';
 import './style.css';
 import { useDispatch } from 'react-redux';
 import { closeModal } from '../../../reducers/Modals/actions';
 import { pushNotification } from '../../../reducers/Notifications/operations';
 import BasicSelect from '../../common/BasicSelect';
 import randomKey from '../../../utils/randomKey';
+import { dataProvider } from '../../../utils/requestBuilder';
+import { fetchPromotions } from '../../../reducers/Promotions/operations';
 
 export interface AssignShopModalProps {
   data: any;
@@ -12,15 +14,16 @@ export interface AssignShopModalProps {
 
 const AssignShopModal = (props: AssignShopModalProps) => {
   const { data } = props;
-  const icecreamShops = [
-    {value: 0, name: ''},
-    {value: 1, name: 'Cool Icecream Shop'},
-    {value: 2, name: 'Cool Icecream Shop II'},
-    {value: 3, name: 'Cool Icecream Shop III'}
-  ];
+  const [icecreamShops, setIcecreamShops] = useState<any>([]);
+  useEffect(() => {
+    dataProvider().get('promotions/shopsToAssign').then((response) => {
+      const ics = response.data.map((icsData: any) => ({ value: icsData.icecream_shop_id, name: icsData.name }));
+      setIcecreamShops([{value: null, name: ''}, ...ics]);
+    })
+  }, [])
   const [selectedShop, setSelectedShop] = useState(0);
-  const [shopsAssigned, setShopsAssigned] = useState([1,2,3]);
-  const filteredOptions = icecreamShops.filter(option => !shopsAssigned.includes(option.value));
+  const [shopsAssigned, setShopsAssigned] = useState<any>(data.assignedShops);
+  const filteredOptions = icecreamShops.filter((option: any) => !shopsAssigned.includes(option.value));
   const dispatch = useDispatch();
   const closeModalWindow = (event: MouseEvent<HTMLDivElement>) => {
     const target: any = event.target;
@@ -29,22 +32,36 @@ const AssignShopModal = (props: AssignShopModalProps) => {
     }
   }
   const handleAssignShop = () => {
-    const shop = icecreamShops.find(option => +option.value === +selectedShop);
+    const shop = icecreamShops.find((option: any) => +option.value === +selectedShop);
     if (shop && shop.name) {
-      setSelectedShop(0);
-      setShopsAssigned([...shopsAssigned, shop.value]);
-      dispatch(pushNotification('Shop assigned', 'normal', 2000));
+      dataProvider().post('promotions/assignShop', {promotionId: data.promotionId, icecreamShopId: Number(selectedShop)})
+        .then(() => {
+          setSelectedShop(0);
+          setShopsAssigned([...shopsAssigned, shop.value]);
+          dispatch(pushNotification('Shop assigned', 'normal', 2000));
+          dispatch(fetchPromotions());
+        })
+        .catch(() => {
+          dispatch(pushNotification('Error during assignment', 'error', 2000));
+        });
     }
   }
   const handleUnassignShop = (shopId: number) => () => {
-    setShopsAssigned(shopsAssigned.filter(assignedShopId => assignedShopId !== shopId));
-    dispatch(pushNotification('Shop unassigned', 'normal', 2000));
+    dataProvider().post('promotions/unassignShop', {promotionId: data.promotionId, icecreamShopId: Number(shopId)})
+        .then(() => {
+          setShopsAssigned(shopsAssigned.filter((assignedShopId: any) => assignedShopId !== shopId));
+          dispatch(pushNotification('Shop unassigned', 'normal', 2000));
+          dispatch(fetchPromotions());
+        })
+        .catch(() => {
+          dispatch(pushNotification('Error during unassignment', 'error', 2000));
+        });
   }
   return (
     <div className="modal-overlay" onMouseDown={closeModalWindow}>
       <div className="modal-wrapper assign-shop-modal">
-        {shopsAssigned.map(shopId => {
-          const shop = icecreamShops.find(option => +option.value === +shopId);
+        {shopsAssigned.map((shopId: any) => {
+          const shop = icecreamShops.find((option: any) => +option.value === +shopId);
           if (shop && shop.name) {
             return <div key={randomKey()} className="assign-shop-modal__assigned-shop">
               <div>{shop.name}</div>
