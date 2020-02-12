@@ -1,23 +1,27 @@
-import { fetchCouponsStart, fetchCouponsSuccess } from './actions';
+import { generateUrl } from './../../components/common/UploadImage/index';
+import { fetchCouponsStart, fetchCouponsSuccess, fetchCouponsFail } from './actions';
+import { dataProvider } from '../../utils/requestBuilder';
 export const fetchCoupons = () => (dispatch: Function, getState: Function) => {
   dispatch(fetchCouponsStart());
-  const coupons = [
-    {
-      icecreamShopData: {
-        logoUrl: '',
-        name: 'Cool Icecream Shop Name',
-        address: 'Some St. 1105/15, City 14-510',
-      },
-      couponData: {
-        id: 1,
-        prize: 'Free Icecream',
-        info: 'Every tenth icecream is free!',
-        limit: 9,
-        count: 1,
-        startDate: '2020-01-18',
-        endDate: '2020-03-18',
-      }
-    }
-  ];;
-  dispatch(fetchCouponsSuccess(coupons));
+  dataProvider().get('promotions/coupon/list')
+    .then((response) => {
+      const coupons = response.data.map((couponData: any) => ({
+        icecreamShopData: {
+          logoUrl: generateUrl(couponData.icecream_shop.logo_file_name),
+          name: couponData.icecream_shop.name,
+          address: `${couponData.icecream_shop.street}, ${couponData.icecream_shop.city} ${couponData.icecream_shop.postal_code}`
+        },
+        couponData: {
+          id: couponData.coupon.id,
+          prize: couponData.coupon.prize,
+          info: couponData.coupon.info,
+          limit: couponData.coupon.limit,
+          count: couponData.coupon.count,
+          startDate: couponData.coupon.start_date,
+          endDate: couponData.coupon.end_date,
+        }
+      }));
+      dispatch(fetchCouponsSuccess(coupons));
+    })
+    .catch(() => dispatch(fetchCouponsFail()));
 };

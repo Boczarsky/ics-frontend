@@ -15,10 +15,13 @@ export interface ShopOpinionsProps {
 const ShopOpinions = (props: ShopOpinionsProps) => {
   const { icecreamShopId, rated } = props;
   const [opinions, setOpinions] = useState<any[]>([]);
-  const [isRated, setRated] = useState(rated || false);
+  const [isRated, setRated] = useState(false);
   const uType = useSelector((state: any) => state.auth.userType);
   const uId = useSelector((state: any) => state.auth.userId);
   const dispatch = useDispatch();
+  useEffect(() => {
+    setRated(Boolean(rated));
+  }, [rated])
   const fetchOpinions = () => {
     dataProvider().post('opinions/list', { offset: 0, limit: 5, icecreamShopId })
       .then((response: any) => {

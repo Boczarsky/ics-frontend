@@ -7,15 +7,13 @@ import { pushNotification } from '../../reducers/Notifications/operations';
 
 export interface ShopPromotionsProps {
   promotions: any;
-  icecreamShopId: number;
 }
 
 const ShopPromotions = (props: ShopPromotionsProps) => {
-  const {promotions, icecreamShopId} = props;
+  const {promotions} = props;
   const dispatch = useDispatch();
   const uType = useSelector((state: any) => state.auth.userType);
   const handleTakeCoupon = (promotionId: number) => () => {
-    console.log(promotionId);
     dataProvider().post('promotions/coupon/create', { promotionId })
       .then(() => {})
       .catch((error) => {
@@ -29,22 +27,26 @@ const ShopPromotions = (props: ShopPromotionsProps) => {
   return (
     <div className="shop-promotions-table">
       <table>
-          <tr>
-            <th>Info</th>
-            <th>Prize</th>
-            <th>Start date</th>
-            <th>End date</th>
-            {uType === userType.client && <th></th>}
-          </tr>
+          <thead>
+            <tr>
+              <th>Info</th>
+              <th>Prize</th>
+              <th>Start date</th>
+              <th>End date</th>
+              {uType === userType.client && <th></th>}
+            </tr>
+          </thead>
+          <tbody>
           {promotions.map((promotion: any) => (
-          <tr key={`shop-promotions-row-${promotion.id}`}>
-            <td style={{minWidth: 260}}>{promotion.info}</td>
-            <td style={{width: 160}}>{promotion.prize}</td>
-            <td style={{width: 100}}>{moment(promotion.startDate).format('DD/MM/YYYY')}</td>
-            <td style={{width: 100}}>{moment(promotion.endDate).format('DD/MM/YYYY')}</td>
-            {uType === userType.client && <td style={{width: 220}}><div className="clickable p-font b-button" onClick={handleTakeCoupon(promotion.id)}>Take coupon</div></td>}
-          </tr>
+            <tr key={`shop-promotions-row-${promotion.id}`}>
+              <td style={{minWidth: 260}}>{promotion.info}</td>
+              <td style={{width: 160}}>{promotion.prize}</td>
+              <td style={{width: 100}}>{moment(promotion.startDate).format('DD/MM/YYYY')}</td>
+              <td style={{width: 100}}>{moment(promotion.endDate).format('DD/MM/YYYY')}</td>
+              {uType === userType.client && <td style={{width: 220}}><div className="clickable p-font b-button" onClick={handleTakeCoupon(promotion.id)}>Take coupon</div></td>}
+            </tr>
           ))}
+          </tbody>
       </table>
     </div>
   );

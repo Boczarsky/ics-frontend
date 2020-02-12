@@ -3,6 +3,7 @@ import './style.css';
 import ShopHeader from '../../common/ShopOverview/ShopHeader';
 import { ReactComponent as CheckIcon } from '../../../icons/check.svg';
 import randomKey from '../../../utils/randomKey';
+import moment from 'moment';
 
 export interface CouponProps {
   icecreamShopData: {
@@ -39,12 +40,12 @@ const Coupon = (props: CouponProps) => {
         </div>
         <div className="coupon__content">
           <div className="coupon__content-left">
-            {new Array(couponData.count).fill(
+            {new Array(couponData.count).fill(null).map(() =>
               <div key={randomKey()} className="coupon__stamp-field">
                 <CheckIcon className="coupon__stamp"/>
               </div>
             )}
-            {new Array(couponData.limit - couponData.count).fill(
+            {new Array(couponData.limit - couponData.count).fill(null).map(() =>
               <div key={randomKey()} className="coupon__stamp-field"/>
             )}
           </div>
@@ -52,7 +53,7 @@ const Coupon = (props: CouponProps) => {
             <div className="coupon__info">{couponData.info}</div>
             <div className="coupon__promotion-duration">
               <span>Promotion duration:</span>
-              <span>{couponData.startDate}<span className="coupon__spacer">-</span>{couponData.endDate}</span>
+              <span>{moment(couponData.startDate).format('DD.MM.YYYY')}<span className="coupon__spacer">-</span>{moment(couponData.endDate).format('DD.MM.YYYY')}</span>
             </div>
           </div>
         </div>

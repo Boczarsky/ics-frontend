@@ -7,6 +7,7 @@ import { dataProvider } from '../../utils/requestBuilder';
 import { pushNotification } from '../../reducers/Notifications/operations';
 import { generateUrl } from '../common/UploadImage';
 import userType from '../../enums/userType';
+import randomKey from '../../utils/randomKey';
 
 export interface ShopPostsProps {
   icecreamShopId: number;
@@ -56,7 +57,7 @@ const ShopPosts = (props: ShopPostsProps) => {
   return (
     <div className="shop-posts">
       <div className="shop-posts__posts">
-        {posts.map(post => <div className="shop-posts__post">
+        {posts.map(post => <div key={randomKey()} className="shop-posts__post">
           {[userType.manager, userType.employee].includes(uType) && <><div className="clickable b-button shop-posts__edit-post" onClick={openEditModal(post)}>Edit</div>
           <div className="clickable b-button shop-posts__remove-post" onClick={removePost(post)}>Remove</div></>}
           <ShopPost post={post}/>

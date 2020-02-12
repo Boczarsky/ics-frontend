@@ -124,7 +124,6 @@ const ViewIcecreamShop = () => {
         <LabeledSection label="Promotions">
           <ShopPromotions
             promotions={promotions || []}
-            icecreamShopId={id}
           />
         </LabeledSection>
         <LabeledSection label="Opinions">
