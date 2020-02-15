@@ -8,6 +8,7 @@ import { authProvider } from '../../utils/requestBuilder';
 import userType from '../../enums/userType';
 import { useDispatch } from 'react-redux';
 import { pushNotification } from '../../reducers/Notifications/operations';
+import { useTranslation } from 'react-i18next';
 
 const Register = () => {
   const [state, localDispatch] = useReducer(reducer, initialState);
@@ -29,26 +30,26 @@ const Register = () => {
         history.push('/login');
       })
       .catch(error => {
-        if (error.response.data.message === 'LoginExist') {
+        if (error.response && error.response.data.message === 'LoginExist') {
           dispatch(pushNotification('Login is already used by someone', 'error', 2000));
-        } else if (error.response.data.message === 'EmailExist') {
+        } else if (error.response && error.response.data.message === 'EmailExist') {
           dispatch(pushNotification('Email is already used by someone', 'error', 2000));
         } else {
           dispatch(pushNotification('Account register failed', 'error', 2000));
         }
       });
   }
-  
+  const { t } = useTranslation();
   return (
     <div className="register">
       <form onSubmit={handleFormSubmit} className="register__form card">
         <div className="register__toggle-wrapper">
-          <div className="register__toggle-label">Client</div>
+          <div className="register__toggle-label">{t('Client')}</div>
           <BasicToggle
             value={state?.isCompany.value}
             handleToggle={(value) => localDispatch(setValue('isCompany', value))}
           />
-          <div className="register__toggle-label">Company</div>
+          <div className="register__toggle-label">{t('Company')}</div>
         </div>
         <BasicInput
           inputProps={{name: 'username', id: 'username', type: 'text', value: state?.username.value}}
@@ -78,17 +79,17 @@ const Register = () => {
           inputProps={{name: 'firstName', id: 'firstName', type: 'text', value: state?.firstName.value}}
           handleChange={(value) => localDispatch(setValue('firstName', value))}
           validationError={state?.firstName.error}
-          label="First Name"
+          label="First name"
         />
         <BasicInput
           inputProps={{name: 'lastName', id: 'lastName', type: 'text', value: state?.lastName.value}}
           handleChange={(value) => localDispatch(setValue('lastName', value))}
           validationError={state?.lastName.error}
-          label="Last Name"
+          label="Last name"
         />
-        <button className="b-button register__submit" disabled={!state?.formValid}>Register</button>
+        <button className="b-button register__submit" disabled={!state?.formValid}>{t('Register')}</button>
       </form>
-      <Link to="/login"><div className="register__login-redirect">You already have an account?</div></Link>
+      <Link to="/login"><div className="register__login-redirect">{t('You already have an account?')}</div></Link>
     </div>
   )
 };

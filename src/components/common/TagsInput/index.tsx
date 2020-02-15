@@ -1,5 +1,6 @@
 import React, { KeyboardEvent, useRef, FocusEvent } from 'react';
 import './style.css';
+import { useTranslation } from 'react-i18next';
 
 export interface TagsInputProps {
   label?: string;
@@ -52,10 +53,10 @@ const TagsInput = (props: TagsInputProps) => {
     const inputElement = input.current || {focus: () => {}};
     inputElement.focus();
   }
-
+  const { t } = useTranslation();
   return (
     <div className="tags-input">
-      {label && <div className={`tags-input__label p-font ${labelClass}`}>{label}</div>}
+      {label && <div className={`tags-input__label p-font ${labelClass}`}>{t(label)}</div>}
       <div className="tags-input__wrapper" onClick={focusInput}>
         {tags.map((tag: string) => (
           <div className="tags-input__tag" key={tag} onClick={() => removeTag(tag)}>

@@ -6,6 +6,7 @@ import moment from 'moment';
 import { dataProvider } from '../../../utils/requestBuilder';
 import { pushNotification } from '../../../reducers/Notifications/operations';
 import { fetchPromotions } from '../../../reducers/Promotions/operations';
+import { useTranslation } from 'react-i18next';
 
 export interface PromotionListTableProps {
   promotions: {
@@ -34,17 +35,18 @@ const PromotionListTable = (props: PromotionListTableProps) => {
         dispatch(pushNotification('Error during removing promotion', 'error', 2000));
       })
   }
+  const { t } = useTranslation();
   return (
     <div className="promotion-list-table">
       <table>
           <tr>
-            <th>Id</th>
-            <th>Info</th>
-            <th>Prize</th>
-            <th>Limit</th>
-            <th>Start date</th>
-            <th>End date</th>
-            <th>Icecream shops involved</th>
+            <th>{t('Id')}</th>
+            <th>{t('Info')}</th>
+            <th>{t('Prize')}</th>
+            <th>{t('Limit')}</th>
+            <th>{t('Start dat')}e</th>
+            <th>{t('End date')}</th>
+            <th>{t('Icecream shops involved')}</th>
             <th colSpan={2}></th>
           </tr>
           {promotions.map(promotion => (
@@ -56,8 +58,8 @@ const PromotionListTable = (props: PromotionListTableProps) => {
             <td style={{width: 100}}>{moment(promotion.startDate).format('DD/MM/YYYY')}</td>
             <td style={{width: 100}}>{moment(promotion.endDate).format('DD/MM/YYYY')}</td>
             <td style={{width: 160}}><div className="f-col-center">{promotion.icecreamShops.map(icecreamShop => (<span>{icecreamShop.name}</span>))}</div></td>
-            <td style={{width: 220}}><div className="clickable p-font b-button" onClick={openAssignModal(promotion.id, promotion.icecreamShops.map(shop => shop.value))}>Assign icecream shop</div></td>
-            <td style={{width: 200}}><div className="clickable p-font b-button b-button--red" onClick={handleEndPromotion(promotion.id)}>End promotion</div></td>
+            <td style={{width: 220}}><div className="clickable p-font b-button" onClick={openAssignModal(promotion.id, promotion.icecreamShops.map(shop => shop.value))}>{t('Assign icecream shop')}</div></td>
+            <td style={{width: 200}}><div className="clickable p-font b-button b-button--red" onClick={handleEndPromotion(promotion.id)}>{t('End promotion')}</div></td>
           </tr>
           ))}
       </table>

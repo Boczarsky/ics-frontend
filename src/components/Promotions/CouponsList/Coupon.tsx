@@ -4,6 +4,7 @@ import ShopHeader from '../../common/ShopOverview/ShopHeader';
 import { ReactComponent as CheckIcon } from '../../../icons/check.svg';
 import randomKey from '../../../utils/randomKey';
 import moment from 'moment';
+import { useTranslation } from 'react-i18next';
 
 export interface CouponProps {
   icecreamShopData: {
@@ -24,6 +25,7 @@ export interface CouponProps {
 
 const Coupon = (props: CouponProps) => {
   const { icecreamShopData, couponData } = props;
+  const { t } = useTranslation();
   return (
     <div className="coupon">
       <div className="coupon__id">#{couponData.id}</div>
@@ -52,7 +54,7 @@ const Coupon = (props: CouponProps) => {
           <div className="coupon__content-right">
             <div className="coupon__info">{couponData.info}</div>
             <div className="coupon__promotion-duration">
-              <span>Promotion duration:</span>
+              <span>{t('Promotion duration')}:</span>
               <span>{moment(couponData.startDate).format('DD.MM.YYYY')}<span className="coupon__spacer">-</span>{moment(couponData.endDate).format('DD.MM.YYYY')}</span>
             </div>
           </div>

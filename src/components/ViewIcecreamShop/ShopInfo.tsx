@@ -2,6 +2,7 @@ import React from 'react';
 import './style.css';
 import randomKey from '../../utils/randomKey';
 import { days } from '../../utils/dayOptions';
+import { useTranslation } from 'react-i18next';
 
 export interface ShopInfoProps {
   street: string;
@@ -16,23 +17,24 @@ const ShopInfo = (props: ShopInfoProps) => {
   const { street, city, postalCode, googleMapLink, openDays, specialDays } = props;
   const specialClosed = specialDays.filter(item => item.closed);
   const specialOpened = specialDays.filter(item => !item.closed);
+  const { t } = useTranslation();
   return (
     <div className="shop-info">
       <div className="shop-info__info-wrapper">
         <div className="shop-info__address">
-          <div className="shop-info__address-header p-font">Address:</div>
+          <div className="shop-info__address-header p-font">{t('Address')}:</div>
           <div className="shop-info__address-wrapper">
             <div className="shop-info__street">{street}</div>
             <div className="shop-info__city">{postalCode} {city}</div>
           </div>
         </div>
         {openDays && openDays.length > 0 && <div className="shop-info__open-days">
-          <div className="shop-info__open-days-header p-font">Opening hours:</div>
+          <div className="shop-info__open-days-header p-font">{t('Opening hours')}:</div>
           <div className="shop-info__open-days-wrapper">
             {openDays.map(data => (
               <div key={randomKey()} className="shop-info__open-days-row">
                 {data.from !== data.to ? <>
-                  <span>{days[data.from]} - {days[data.to]}</span>
+                  <span>{t(days[data.from])} - {t(days[data.to])}</span>
                   <span>{data.hourFrom} - {data.hourTo}</span>
                 </> : <>
                   <span>{days[data.from]}</span>
@@ -44,7 +46,7 @@ const ShopInfo = (props: ShopInfoProps) => {
           </div>
         </div>}
         {specialOpened && specialOpened.length > 0 && <div className="shop-info__special-days">
-          <div className="shop-info__special-days-header p-font">Extra opening hours:</div>
+          <div className="shop-info__special-days-header p-font">{t('Extra opening hours')}:</div>
           <div className="shop-info__special-days-wrapper">
             {specialOpened.map(data => (
               <div key={randomKey()} className="shop-info__special-days-row">
@@ -60,7 +62,7 @@ const ShopInfo = (props: ShopInfoProps) => {
           </div>
         </div>}
         {specialClosed && specialClosed.length > 0 && <div className="shop-info__special-days">
-          <div className="shop-info__special-days-header p-font">Closed:</div>
+          <div className="shop-info__special-days-header p-font">{t('Closed')}:</div>
           <div className="shop-info__special-days-wrapper">
             {specialClosed.map(data => (
               <div key={randomKey()} className="shop-info__special-days-row">

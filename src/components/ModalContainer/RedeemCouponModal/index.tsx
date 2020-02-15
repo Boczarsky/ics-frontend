@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import { closeModal } from '../../../reducers/Modals/actions';
 import { pushNotification } from '../../../reducers/Notifications/operations';
 import { dataProvider } from '../../../utils/requestBuilder';
+import { useTranslation } from 'react-i18next';
 
 const RedeemCouponModal = () => {
   const dispatch = useDispatch();
@@ -23,7 +24,7 @@ const RedeemCouponModal = () => {
         dispatch(pushNotification('Coupon redeemed', 'normal', 2000));
       })
       .catch((error) => {
-        if (error.response.data.message === 'RequirementsNotMet') {
+        if (error.response && error.response.data.message === 'RequirementsNotMet') {
           dispatch(pushNotification('Coupon is not ready', 'normal', 2000));
         } else {
           dispatch(pushNotification('Error during coupon redeem', 'error', 2000));
@@ -31,11 +32,12 @@ const RedeemCouponModal = () => {
       });
     }
   }
+  const { t } = useTranslation();
   return (
     <div className="modal-overlay" onMouseDown={closeModalWindow}>
       <div className="modal-wrapper redeem-coupon-modal">
         <BasicInput inputProps={{id:'coupon-id', value: couponId}} label="Coupon id" handleChange={setCouponId}/>
-        <div className="b-button p-font clickable redeem-coupon-modal__button" onClick={handleRedeemCoupon}>Redeem coupon</div>
+        <div className="b-button p-font clickable redeem-coupon-modal__button" onClick={handleRedeemCoupon}>{t('Redeem coupon')}</div>
       </div>
     </div>
   )

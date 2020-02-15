@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import './style.css';
 import { useSelector } from 'react-redux';
 import { dataProvider } from '../../../utils/requestBuilder';
+import { generateUrl } from '../UploadImage';
 
 export interface Post {
   id: number;
-  imageUrl: string;
+  fileName: string;
   title: string;
   content: string;
   reactions: number[];
@@ -16,7 +17,7 @@ export interface ShopPostProps {
 }
 
 const ShopPost = (props: ShopPostProps) => {
-  const { id, imageUrl, title, content } = props.post;
+  const { id, fileName, title, content } = props.post;
   const uId = useSelector((state: any) => state.auth.userId);
   const {parsedReactions, selectedReaction} = props.post.reactions.reduce((acc: any, current: any) => {
     if (current.reaction_type === 3) {
@@ -69,8 +70,8 @@ const ShopPost = (props: ShopPostProps) => {
   
   return (
     <div className="shop-post">
-      {imageUrl && <div className="shop-post__image-wrapper">
-        <img src={imageUrl} alt="post attachment"/>
+      {fileName && <div className="shop-post__image-wrapper">
+        <img src={generateUrl(fileName)} alt="post attachment"/>
       </div>}
       <div className="shop-post__content-wrapper">
         <div className="shop-post__title">{title}</div>

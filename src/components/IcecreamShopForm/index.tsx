@@ -11,6 +11,7 @@ import { dayOptions } from '../../utils/dayOptions';
 import { dataProvider } from '../../utils/requestBuilder';
 import { useDispatch } from 'react-redux';
 import { pushNotification } from '../../reducers/Notifications/operations';
+import { useTranslation } from 'react-i18next';
 
 const IcecreamShopForm = () => {
   const params = useParams<{id?: string}>();
@@ -94,12 +95,12 @@ const IcecreamShopForm = () => {
         });
     }
   };
-  
+  const { t } = useTranslation();
   return (
     <AppLayout
       returnPath="/icecream-shops"
       topbarContent={
-       <div className="page-title">{isEdit ? 'Edit' : 'Create'} icecream shop</div>
+       <div className="page-title">{t(`${isEdit ? 'Edit' : 'Create'} icecream shop`)}</div>
       }
     >
       <div className="icecream-shop-form">
@@ -109,12 +110,12 @@ const IcecreamShopForm = () => {
         </div>
         <div className="icecream-shop-form__edit-form">
           <BasicInput
-            inputProps={{id: 'icecreamShopName', placeholder: 'Name of your icecream shop', value: state.name.value}}
+            inputProps={{id: 'icecreamShopName', value: state.name.value}}
             handleChange={value => localDispatch(setValue('name', value))}
             label="Icecream shop name"
           />
           <BasicInput
-            inputProps={{id: 'icecreamShopDescription', placeholder: 'Short description of your icecream shop', rows: 10, value: state.description.value}}
+            inputProps={{id: 'icecreamShopDescription', rows: 10, value: state.description.value}}
             handleChange={value => localDispatch(setValue('description', value))}
             label="Description"
             textarea
@@ -136,20 +137,20 @@ const IcecreamShopForm = () => {
               label="Postal code"
             />
             <BasicInput
-              inputProps={{id: 'icecreamShopGoogleMapLink', placeholder: 'Source for embeded google map', value: state.googleMapLink.value}}
+              inputProps={{id: 'icecreamShopGoogleMapLink', placeholder: t('Source for embeded google map'), value: state.googleMapLink.value}}
               handleChange={value => localDispatch(setValue('googleMapLink', value))}
               label="Google map link"
             />
           </div>
           <div className="icecream-shop-form__dynamic-open-days">
             <div className="icecream-shop-form__open-days-wrapper">
-              <div className="icecream-shop-form__dynamic-fields-label p-font">Opening hours</div>
+              <div className="icecream-shop-form__dynamic-fields-label p-font">{t('Opening hours')}</div>
               {state.openDays.map((open: any, index: number) => (
                 <div className="icecream-shop-form__open-days" key={open.uniqueKey}>
                   <BasicSelect
                     selectProps={{id: `icecreamShopDayFrom${index}`, value: open.from.value}}
                     label="Open from"
-                    options={dayOptions}
+                    options={dayOptions.map(option => ({val: option.val, name: t(option.name)}))}
                     valueKey="val"
                     nameKey="name"
                     handleChange={value => localDispatch(setDynamicValue('openDays', open.uniqueKey, 'from', value))}
@@ -157,7 +158,7 @@ const IcecreamShopForm = () => {
                   <BasicSelect
                     selectProps={{id: `icecreamShopDayFrom${index}`, value: open.to.value}}
                     label="Open to"
-                    options={dayOptions}
+                    options={dayOptions.map(option => ({val: option.val, name: t(option.name)}))}
                     valueKey="val"
                     nameKey="name"
                     handleChange={value => localDispatch(setDynamicValue('openDays', open.uniqueKey, 'to', value))}
@@ -186,13 +187,13 @@ const IcecreamShopForm = () => {
           </div>
           <div className="icecream-shop-form__dynamic-special-days">
             <div className="icecream-shop-form__special-days-wrapper">
-              <div className="icecream-shop-form__dynamic-fields-label p-font">Special days</div>
+              <div className="icecream-shop-form__dynamic-fields-label p-font">{t('Special days')}</div>
               {state.specialDays.map((special: any, index: number) => (
                 <div className="icecream-shop-form__special-days" key={special.uniqueKey}>
                   <BasicSelect
                     selectProps={{id: `icecreamShopDayFrom${index}`, type: 'datetime-local', value: special.closed.value}}
                     label="Open / Closed"
-                    options={[{val: 0, name: 'Open'}, {val: 1, name: 'Closed'}]}
+                    options={[{val: 0, name: t('Open')}, {val: 1, name: t('Closed')}]}
                     valueKey="val"
                     nameKey="name"
                     handleChange={value => localDispatch(setDynamicValue('specialDays', special.uniqueKey, 'closed', value))}
@@ -235,11 +236,11 @@ const IcecreamShopForm = () => {
         <div className="icecream-shop-form__form-controls">
           {state.touched ? <>
             {isEdit ?
-              <div className={`b-button clickable ${state.formValid ? '' : 'disabled'}`} onClick={handleSave}>Save</div> :
-              <div className={`b-button clickable ${state.formValid ? '' : 'disabled'}`} onClick={handleCreate}>Create</div>
+              <div className={`b-button clickable ${state.formValid ? '' : 'disabled'}`} onClick={handleSave}>{t('Save')}</div> :
+              <div className={`b-button clickable ${state.formValid ? '' : 'disabled'}`} onClick={handleCreate}>{t('Create')}</div>
             }
           </> :
-          <div className={`b-button clickable ${state.formValid ? '' : 'disabled'}`} onClick={() => history.push('/icecream-shops')}>Back</div>
+          <div className="b-button clickable" onClick={() => history.push('/icecream-shops')}>{t('Back')}</div>
           }
         </div>
       </div>

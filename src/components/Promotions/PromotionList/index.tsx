@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { openModal } from '../../../reducers/Modals/actions';
 import PromotionListTable from './PromotionListTable';
 import { fetchPromotions } from '../../../reducers/Promotions/operations';
+import { useTranslation } from 'react-i18next';
 
 const PromotionList = () => {
   const dispatch = useDispatch();
@@ -14,9 +15,10 @@ const PromotionList = () => {
   useEffect(() => {
     dispatch(fetchPromotions());
   }, [dispatch])
+  const { t } = useTranslation();
   return (
     <div className="promotion-list">
-      <div className="clickable b-button p-font" onClick={handleOpenCreateModal}>Create promotion</div>
+      <div className="clickable b-button p-font" onClick={handleOpenCreateModal}>{t('Create promotion')}</div>
       <PromotionListTable promotions={promotions}/>
     </div>
   )

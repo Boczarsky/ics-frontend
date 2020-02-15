@@ -7,6 +7,7 @@ import BasicInput from '../../common/BasicInput';
 import { reducer, initialState, setValue, setInitial } from './formReducer';
 import { dataProvider } from '../../../utils/requestBuilder';
 import { fetchEmployees } from '../../../reducers/Employees/operations';
+import { useTranslation } from 'react-i18next';
 
 export interface EmployeeFormModalProps {
   data: any;
@@ -64,6 +65,7 @@ const EmployeeFormModal = (props: EmployeeFormModalProps) => {
       }
     }
   }
+  const { t } = useTranslation();
   return (
     <div className="modal-overlay" onMouseDown={closeModalWindow}>
       <div className="modal-wrapper employee-form-modal">
@@ -74,8 +76,8 @@ const EmployeeFormModal = (props: EmployeeFormModalProps) => {
         <BasicInput inputProps={{id:'employee-first-name', value: state.firstName.value}} label="First name" handleChange={value => formDispatch(setValue('firstName', value))} validationError={state.firstName.error}/>
         <BasicInput inputProps={{id:'employee-last-name', value: state.lastName.value}} label="Last name" handleChange={value => formDispatch(setValue('lastName', value))} validationError={state.lastName.error}/>
         <BasicInput inputProps={{id:'employee-password', type: 'password', value: state.password.value}} label="Password" handleChange={value => formDispatch(setValue('password', value))} validationError={state.password.error}/>
-        <BasicInput inputProps={{id:'employee-re-password', type: 'password', value: state.rePassword.value}} label="Re-Password" handleChange={value => formDispatch(setValue('rePassword', value))} validationError={state.rePassword.error}/>
-        <div className={`b-button p-font clickable employee-form-modal__button ${state.formValid ? '' : 'disabled'}`} onClick={handleEmployeeForm}>{isEdit ? 'Edit' : 'Create'}</div>
+        <BasicInput inputProps={{id:'employee-re-password', type: 'password', value: state.rePassword.value}} label="Re-password" handleChange={value => formDispatch(setValue('rePassword', value))} validationError={state.rePassword.error}/>
+        <div className={`b-button p-font clickable employee-form-modal__button ${state.formValid ? '' : 'disabled'}`} onClick={handleEmployeeForm}>{t(isEdit ? 'Edit' : 'Create')}</div>
       </div>
     </div>
   )

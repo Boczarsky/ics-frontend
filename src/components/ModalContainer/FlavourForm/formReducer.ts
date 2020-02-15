@@ -13,6 +13,14 @@ export const initialState: FlavourFormState = {
 };
 
 function validateForm(state: FlavourFormState) {
+  if (!state.name.value.trim()) {
+    state.name.error = "This field is required";
+    state.formValid = false;
+  }
+  if (!state.composition.value.trim()) {
+    state.composition.error = "This field is required";
+    state.formValid = false;
+  }
   return state;
 }
 

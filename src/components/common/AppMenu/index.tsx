@@ -9,6 +9,7 @@ import { openModal } from '../../../reducers/Modals/actions';
 import { clearUserData } from '../../../reducers/Auth/actions';
 import { generateUrl } from '../UploadImage';
 import userType from '../../../enums/userType';
+import { useTranslation } from 'react-i18next';
 
 const AppMenu = () => {
   const match = useRouteMatch();
@@ -17,7 +18,7 @@ const AppMenu = () => {
   const NavItem = (props: {path: string, text: string}) => {
     const { path, text } = props;
     return match.path !== path ? (
-      <div className="app-menu__nav-item clickable" onClick={() => history.push(path)}>{text}</div>
+      <div className="app-menu__nav-item clickable" onClick={() => history.push(path)}>{t(text)}</div>
     ) : null;
   }
   const [isOpen, setOpen] = useState(false);
@@ -36,6 +37,7 @@ const AppMenu = () => {
     dispatch(clearUserData());
     history.push('/login');
   }
+  const { t } = useTranslation();
   return (
     <div className="app-menu">
       {!isOpen && <div className="app-menu__icon-wrapper" onClick={() => setOpen(true)}>
@@ -50,9 +52,9 @@ const AppMenu = () => {
           {auth.userType === userType.client && <NavItem path="/news-feed" text="News feed"/>}
           {auth.userType === userType.manager && <NavItem path="/employees" text="Employees"/>}
           <NavItem path="/icecream-shops" text="Icecream shops"/>
-          {[userType.employee, userType.manager].includes(auth.userType) && <div className="app-menu__nav-item clickable" onClick={handleOpenModal('addPoints')}>Add points</div>}
-          {[userType.employee, userType.manager].includes(auth.userType) && <div className="app-menu__nav-item clickable" onClick={handleOpenModal('redeemCoupon')}>Redeem coupon</div>}
-          <div className="app-menu__nav-item clickable" onClick={handleLogout}>Logout</div>
+          {[userType.employee, userType.manager].includes(auth.userType) && <div className="app-menu__nav-item clickable" onClick={handleOpenModal('addPoints')}>{t('Add points')}</div>}
+          {[userType.employee, userType.manager].includes(auth.userType) && <div className="app-menu__nav-item clickable" onClick={handleOpenModal('redeemCoupon')}>{t('Redeem coupon')}</div>}
+          <div className="app-menu__nav-item clickable" onClick={handleLogout}>{t('Logout')}</div>
         </div>
       </div>}
     </div>

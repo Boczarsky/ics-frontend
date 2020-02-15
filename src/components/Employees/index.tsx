@@ -5,6 +5,7 @@ import EmployeeListTable from './EmployeeListTable';
 import { useDispatch, useSelector } from 'react-redux';
 import { openModal } from '../../reducers/Modals/actions';
 import { fetchEmployees } from '../../reducers/Employees/operations';
+import { useTranslation } from 'react-i18next';
 
 const Employees = () => {
   const dispatch = useDispatch();
@@ -15,14 +16,15 @@ const Employees = () => {
   const handleOpenCreateModal = () => {
     dispatch(openModal('employeeForm'));
   };
+  const { t } = useTranslation();
   return (
     <AppLayout
       topbarContent={
-        <div className="page-title">Employees</div>
+        <div className="page-title">{t('Employees')}</div>
       }
     >
       <div className="employees">
-        <div className="clickable b-button p-font" onClick={handleOpenCreateModal}>Create employee</div>
+        <div className="clickable b-button p-font" onClick={handleOpenCreateModal}>{t('Create employee')}</div>
         <EmployeeListTable employees={employees}/>
       </div>
     </AppLayout>

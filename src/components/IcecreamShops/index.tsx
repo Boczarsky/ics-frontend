@@ -9,6 +9,7 @@ import { fetchOwnedShops } from '../../reducers/OwnedShops/operations';
 import userType from '../../enums/userType';
 import { dataProvider } from '../../utils/requestBuilder';
 import { pushNotification } from '../../reducers/Notifications/operations';
+import { useTranslation } from 'react-i18next';
 
 const IcecreamShops = () => {
   const dispatch = useDispatch();
@@ -44,10 +45,11 @@ const IcecreamShops = () => {
       dispatch(pushNotification('Error during removal', 'error', 2000));
     })
   }
+  const { t } = useTranslation();
   return (
     <AppLayout
       topbarContent={
-        <div className="page-title">Icecream shops</div>
+        <div className="page-title">{t('Icecream shops')}</div>
       }
     >
       <div className="icecream-shops">
@@ -56,11 +58,11 @@ const IcecreamShops = () => {
         </div>}
         <div className="icecream-shops__owned-list">
           {[userType.manager, userType.employee].includes(uType) && <>
-          {userType.manager === uType && <Link className="icecream-shops__create" to="/icecream-shops/create"><div className="b-button clickable">Create icecream shop</div></Link>}
+          {userType.manager === uType && <Link className="icecream-shops__create" to="/icecream-shops/create"><div className="b-button clickable">{t('Create icecream shop')}</div></Link>}
           {owned.map((ownedShop: any) => <div className="icecream-shops__overview-wrapper">
             <ShopOverview key={`owned-${ownedShop.id}`} data={ownedShop} handleClick={handleBrowseClick}/>
-            {userType.manager === uType && <div className="b-button clickable icecream-shops__edit-button" onClick={() => handleEditClick(ownedShop)}>Edit</div>}
-            {userType.manager === uType && <div className="b-button clickable icecream-shops__delete-button" onClick={() => handleDeleteClick(ownedShop)}>Remove</div>}
+            {userType.manager === uType && <div className="b-button clickable icecream-shops__edit-button" onClick={() => handleEditClick(ownedShop)}>{t('Edit')}</div>}
+            {userType.manager === uType && <div className="b-button clickable icecream-shops__delete-button" onClick={() => handleDeleteClick(ownedShop)}>{t('Remove')}</div>}
           </div>)}
           </>}
         </div>

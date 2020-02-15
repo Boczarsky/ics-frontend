@@ -8,6 +8,7 @@ import { pushNotification } from '../../reducers/Notifications/operations';
 import { generateUrl } from '../common/UploadImage';
 import userType from '../../enums/userType';
 import randomKey from '../../utils/randomKey';
+import { useTranslation } from 'react-i18next';
 
 export interface ShopPostsProps {
   icecreamShopId: number;
@@ -25,7 +26,7 @@ const ShopPosts = (props: ShopPostsProps) => {
         {
           id: post.post_id,
           shopId: post.icecream_shop_id,
-          imageUrl: generateUrl(post.file_name),
+          fileName: post.file_name,
           title: post.title,
           content: post.content,
           reactions: post.reactions,
@@ -54,17 +55,18 @@ const ShopPosts = (props: ShopPostsProps) => {
       dispatch(pushNotification('Error during post removal', 'error', 2000));
     })
   }
+  const { t } = useTranslation();
   return (
     <div className="shop-posts">
       <div className="shop-posts__posts">
         {posts.map(post => <div key={randomKey()} className="shop-posts__post">
-          {[userType.manager, userType.employee].includes(uType) && <><div className="clickable b-button shop-posts__edit-post" onClick={openEditModal(post)}>Edit</div>
-          <div className="clickable b-button shop-posts__remove-post" onClick={removePost(post)}>Remove</div></>}
+          {[userType.manager, userType.employee].includes(uType) && <><div className="clickable b-button shop-posts__edit-post" onClick={openEditModal(post)}>{t('Edit')}</div>
+          <div className="clickable b-button shop-posts__remove-post" onClick={removePost(post)}>{t('Remove')}</div></>}
           <ShopPost post={post}/>
         </div>)}
       </div>
       {[userType.employee, userType.manager].includes(uType) && <div className="shop-posts__add-post">
-        <div className="clickable b-button" onClick={openCreateModal}>Add new post</div>
+        <div className="clickable b-button" onClick={openCreateModal}>{t('Add new post')}</div>
       </div>}
     </div>
   )

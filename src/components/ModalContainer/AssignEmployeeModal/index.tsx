@@ -7,6 +7,7 @@ import BasicSelect from '../../common/BasicSelect';
 import randomKey from '../../../utils/randomKey';
 import { dataProvider } from '../../../utils/requestBuilder';
 import { fetchEmployees } from '../../../reducers/Employees/operations';
+import { useTranslation } from 'react-i18next';
 
 export interface AssignEmployeeModalProps {
   data: any;
@@ -43,12 +44,12 @@ const AssignEmployeeModal = (props: AssignEmployeeModalProps) => {
         .then((response: any) => {
           setSelectedShop(0);
           setShopsAssigned([...shopsAssigned, shop.value]);
-          dispatch(pushNotification(`Employee assigned to: ${shop.name}`, 'normal', 2000));
+          dispatch(pushNotification('Employee assigned', 'normal', 2000));
           dispatch(fetchEmployees());
         })
         .catch((error: any) => {
           setSelectedShop(0);
-          dispatch(pushNotification(`Error during assignment`, 'error', 2000));
+          dispatch(pushNotification('Error during assignment', 'error', 2000));
         });
     }
   }
@@ -61,9 +62,10 @@ const AssignEmployeeModal = (props: AssignEmployeeModalProps) => {
         dispatch(fetchEmployees());
       })
       .catch((error: any) => {
-        dispatch(pushNotification(`Error during unassignment`, 'error', 2000));
+        dispatch(pushNotification('Error during unassignment', 'error', 2000));
       });
   }
+  const { t } = useTranslation();
   return (
     <div className="modal-overlay" onMouseDown={closeModalWindow}>
       <div className="modal-wrapper assign-employee-modal">
@@ -72,14 +74,14 @@ const AssignEmployeeModal = (props: AssignEmployeeModalProps) => {
           if (shop && shop.name) {
             return <div key={randomKey()} className="assign-employee-modal__assigned-shop">
               <div>{shop.name}</div>
-              <div className="clickable p-font b-button b-button--red assign-employee-modal__unassign-button" onClick={handleUnassignEmployee(shopId)}>Unassign</div>
+              <div className="clickable p-font b-button b-button--red assign-employee-modal__unassign-button" onClick={handleUnassignEmployee(shopId)}>{t('Unassign')}</div>
             </div>
           }
           return undefined;
         })}
         <div className="assign-employee-modal__assign">
           <BasicSelect selectProps={{id: 'assign-employee-select', value: selectedShop}} handleChange={setSelectedShop} options={filteredOptions} nameKey="name" valueKey="value" emptyOption/>
-          <div className="clickable p-font b-button assign-employee-modal__assign-button" onClick={handleAssignEmployee}>Assign</div>
+          <div className="clickable p-font b-button assign-employee-modal__assign-button" onClick={handleAssignEmployee}>{t('Assign')}</div>
         </div>
       </div>
     </div>

@@ -7,6 +7,7 @@ import BasicInput from '../../common/BasicInput';
 import { reducer, initialState, setValue } from './formReducer';
 import { fetchPromotions } from '../../../reducers/Promotions/operations';
 import { dataProvider } from '../../../utils/requestBuilder';
+import { useTranslation } from 'react-i18next';
 
 const CreatePromotionModal = () => {
   const [state, formDispatch] = useReducer(reducer, initialState);
@@ -35,6 +36,7 @@ const CreatePromotionModal = () => {
         dispatch(pushNotification('Error during creating promotion', 'error', 2000));
       })
   }
+  const { t } = useTranslation();
   return (
     <div className="modal-overlay" onMouseDown={closeModalWindow}>
       <div className="modal-wrapper create-promotion-modal">
@@ -73,7 +75,7 @@ const CreatePromotionModal = () => {
           className={`b-button p-font clickable create-promotion-modal__button ${state.formValid ? '' : 'disabled'}`}
           onClick={state.formValid ? handleCreatePromotion : undefined}
         >
-          Create promotion
+          {t('Create promotion')}
         </div>
       </div>
     </div>

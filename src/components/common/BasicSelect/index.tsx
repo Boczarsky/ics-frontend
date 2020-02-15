@@ -1,6 +1,7 @@
 import React, { ChangeEvent } from 'react';
 import './style.css';
 import randomKey from '../../../utils/randomKey';
+import { useTranslation } from 'react-i18next';
 
 export interface BasicSelectProps {
   label?: string;
@@ -24,9 +25,10 @@ const BasicSelect = (props: BasicSelectProps) => {
         handleChange(value);
     }
   }
+  const { t } = useTranslation();
   return (
     <div className={`basic-select${validationError ? ' basic-select--invalid' : ''}`}>
-      {label && <div className={`basic-select__label p-font ${labelClass || ''}`}>{label}</div>}
+      {label && <div className={`basic-select__label p-font ${labelClass || ''}`}>{t(label)}</div>}
       <select
         onChange={handleOnChange}
         className="basic-select__select"
@@ -36,7 +38,7 @@ const BasicSelect = (props: BasicSelectProps) => {
         {emptyOption && <option></option>}
         {options.map(optionItem => (<option key={randomKey()} value={optionItem[valueKey]}>{optionItem[nameKey]}</option>))}
       </select>
-      <div className="basic-select__validation-error">{validationError}</div>
+      <div className="basic-select__validation-error">{t(validationError || '')}</div>
     </div>
   )
 }

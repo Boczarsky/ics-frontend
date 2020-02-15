@@ -1,8 +1,10 @@
 import React, { useRef, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 
 export interface NotificationProps {
   message: string;
   time: number;
+  type: string;
 }
 
 const Notification = (props: NotificationProps) => {
@@ -17,8 +19,9 @@ const Notification = (props: NotificationProps) => {
       }, props.time);
     }
   }, [ref, props.time])
+  const { t } = useTranslation();
   return (
-    <div ref={ref} className="notification">{props.message}</div>
+    <div ref={ref} className={`notification ${props.type}`}>{t(props.message)}</div>
   )
 }
 

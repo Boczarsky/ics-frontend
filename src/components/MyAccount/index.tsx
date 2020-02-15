@@ -8,6 +8,7 @@ import { dataProvider } from '../../utils/requestBuilder';
 import { useDispatch } from 'react-redux';
 import { pushNotification } from '../../reducers/Notifications/operations';
 import { setUserData } from '../../reducers/Auth/actions';
+import { useTranslation } from 'react-i18next';
 
 const MyAccount = () => {
   const [state, localDispatch] = useReducer(reducer, initialState);
@@ -31,7 +32,7 @@ const MyAccount = () => {
         localDispatch(setValue('avatarFileName', avatar_file_name || ''));
         localDispatch(setValue('firstName', first_name || ''));
         localDispatch(setValue('lastName', last_name || ''));
-        dispatch(pushNotification('Saved', 'error', 2000));
+        dispatch(pushNotification('Saved', 'normal', 2000));
         dispatch(setUserData({
           loggedIn: true,
           userId: user_id,
@@ -57,11 +58,12 @@ const MyAccount = () => {
   const handleChangePassword = () => {
     editMyUser({password: state.newPassword.value, oldPassword: state.oldPassword.value});
   };
+  const { t } = useTranslation();
   return (
     <AppLayout
       topbarContent={
         <div className="page-title">
-          My account
+          {t('My account')}
         </div>
       }
     >

@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import { closeModal } from '../../../reducers/Modals/actions';
 import { pushNotification } from '../../../reducers/Notifications/operations';
 import { dataProvider } from '../../../utils/requestBuilder';
+import { useTranslation } from 'react-i18next';
 
 const AddPointsModal = () => {
   const dispatch = useDispatch();
@@ -23,7 +24,7 @@ const AddPointsModal = () => {
         dispatch(pushNotification('Point added to coupon', 'normal', 2000));
       })
       .catch((error) => {
-        if (error.response.data.message === 'RequirementsNotMet') {
+        if (error.response && error.response.data.message === 'RequirementsNotMet') {
           dispatch(pushNotification('Coupon is full', 'normal', 2000));
         } else {
           dispatch(pushNotification('Error during adding points', 'error', 2000));
@@ -31,11 +32,12 @@ const AddPointsModal = () => {
       });
     }
   }
+  const { t } = useTranslation();
   return (
     <div className="modal-overlay" onMouseDown={closeModalWindow}>
       <div className="modal-wrapper add-points-modal">
         <BasicInput inputProps={{id:'coupon-id', value: couponId}} label="Coupon id" handleChange={setCouponId}/>
-        <div className={`b-button p-font clickable add-points-modal__button ${couponId ? '' : 'disabled'}`} onClick={handleAddPoints}>Add points</div>
+        <div className={`b-button p-font clickable add-points-modal__button ${couponId ? '' : 'disabled'}`} onClick={handleAddPoints}>{t('Add points')}</div>
       </div>
     </div>
   )

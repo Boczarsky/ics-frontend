@@ -7,6 +7,7 @@ import ShopPost from '../common/ShopPost';
 import randomKey from '../../utils/randomKey';
 import './style.css';
 import { useHistory } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 const NewsFeed = () => {
   const dispatch = useDispatch();
@@ -18,18 +19,21 @@ const NewsFeed = () => {
   const handleRedirect = (id: any) => () => {
     history.push(`/browse/${id}`);
   }
+  const { t } = useTranslation();
   return (
     <AppLayout
       topbarContent={
-        <div className="page-title">News feed</div>
+        <div className="page-title">{t('News feed')}</div>
       }
     >
       <div className="news-feed">
         {posts.map((post: any) => (
-          <div className="news-feed__news" key={randomKey()} onClick={handleRedirect(post.icecreamShopData.id)}>
-            <ShopHeader
-              headerData={post.icecreamShopData}
-            />
+          <div className="news-feed__news" key={randomKey()}>
+            <div onClick={handleRedirect(post.icecreamShopData.id)}>
+              <ShopHeader
+                headerData={post.icecreamShopData}
+              />
+            </div>
             <ShopPost
               post={post.postData}
             />

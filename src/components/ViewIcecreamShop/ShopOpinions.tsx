@@ -6,6 +6,7 @@ import { pushNotification } from '../../reducers/Notifications/operations';
 import { generateUrl } from '../common/UploadImage';
 import userType from '../../enums/userType';
 import { ReactComponent as DeleteIcon } from '../../icons/delete.svg';
+import { useTranslation } from 'react-i18next';
 
 export interface ShopOpinionsProps {
   icecreamShopId: number;
@@ -30,7 +31,7 @@ const ShopOpinions = (props: ShopOpinionsProps) => {
             id: opinion.opinion_id,
             userId: opinion.user_id,
             avatarUrl: generateUrl(opinion.avatar_file_name),
-            username: opinion.login,
+            username: `${opinion.first_name} ${opinion.last_name}`.trim() || opinion.login,
             grade: opinion.grade,
             opinion: opinion.content,
             comments: opinion.comments.map((comment: any) => ({
@@ -78,7 +79,7 @@ const ShopOpinions = (props: ShopOpinionsProps) => {
   const handleDelete = (opinionId: number) => () => {
     dataProvider().post('opinions/remove', {opinionId})
       .then(() => {
-        dispatch(pushNotification('Opinion added', 'normal', 2000));
+        dispatch(pushNotification('Opinion deleted', 'normal', 2000));
           setRated(false);
           fetchOpinions();
       })
@@ -86,6 +87,7 @@ const ShopOpinions = (props: ShopOpinionsProps) => {
         dispatch(pushNotification('Error during deleting opinion', 'error', 2000));
       })
   };
+  const { t } = useTranslation();
   return (
     <div className="shop-opinions">
       <div className="shop-opinions__opinions">
@@ -127,7 +129,7 @@ const ShopOpinions = (props: ShopOpinionsProps) => {
                 ))}
               </div>
               {((opinion.userId === uId) || ([userType.employee, userType.manager].includes(uType))) && <div className="shop-opinions__add-comment">
-                <input className="shop-opinions__add-comment-input" placeholder="Insert your comment..." onKeyUp={handleAddComment(opinion.id)}/>
+                <input className="shop-opinions__add-comment-input" placeholder={`${t('Insert your comment')}...`} onKeyUp={handleAddComment(opinion.id)}/>
               </div>}
             </div>
           </div>
@@ -135,13 +137,13 @@ const ShopOpinions = (props: ShopOpinionsProps) => {
       </div>
       {uType === userType.client && !isRated && <form className="shop-opinions__add-opinion" onSubmit={handleSubmitOpinion}>
         <div className="shop-opinions__opinion-wrapper">
-          <textarea id="opinion" required className="shop-opinions__opinion-textarea" placeholder="Insert your opinion here"/>
+          <textarea id="opinion" required className="shop-opinions__opinion-textarea" placeholder={t('Insert your opinion here')}/>
         </div>
         <div className="shop-opinions__opinion-grade">
-          <input id="grade" className="shop-opinions__grade-input" required placeholder="Grade" type="number" min="1" max="10"/>
+          <input id="grade" className="shop-opinions__grade-input" required placeholder={t('Grade')} type="number" min="1" max="10"/>
         </div>
         <div className="shop-opinons__opinion-submit">
-          <button className="b-button">Send opinion</button>
+          <button className="b-button">{t('Send opinion')}</button>
         </div>
       </form>}
     </div>

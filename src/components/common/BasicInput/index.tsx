@@ -1,5 +1,6 @@
 import React from 'react';
 import './style.css';
+import { useTranslation } from 'react-i18next';
 
 export interface BasicInputProps {
   label?: string;
@@ -20,9 +21,10 @@ const BasicInput = (props: BasicInputProps) => {
         handleChange(value);
     }
   }
+  const { t } = useTranslation();
   return (
     <div className={`basic-input${validationError ? ' basic-input--invalid' : ''}`}>
-      {label && <div className={`basic-input__label p-font ${labelClass || ''}`}>{label}</div>}
+      {label && <div className={`basic-input__label p-font ${labelClass || ''}`}>{t(label)}</div>}
       {textarea ?
       <textarea
         onChange={parseInputEvent}
@@ -38,7 +40,7 @@ const BasicInput = (props: BasicInputProps) => {
         data-invalid={validationError ? true : false}
         {...inputProps}
       />}
-      <div className="basic-input__validation-error">{validationError}</div>
+      <div className="basic-input__validation-error">{t(validationError || '')}</div>
     </div>
   )
 }

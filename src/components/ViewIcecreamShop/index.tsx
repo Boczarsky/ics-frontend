@@ -14,6 +14,7 @@ import userType from '../../enums/userType';
 import { dataProvider } from '../../utils/requestBuilder';
 import { pushNotification } from '../../reducers/Notifications/operations';
 import ShopPromotions from './ShopPromotions';
+import { useTranslation } from 'react-i18next';
 
 const ViewIcecreamShop = () => {
   const logoUrl = useSelector((state: any) => generateUrl(state.viewShop.data.logoFileName));
@@ -74,7 +75,7 @@ const ViewIcecreamShop = () => {
       dispatch(pushNotification('Removing from favorite failed', 'error', 2000));
     })
   };
-
+  const { t } = useTranslation();
   return (
     <AppLayout
       handleBackClick={() => history.goBack()}
@@ -95,7 +96,7 @@ const ViewIcecreamShop = () => {
               className="b-button p-font clickable"
               onClick={isFavorite ? handleRemoveFromFavorite : handleAddToFavorite}
             >
-              {isFavorite ? 'Remove from favorite' : 'Add to favorite'}
+              {isFavorite ? t('Remove from favorite') : t('Add to favorite')}
             </div>
           )}
         </div>

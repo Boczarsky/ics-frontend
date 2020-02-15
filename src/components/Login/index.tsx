@@ -4,6 +4,7 @@ import './style.css';
 import { Link, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../../reducers/Auth/operations';
+import { useTranslation } from 'react-i18next';
 
 const Login = () => {
   const isLoggedIn = useSelector((state: any) => state.auth.loggedIn);
@@ -22,15 +23,15 @@ const Login = () => {
     username.value = '';
     password.value = '';
   }
-
+  const { t } = useTranslation();
   return (
     <div className="login">
       <form onSubmit={handleFormSubmit} className="login__form card">
         <BasicInput inputProps={{name: 'username', id: 'username', type: 'text', required: true}} label="Username"/>
         <BasicInput inputProps={{name: 'password', id: 'password', type: 'password', required: true}} label="Password"/>
-        <button className="b-button login__submit clickable">Login</button>
+        <button className="b-button login__submit clickable">{t('Login')}</button>
       </form>
-      <Link to="/register"><div className="login__register-redirect">You don't have account yet?</div></Link>
+      <Link to="/register"><div className="login__register-redirect">{t(`You don't have account yet?`)}</div></Link>
     </div>
   )
 };

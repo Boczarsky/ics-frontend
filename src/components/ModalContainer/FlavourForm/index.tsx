@@ -8,6 +8,7 @@ import TagsInput from '../../common/TagsInput';
 import { reducer, initialState, setValue, setInitial } from './formReducer';
 import { dataProvider } from '../../../utils/requestBuilder';
 import { fetchShop } from '../../../reducers/ViewShop/operations';
+import { useTranslation } from 'react-i18next';
 
 export interface FlavourFormModalProps {
   data: any;
@@ -17,7 +18,9 @@ const FlavourFormModal = (props: FlavourFormModalProps) => {
   const { data } = props;
   const [state, formDispatch] = useReducer(reducer, initialState)
   useEffect(() => {
-    formDispatch(setInitial(data))
+    if (data.name) {
+      formDispatch(setInitial(data));
+    }
   }, [data])
   const dispatch = useDispatch();
   const closeModalWindow = (event: MouseEvent<HTMLDivElement>) => {
@@ -63,13 +66,14 @@ const FlavourFormModal = (props: FlavourFormModalProps) => {
         })
     }
   }
+  const { t } = useTranslation();
   return (
     <div className="modal-overlay" onMouseDown={closeModalWindow}>
       <div className="modal-wrapper flavour-form-modal">
-        <BasicInput inputProps={{id:'flavour-name', value: state.name.value}} handleChange={value => formDispatch(setValue('name', value))} label="Flavour name"/>
-        <BasicInput inputProps={{id:'flavour-composition', rows: 5, value: state.composition.value}} handleChange={value => formDispatch(setValue('composition', value))} label="Composition" textarea/>
+        <BasicInput inputProps={{id:'flavour-name', value: state.name.value}} handleChange={value => formDispatch(setValue('name', value))} label="Flavour name" validationError={state.name.error}/>
+        <BasicInput inputProps={{id:'flavour-composition', rows: 5, value: state.composition.value}} handleChange={value => formDispatch(setValue('composition', value))} label="Composition" textarea validationError={state.composition.error}/>
         <TagsInput tags={state.tags.value} label="#Tags" handleChange={value => formDispatch(setValue('tags', value))}/>
-        <div className="b-button p-font clickable flavour-form-modal__button" onClick={handleFlavourForm}>{data.id ? 'Edit' : 'Create'}</div>
+        <div className={`b-button p-font clickable flavour-form-modal__button ${state.formValid ? '' : 'disabled'}`} onClick={state.formValid? handleFlavourForm : undefined}>{t(data.id ? 'Edit' : 'Create')}</div>
       </div>
     </div>
   )

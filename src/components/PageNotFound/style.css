@@ -1,0 +1,21 @@
+.page-not-found {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  font-size: 40px;
+  color: white;
+  font-weight: bold;
+  font-family: 'Pacifico';
+  background-color: #4B889F;
+  letter-spacing: 4px;
+}
+.back-button {
+  cursor: pointer;
+}
+.back-button:hover {
+  color: #b62020;
+  transition: color 0.25s linear;
+}
