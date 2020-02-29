@@ -31,7 +31,7 @@ const ShopOpinions = (props: ShopOpinionsProps) => {
             id: opinion.opinion_id,
             userId: opinion.user_id,
             avatarUrl: generateUrl(opinion.avatar_file_name),
-            username: `${opinion.first_name} ${opinion.last_name}`.trim() || opinion.login,
+            username: `${opinion.first_name || ''} ${opinion.last_name || ''}`.trim() || opinion.login,
             grade: opinion.grade,
             opinion: opinion.content,
             comments: opinion.comments.map((comment: any) => ({

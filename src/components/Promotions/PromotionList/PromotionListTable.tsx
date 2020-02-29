@@ -57,7 +57,7 @@ const PromotionListTable = (props: PromotionListTableProps) => {
             <td style={{width: 30}}>{promotion.limit}</td>
             <td style={{width: 100}}>{moment(promotion.startDate).format('DD/MM/YYYY')}</td>
             <td style={{width: 100}}>{moment(promotion.endDate).format('DD/MM/YYYY')}</td>
-            <td style={{width: 160}}><div className="f-col-center">{promotion.icecreamShops.map(icecreamShop => (<span>{icecreamShop.name}</span>))}</div></td>
+          <td style={{width: 160}}><div className="f-col-center">{promotion.icecreamShops.map(icecreamShop => (<span>{icecreamShop.name} - {icecreamShop.city}, {icecreamShop.street}</span>))}</div></td>
             <td style={{width: 220}}><div className="clickable p-font b-button" onClick={openAssignModal(promotion.id, promotion.icecreamShops.map(shop => shop.value))}>{t('Assign icecream shop')}</div></td>
             <td style={{width: 200}}><div className="clickable p-font b-button b-button--red" onClick={handleEndPromotion(promotion.id)}>{t('End promotion')}</div></td>
           </tr>

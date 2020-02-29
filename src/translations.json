@@ -158,7 +158,8 @@
       "Error during creating coupon": "Error during creating coupon",
       "Wrong username or password": "Wrong username or password",
       "Failed to fetch employees": "Failed to fetch employees",
-      "Employee assigned": "Employee assigned"
+      "Employee assigned": "Employee assigned",
+      "HTML to URL": "Transform to url"
     }
   },
   "pl": {
@@ -320,7 +321,8 @@
       "Error during creating coupon": "Błąd przy pobieraniu kuponu",
       "Wrong username or password": "Błędne dane logowania",
       "Failed to fetch employees": "Błąd przy pobieraniu danych",
-      "Employee assigned": "Pracownik przypisany"
+      "Employee assigned": "Pracownik przypisany",
+      "HTML to URL": "Zamień na url"
     }
   }
 }

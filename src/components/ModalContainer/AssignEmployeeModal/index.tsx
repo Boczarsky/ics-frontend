@@ -18,7 +18,7 @@ const AssignEmployeeModal = (props: AssignEmployeeModalProps) => {
   useEffect(() => {
     dataProvider().get('employees/shopsToAssign')
     .then(response => {
-      const shops = response.data.map((shop: any) => ({value: shop.icecream_shop_id, name: shop.name}))
+      const shops = response.data.map((shop: any) => ({value: shop.icecream_shop_id, name: `${shop.name} - ${shop.city}, ${shop.street}`}))
       setIcecreamShops(shops);
     })
     .catch(error => {

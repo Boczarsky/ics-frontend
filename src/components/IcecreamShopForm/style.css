@@ -116,3 +116,7 @@ div.icecream-shop-form__delete-button {
   margin-left: 40px;
   margin-bottom: 20px;
 }
+.icecream-shop-form__extract-button {
+  align-self: center;
+  margin: 20px;
+}

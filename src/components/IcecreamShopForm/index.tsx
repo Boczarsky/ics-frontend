@@ -95,6 +95,15 @@ const IcecreamShopForm = () => {
         });
     }
   };
+  const matchHtmlEmbeded = () => {
+    return state.googleMapLink.value.match(/(src="\S*")/);
+  }
+  const extractFromHtml = () => {
+    const matches = matchHtmlEmbeded();
+    if (matches) {
+      localDispatch(setValue('googleMapLink',  matches[0].slice(5, -1)));
+    }
+  };
   const { t } = useTranslation();
   return (
     <AppLayout
@@ -141,6 +150,7 @@ const IcecreamShopForm = () => {
               handleChange={value => localDispatch(setValue('googleMapLink', value))}
               label="Google map link"
             />
+            {matchHtmlEmbeded() && <div className="b-button clickable icecream-shop-form__extract-button" onClick={() => extractFromHtml()}>{t('HTML to URL')}</div>}
           </div>
           <div className="icecream-shop-form__dynamic-open-days">
             <div className="icecream-shop-form__open-days-wrapper">

@@ -18,7 +18,7 @@ const AssignShopModal = (props: AssignShopModalProps) => {
   const [icecreamShops, setIcecreamShops] = useState<any>([]);
   useEffect(() => {
     dataProvider().get('promotions/shopsToAssign').then((response) => {
-      const ics = response.data.map((icsData: any) => ({ value: icsData.icecream_shop_id, name: icsData.name }));
+      const ics = response.data.map((icsData: any) => ({ value: icsData.icecream_shop_id, name: `${icsData.name} - ${icsData.city}, ${icsData.street}` }));
       setIcecreamShops([{value: null, name: ''}, ...ics]);
     })
   }, [])
