@@ -85,7 +85,7 @@ const MyAccount = () => {
               validationError={state.lastName.error}
               label="Last name"
             />
-            <div className={`b-button clickable ${state.formValid ? '' : 'disabled'}`} onClick={state.formValid ? handleSave : undefined}>Save</div>
+            <div className={`b-button clickable ${state.formValid ? '' : 'disabled'}`} onClick={state.formValid ? handleSave : undefined}>{t('Save')}</div>
           </div>
           <div className="my-account__password-change">
             <BasicInput
@@ -100,7 +100,7 @@ const MyAccount = () => {
               validationError={state.newPassword.error}
               label="New password"
             />
-            <div className={`b-button clickable ${state.passValid ? '' : 'disabled'}`} onClick={state.formValid ? handleChangePassword : undefined}>Change password</div>
+            <div className={`b-button clickable ${state.passValid ? '' : 'disabled'}`} onClick={state.formValid ? handleChangePassword : undefined}>{t('Change password')}</div>
           </div>
         </div>
       </div>
