@@ -11,6 +11,7 @@ import { useRouteMatch } from 'react-router-dom';
 import { fetchShop } from '../../reducers/ViewShop/operations';
 import { dataProvider } from '../../utils/requestBuilder';
 import { pushNotification } from '../../reducers/Notifications/operations';
+import { generateUrl } from '../common/UploadImage';
 
 export interface IcecreamFlavourProps {
   flavourData: {
@@ -19,6 +20,7 @@ export interface IcecreamFlavourProps {
     reactions: Object[],
     composition: string;
     tags: string[];
+    fileName: string;
     status: number;
   };
   specialOptions: boolean;
@@ -101,6 +103,12 @@ const IcecreamFlavour = (props: IcecreamFlavourProps) => {
             <span className="icecream-flavour__reaction-type" role="img" aria-label="hate">😒</span>
           </div>
         </div>
+      </div>
+      <div className="icecream-flavour__image-wrapper">
+        {flavourData.fileName ?
+          <img src={generateUrl(flavourData.fileName)} alt="icecream overview"/> :
+          <div className="icecream-flavour__image-placeholder"/>
+        }
       </div>
       <div className={`icecream-flavour__composition ${[2,3].includes(flavourData.status) ? 'out-of-stock' : ''}`}>
         {flavourData.composition}

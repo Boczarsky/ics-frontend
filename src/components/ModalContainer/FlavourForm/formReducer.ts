@@ -2,6 +2,7 @@ export interface FlavourFormState {
   name: {value: string, error: string};
   composition: {value: string, error: string};
   tags: {value: string[] , error: string};
+  fileName: {value: string, error: string};
   formValid: boolean;
 }
 
@@ -9,6 +10,7 @@ export const initialState: FlavourFormState = {
   name: {value: '', error: ''},
   composition: {value: '', error: ''},
   tags: {value: [], error: ''},
+  fileName: {value: '', error: ''},
   formValid: false,
 };
 
@@ -33,6 +35,7 @@ function setInitialValues(data: any) {
   name: createInputObject(data.name),
   composition: createInputObject(data.composition),
   tags: createInputObject(data.tags || []),
+  fileName: createInputObject(data.fileName),
   formValid: true,
  }
 }

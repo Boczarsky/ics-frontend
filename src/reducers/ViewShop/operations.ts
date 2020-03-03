@@ -34,6 +34,7 @@ export const fetchShop = (id: number) => (dispatch: Function, getState: Function
                 composition: flavour.composition,
                 status: flavour.status,
                 reactions: flavour.reactions,
+                fileName: flavour.file_name,
                 tags: flavour.hashtags.map((tag: any) => tag.hashtag)
               }
             )),
